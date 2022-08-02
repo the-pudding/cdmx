@@ -1,7 +1,9 @@
 <script>
 	import Sound from "$components/Sound.svelte";
+	import Vendor from "$components/Vendor.svelte";
 	import Scrolly from "$components/helpers/Scrolly.svelte";
 	import { language } from "$stores/misc.js";
+
 	export let steps;
 
 	let scrollValue;
@@ -9,14 +11,16 @@
 	$: currentStep = scrollValue !== undefined ? steps[scrollValue] : undefined;
 	$: currentBackground =
 		scrollValue !== undefined && currentStep.background
-			? `assets/img/${currentStep.background}.jpeg`
+			? `assets/img/${currentStep.background}.jpg`
 			: undefined;
 	$: currentSound =
 		scrollValue !== undefined && currentStep.sound
 			? `assets/sound/${currentStep.sound}.mp3`
 			: undefined;
-
-	$: console.log({ currentSound });
+	$: currentVendor =
+		scrollValue !== undefined && currentStep.vendor
+			? `assets/img/vendor.jpeg`
+			: undefined;
 </script>
 
 <div class="steps">
@@ -28,6 +32,10 @@
 
 	{#if currentSound}
 		<Sound src={currentSound} />
+	{/if}
+
+	{#if currentVendor}
+		<Vendor src={currentVendor} {scrollValue} />
 	{/if}
 
 	<Scrolly bind:value={scrollValue}>
