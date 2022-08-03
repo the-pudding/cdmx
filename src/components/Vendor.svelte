@@ -3,8 +3,6 @@
 
 	export let src;
 	export let scrollValue;
-
-	$: console.log({ scrollValue });
 </script>
 
 <img
