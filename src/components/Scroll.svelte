@@ -23,8 +23,8 @@
 		scrollValue !== undefined && currentStep.vendor
 			? `assets/img/vendor.jpeg`
 			: undefined;
-	$: zoomable = false;
-	//$: zoomable = scrollValue !== undefined && currentStep.zoom === "TRUE";
+	//$: zoomable = false;
+	$: zoomable = scrollValue !== undefined && currentStep.zoom === "TRUE";
 </script>
 
 <div class="steps">

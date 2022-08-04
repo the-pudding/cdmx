@@ -48,9 +48,16 @@
 			setupZoom();
 		}
 	});
+
+	const go = () => {
+		select(wrapper).transition().call(z.scaleTo, 4, [550, 600]);
+	};
 </script>
 
 <img {src} bind:this={background} class="background" />
+<button on:click={go} style="position: absolute; top: 0"
+	>go to laptop guy</button
+>
 
 <style>
 	img.background {
