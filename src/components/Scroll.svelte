@@ -23,8 +23,8 @@
 		scrollValue !== undefined && currentStep.vendor
 			? `assets/img/vendor.jpeg`
 			: undefined;
-	let zoomable = true;
-	//$: zoomable = scrollValue > 6 && currentStep.background === "city";
+	$: zoomable = false;
+	//$: zoomable = scrollValue !== undefined && currentStep.zoom === "TRUE";
 </script>
 
 <div class="steps">
@@ -43,9 +43,10 @@
 	{/if}
 
 	<Scrolly bind:value={scrollValue}>
-		{#each steps as { english, spanish }, i}
-			{@const text = $language === "english" ? english : spanish}
-			<div class="step" class:active={scrollValue === i}>{@html text}</div>
+		{#each steps as step, i}
+			<div class="step" class:active={scrollValue === i}>
+				{@html step[$language]}
+			</div>
 		{/each}
 	</Scrolly>
 </div>

@@ -2,16 +2,17 @@
 	import copy from "$data/copy.json";
 	import { language } from "$stores/misc.js";
 
-	const { hed, hed_spanish, dek, dek_spanish, bylines } = copy;
+	const { hed, dek, bylines } = copy;
+
+	$: console.log($language, hed, dek);
 </script>
 
 <section id="title">
-	<h1>{$language === "english" ? hed : hed_spanish}</h1>
-	<h2>{$language === "english" ? dek : dek_spanish}</h2>
+	<h1>{hed[$language]}</h1>
+	<h2>{dek[$language]}</h2>
 
-	{#each bylines as { english, spanish }}
-		{@const text = $language === "english" ? english : spanish}
-		<div>{@html text}</div>
+	{#each bylines as byline}
+		<div>{@html byline[$language]}</div>
 	{/each}
 </section>
 

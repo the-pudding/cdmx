@@ -12,6 +12,8 @@
 	let background;
 	let ratio = 0;
 
+	$: console.log({ zoomable });
+
 	const handleZoom = (e) => {
 		select(background).style(
 			"transform",
@@ -22,20 +24,20 @@
 	$: background, $viewport.width, setupZoom();
 
 	const setupZoom = () => {
-		const zoomableW = $viewport.width > 1024 ? $viewport.width : 1024;
-		const zoomableH = ratio * zoomableW;
+		if (zoomable) {
+			const zoomableW = $viewport.width > 1024 ? $viewport.width : 1024;
+			const zoomableH = ratio * zoomableW;
 
-		console.log({ zoomableW, zoomableH });
+			z = zoom()
+				.scaleExtent([1, 4])
+				.translateExtent([
+					[0, 0],
+					[zoomableW, zoomableH]
+				])
+				.on("zoom", handleZoom);
 
-		z = zoom()
-			.scaleExtent([1, 4])
-			.translateExtent([
-				[0, 0],
-				[zoomableW, zoomableH]
-			])
-			.on("zoom", handleZoom);
-
-		select(wrapper).call(z);
+			select(wrapper).call(z);
+		}
 	};
 
 	onMount(async () => {

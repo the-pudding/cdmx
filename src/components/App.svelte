@@ -16,7 +16,8 @@
 		label=""
 		style="inner"
 		bind:value={$language}
-		options={["english", "español"]}
+		options={["english", "spanish"]}
+		displayOptions={["english", "español"]}
 	/>
 </section>
 

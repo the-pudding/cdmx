@@ -2,6 +2,7 @@
 	export let label;
 	export let style = "inner";
 	export let options = ["on", "off"];
+	export let displayOptions = ["on", "off"];
 	export let value = options[0];
 
 	let checked = value === options[0];
@@ -25,8 +26,8 @@
 		on:click={handleClick}
 	>
 		{#if style === "inner"}
-			<span>{options[0]}</span>
-			<span>{options[1]}</span>
+			<span>{displayOptions[0]}</span>
+			<span>{displayOptions[1]}</span>
 		{/if}
 	</button>
 </div>
