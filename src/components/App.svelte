@@ -1,5 +1,5 @@
 <script>
-	import Toggle from "$components/helpers/Toggle.svelte";
+	import TopBar from "$components/TopBar.svelte";
 	import Landing from "$components/Landing.svelte";
 	import Scroll from "$components/Scroll.svelte";
 	import Title from "$components/Title.svelte";
@@ -9,18 +9,7 @@
 	$: console.log({ copy });
 </script>
 
-<section id="top-bar">
-	<button on:click={() => ($soundOn = !$soundOn)}
-		>{$soundOn ? "mute" : "sound on"}</button
-	>
-	<Toggle
-		label=""
-		style="inner"
-		bind:value={$language}
-		options={["english", "spanish"]}
-		displayOptions={["english", "español"]}
-	/>
-</section>
+<TopBar />
 
 <Landing />
 
@@ -34,13 +23,3 @@
 	<Title />
 	<Scroll id="main" steps={copy.postTitleProse} />
 {/if}
-
-<style>
-	#top-bar {
-		position: fixed;
-		right: 10px;
-		top: 10px;
-		z-index: 2000;
-		display: flex;
-	}
-</style>

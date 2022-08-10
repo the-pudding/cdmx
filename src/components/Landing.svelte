@@ -59,10 +59,13 @@
 		display: flex;
 		justify-content: space-evenly;
 	}
-	button {
+	:global(button) {
 		background: white;
 		border: 1px solid var(--button-outline);
 		border-radius: 4px;
+	}
+	:global(button:hover) {
+		background: var(--color-gray-100);
 	}
 	.selected {
 		background: var(--color-gray-100);
