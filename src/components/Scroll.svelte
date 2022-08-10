@@ -5,7 +5,10 @@
 	import Scrolly from "$components/helpers/Scrolly.svelte";
 	import { language } from "$stores/misc.js";
 
+	export let id;
 	export let steps;
+	export let fontSize = "1em";
+	export let textBg = true;
 
 	let scrollValue;
 	let wrapper;
@@ -23,11 +26,10 @@
 		scrollValue !== undefined && currentStep.vendor
 			? `assets/img/vendor.jpeg`
 			: undefined;
-	//$: zoomable = false;
 	$: zoomable = scrollValue !== undefined && currentStep.zoom === "TRUE";
 </script>
 
-<div class="steps">
+<section {id} class="steps">
 	<div class="sticky" bind:this={wrapper}>
 		{#if currentBackground}
 			<Background src={currentBackground} {zoomable} {wrapper} />
@@ -44,12 +46,21 @@
 
 	<Scrolly bind:value={scrollValue}>
 		{#each steps as step, i}
-			<div class="step" class:active={scrollValue === i}>
+			{@const id = id === "intro" && i === 0 ? "scroll-to-start" : null}
+			{@const active = scrollValue === i}
+			{@const background = textBg}
+			<div
+				{id}
+				class="step"
+				class:active
+				class:background
+				style:font-size={fontSize}
+			>
 				{@html step[$language]}
 			</div>
 		{/each}
 	</Scrolly>
-</div>
+</section>
 
 <style>
 	.steps {
@@ -58,11 +69,13 @@
 		align-items: center;
 	}
 	.step {
-		background: var(--color-gray-100);
 		text-align: center;
-		padding: 2em;
 		margin: 80vh 1em;
 		max-width: 600px;
+	}
+	.step.background {
+		background: var(--color-gray-100);
+		padding: 2em;
 	}
 	.step:first-of-type {
 		margin-top: 0;

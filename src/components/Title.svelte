@@ -3,8 +3,6 @@
 	import { language } from "$stores/misc.js";
 
 	const { hed, dek, bylines } = copy;
-
-	$: console.log($language, hed, dek);
 </script>
 
 <section id="title">

@@ -1,9 +1,10 @@
 <script>
 	import Toggle from "$components/helpers/Toggle.svelte";
+	import Landing from "$components/Landing.svelte";
 	import Scroll from "$components/Scroll.svelte";
 	import Title from "$components/Title.svelte";
 	import copy from "$data/copy.json";
-	import { language, soundOn } from "$stores/misc.js";
+	import { entered, language, soundOn } from "$stores/misc.js";
 
 	$: console.log({ copy });
 </script>
@@ -21,9 +22,18 @@
 	/>
 </section>
 
-<Scroll steps={copy.preTitleProse} />
-<Title />
-<Scroll steps={copy.postTitleProse} />
+<Landing />
+
+{#if $entered}
+	<Scroll
+		id="intro"
+		steps={copy.preTitleProse}
+		fontSize={"1.5em"}
+		textBg={false}
+	/>
+	<Title />
+	<Scroll id="main" steps={copy.postTitleProse} />
+{/if}
 
 <style>
 	#top-bar {
