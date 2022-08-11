@@ -12,8 +12,6 @@
 	let background;
 	let ratio = 0;
 
-	$: console.log({ zoomable });
-
 	const handleZoom = (e) => {
 		select(background).style(
 			"transform",
@@ -55,10 +53,10 @@
 </script>
 
 <img {src} bind:this={background} class="background" />
-<button on:click={go} style="position: absolute; top: 0"
-	>go to laptop guy</button
->
 
+<!-- <button on:click={go} style="position: absolute; top: 0"
+	>go to laptop guy</button
+> -->
 <style>
 	img.background {
 		transform-origin: 0px 0px;
@@ -68,7 +66,8 @@
 		width: 100%;
 		height: auto;
 
-		position: fixed;
+		/* position: fixed; */
+		position: sticky; /* TODO: this is a problem */
 		top: 0;
 		left: 0;
 	}

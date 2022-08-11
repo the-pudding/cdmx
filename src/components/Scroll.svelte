@@ -3,10 +3,13 @@
 	import Vendor from "$components/Vendor.svelte";
 	import Background from "$components/Background.svelte";
 	import Scrolly from "$components/helpers/Scrolly.svelte";
+	import Inline from "$components/Inline.svelte";
 	import { language } from "$stores/misc.js";
+	import copy from "$data/copy.json";
 
 	export let id;
 	export let steps;
+	export let background;
 	export let fontSize = "1em";
 	export let textBg = true;
 
@@ -14,10 +17,6 @@
 	let wrapper;
 
 	$: currentStep = scrollValue !== undefined ? steps[scrollValue] : undefined;
-	$: currentBackground =
-		scrollValue !== undefined && currentStep.background
-			? `assets/img/${currentStep.background}.jpg`
-			: undefined;
 	$: currentSound =
 		scrollValue !== undefined && currentStep.sound
 			? `assets/sound/${currentStep.sound}.mp3`
@@ -27,12 +26,17 @@
 			? `assets/img/vendor.jpeg`
 			: undefined;
 	$: zoomable = scrollValue !== undefined && currentStep.zoom === "TRUE";
+	$: freePlay = id === "city" && scrollValue === undefined;
 </script>
 
 <section {id} class="steps">
 	<div class="sticky" bind:this={wrapper}>
-		{#if currentBackground}
-			<Background src={currentBackground} {zoomable} {wrapper} />
+		{#if background}
+			<Background src={`assets/img/${background}.jpg`} {zoomable} {wrapper} />
+		{/if}
+
+		{#if freePlay}
+			<Inline id="free" content={copy.freePlay} modal={true} />
 		{/if}
 	</div>
 
@@ -60,9 +64,16 @@
 			</div>
 		{/each}
 	</Scrolly>
+
+	{#if id === "city"}
+		<div class="spacer" />
+	{/if}
 </section>
 
 <style>
+	.spacer {
+		height: 75vh;
+	}
 	.steps {
 		display: flex;
 		flex-direction: column;
@@ -81,10 +92,14 @@
 		margin-top: 0;
 	}
 	.sticky {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 		position: sticky;
 		top: 0;
 		width: 100%;
 		height: 100vh;
+		overflow: hidden;
 	}
 	.placeholder {
 		width: 100%;
