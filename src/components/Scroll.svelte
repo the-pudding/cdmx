@@ -4,7 +4,8 @@
 	import Background from "$components/Background.svelte";
 	import Scrolly from "$components/helpers/Scrolly.svelte";
 	import Inline from "$components/Inline.svelte";
-	import { language } from "$stores/misc.js";
+	import { language, inModal, inFreePlay } from "$stores/misc.js";
+	import scrollY from "$stores/scrollY.js";
 	import copy from "$data/copy.json";
 
 	export let id;
@@ -25,18 +26,28 @@
 		scrollValue !== undefined && currentStep.vendor
 			? `assets/img/vendor.jpeg`
 			: undefined;
-	$: zoomable = scrollValue !== undefined && currentStep.zoom === "TRUE";
-	$: freePlay = id === "city" && scrollValue === undefined;
+	$: $inModal = id === "city" && scrollValue === undefined && $scrollY > 16000;
+	$: zoomable = $inFreePlay;
 </script>
 
 <section {id} class="steps">
 	<div class="sticky" bind:this={wrapper}>
 		{#if background}
-			<Background src={`assets/img/${background}.jpg`} {zoomable} {wrapper} />
+			<Background
+				src={`assets/img/${background}.jpg`}
+				{zoomable}
+				{wrapper}
+				opacity={$inModal ? 0.7 : 1}
+			/>
 		{/if}
 
-		{#if freePlay}
-			<Inline id="free" content={copy.freePlay} modal={true} />
+		{#if $inModal}
+			<Inline
+				id="free"
+				title={copy.freePlay.title}
+				content={copy.freePlay.content}
+				modal={true}
+			/>
 		{/if}
 	</div>
 
@@ -66,7 +77,7 @@
 	</Scrolly>
 
 	{#if id === "city"}
-		<div class="spacer" />
+		<div class="spacer" id="scroll-to-explore" />
 	{/if}
 </section>
 

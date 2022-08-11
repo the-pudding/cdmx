@@ -7,6 +7,7 @@
 	export let src;
 	export let zoomable;
 	export let wrapper;
+	export let opacity = 1;
 
 	let z;
 	let background;
@@ -52,7 +53,7 @@
 	};
 </script>
 
-<img {src} bind:this={background} class="background" />
+<img {src} bind:this={background} class="background" style:opacity />
 
 <!-- <button on:click={go} style="position: absolute; top: 0"
 	>go to laptop guy</button
@@ -60,23 +61,22 @@
 <style>
 	img.background {
 		transform-origin: 0px 0px;
-		min-height: 100%;
 		min-width: 1024px;
 
 		width: 100%;
-		height: auto;
-
-		/* position: fixed; */
-		position: sticky; /* TODO: this is a problem */
+		position: sticky;
 		top: 0;
 		left: 0;
 	}
 
 	@media screen and (max-width: 1024px) {
-		/* TODO: center it on mobile? */
 		img.background {
-			/* left: 50%;
-			margin-left: -512px; */
+			height: 100vh;
+		}
+	}
+	@media screen and (min-width: 1300px) {
+		img.background {
+			transform: translate(0, -10%);
 		}
 	}
 </style>

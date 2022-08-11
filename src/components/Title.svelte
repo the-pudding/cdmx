@@ -3,6 +3,11 @@
 	import { language } from "$stores/misc.js";
 
 	const { hed, dek, bylines } = copy;
+
+	const skip = () => {
+		const el = document.getElementById("scroll-to-explore");
+		el.scrollIntoView({ block: "center" });
+	};
 </script>
 
 <section id="title">
@@ -12,6 +17,8 @@
 	{#each bylines as byline}
 		<div>{@html byline[$language]}</div>
 	{/each}
+
+	<button on:click={skip}>skip to explore this map</button>
 </section>
 
 <style>
@@ -26,11 +33,19 @@
 		flex-direction: column;
 		justify-content: center;
 		text-align: center;
+
+		position: relative;
 	}
 
 	h1,
 	h2,
 	div {
 		background: white;
+	}
+
+	button {
+		position: absolute;
+		bottom: 30px;
+		left: 30px;
 	}
 </style>
