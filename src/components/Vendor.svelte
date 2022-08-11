@@ -3,13 +3,14 @@
 
 	export let src;
 	export let scrollValue;
+
+	const enter = { x: -200, duration: 2000, opacity: 1 };
+	const exit = { x: 1000, duration: 5000, opacity: 1 };
 </script>
 
-<img
-	{src}
-	in:fly={{ x: -200, duration: 2000, opacity: 1 }}
-	out:fly={{ x: 1000, duration: 5000, opacity: 1 }}
-/>
+{#key src}
+	<img {src} in:fly={enter} out:fly={exit} />
+{/key}
 
 <style>
 	img {

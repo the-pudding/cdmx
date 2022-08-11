@@ -24,7 +24,7 @@
 			: undefined;
 	$: currentVendor =
 		scrollValue !== undefined && currentStep.vendor
-			? `assets/img/vendor.jpeg`
+			? `assets/img/${currentStep.vendor}.jpeg`
 			: undefined;
 	$: $inModal = id === "city" && scrollValue === undefined && $scrollY > 16000;
 	$: zoomable = $inFreePlay;
