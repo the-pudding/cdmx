@@ -2,6 +2,7 @@
 	import { select, zoom, zoomIdentity } from "d3";
 	import viewport from "$stores/viewport";
 	import { onMount } from "svelte";
+	import { inFreePlay } from "$stores/misc.js";
 	import loadImage from "$utils/loadImage.js";
 
 	export let src;
@@ -22,6 +23,7 @@
 	};
 
 	$: background, $viewport.width, setupZoom();
+	$: highlight, flyTo();
 
 	let zoomableW;
 	let zoomableH;
@@ -38,19 +40,13 @@
 				])
 				.on("zoom", handleZoom);
 
-			select(wrapper).call(z); //.on("wheel.zoom", null); // disable wheel;
+			select(wrapper).call(z);
+
+			if (!$inFreePlay) {
+				select(wrapper).on("wheel.zoom", null); // disable wheel;
+			}
 		}
 	};
-
-	onMount(async () => {
-		const img = await loadImage("assets/img/city.jpg");
-		ratio = img.height / img.width;
-		if (zoomable) {
-			setupZoom();
-		}
-	});
-
-	$: highlight, flyTo();
 
 	const flyTo = () => {
 		const flyLocations = {
@@ -76,6 +72,14 @@
 			}
 		}
 	};
+
+	onMount(async () => {
+		const img = await loadImage("assets/img/city.jpg");
+		ratio = img.height / img.width;
+		if (zoomable) {
+			setupZoom();
+		}
+	});
 </script>
 
 <img {src} bind:this={background} class="background" style:opacity />

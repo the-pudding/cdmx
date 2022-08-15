@@ -31,8 +31,7 @@
 			? currentStep.highlight
 			: undefined;
 	$: $inModal = id === "city" && scrollValue === undefined && $scrollY > 16000;
-	$: zoomable = true;
-	// $: zoomable = $inFreePlay;
+	$: zoomable = id === "city";
 </script>
 
 <section {id} class="steps">
