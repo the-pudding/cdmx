@@ -26,8 +26,13 @@
 		scrollValue !== undefined && currentStep.vendor
 			? `assets/img/${currentStep.vendor}.jpeg`
 			: undefined;
+	$: currentHighlight =
+		scrollValue !== undefined && currentStep.highlight
+			? currentStep.highlight
+			: undefined;
 	$: $inModal = id === "city" && scrollValue === undefined && $scrollY > 16000;
-	$: zoomable = $inFreePlay;
+	$: zoomable = true;
+	// $: zoomable = $inFreePlay;
 </script>
 
 <section {id} class="steps">
@@ -37,6 +42,7 @@
 				src={`assets/img/${background}.jpg`}
 				{zoomable}
 				{wrapper}
+				highlight={currentHighlight}
 				opacity={$inModal ? 0.7 : 1}
 			/>
 		{/if}

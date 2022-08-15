@@ -1,5 +1,5 @@
 <script>
-	import { select, zoom } from "d3";
+	import { select, zoom, zoomIdentity } from "d3";
 	import viewport from "$stores/viewport";
 	import { onMount } from "svelte";
 	import loadImage from "$utils/loadImage.js";
@@ -7,6 +7,7 @@
 	export let src;
 	export let zoomable;
 	export let wrapper;
+	export let highlight;
 	export let opacity = 1;
 
 	let z;
@@ -22,10 +23,12 @@
 
 	$: background, $viewport.width, setupZoom();
 
+	let zoomableW;
+	let zoomableH;
 	const setupZoom = () => {
 		if (zoomable) {
-			const zoomableW = $viewport.width > 1024 ? $viewport.width : 1024;
-			const zoomableH = ratio * zoomableW;
+			zoomableW = $viewport.width > 1024 ? $viewport.width : 1024;
+			zoomableH = ratio * zoomableW;
 
 			z = zoom()
 				.scaleExtent([1, 4])
@@ -35,21 +38,43 @@
 				])
 				.on("zoom", handleZoom);
 
-			select(wrapper).call(z);
+			select(wrapper).call(z); //.on("wheel.zoom", null); // disable wheel;
 		}
 	};
 
 	onMount(async () => {
 		const img = await loadImage("assets/img/city.jpg");
 		ratio = img.height / img.width;
-
 		if (zoomable) {
 			setupZoom();
 		}
 	});
 
-	const go = () => {
-		select(wrapper).transition().call(z.scaleTo, 4, [550, 600]);
+	$: highlight, flyTo();
+
+	const flyTo = () => {
+		const flyLocations = {
+			chatarrero: [-1.5, -1],
+			taco: [-1, -1.9],
+			bullfighter: [0, -2]
+		};
+
+		if (wrapper) {
+			if (highlight === undefined) {
+				select(wrapper)
+					.transition()
+					.duration(1500)
+					.call(z.transform, zoomIdentity);
+			} else {
+				const t = zoomIdentity
+					.translate(
+						zoomableW * flyLocations[highlight][0],
+						zoomableH * flyLocations[highlight][1]
+					)
+					.scale(3);
+				select(wrapper).transition().duration(1500).call(z.transform, t);
+			}
+		}
 	};
 </script>
 
