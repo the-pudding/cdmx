@@ -7,6 +7,7 @@
 	import { language, inModal, inFreePlay } from "$stores/misc.js";
 	import scrollY from "$stores/scrollY.js";
 	import copy from "$data/copy.json";
+	import { browser } from "$app/env";
 
 	export let id;
 	export let steps;
@@ -30,8 +31,33 @@
 		scrollValue !== undefined && currentStep.highlight
 			? currentStep.highlight
 			: undefined;
-	$: $inModal = id === "city" && scrollValue === undefined && $scrollY > 16000;
+	$: $inModal =
+		id === "city" &&
+		scrollValue === undefined &&
+		$scrollY > 16000 &&
+		!$inFreePlay;
 	$: zoomable = id === "city";
+
+	$: if ($inFreePlay && id === "city") disableScroll();
+	$: if (!$inFreePlay && id === "city") enableScroll();
+
+	const disableScroll = () => {
+		if (browser) {
+			let scrollTop =
+				window.pageYOffset || window.document.documentElement.scrollTop;
+			let scrollLeft =
+				window.pageXOffset || window.document.documentElement.scrollLeft;
+			window.onscroll = () => {
+				window.scrollTo(scrollLeft, scrollTop);
+			};
+		}
+	};
+
+	const enableScroll = () => {
+		if (browser) {
+			window.onscroll = () => {};
+		}
+	};
 </script>
 
 <section {id} class="steps">

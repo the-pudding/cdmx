@@ -32,6 +32,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		align-items: center;
 		text-align: center;
 
 		position: relative;
@@ -41,6 +42,7 @@
 	h2,
 	div {
 		background: white;
+		padding: 0 0.4em;
 	}
 
 	button {

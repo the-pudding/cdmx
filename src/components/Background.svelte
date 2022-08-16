@@ -22,7 +22,7 @@
 		);
 	};
 
-	$: background, $viewport.width, setupZoom();
+	$: background, $viewport.width, $inFreePlay, setupZoom();
 	$: highlight, flyTo();
 
 	let zoomableW;

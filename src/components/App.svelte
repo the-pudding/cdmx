@@ -4,9 +4,10 @@
 	import Inline from "$components/Inline.svelte";
 	import Scroll from "$components/Scroll.svelte";
 	import Title from "$components/Title.svelte";
+	import FreePlay from "$components/FreePlay.svelte";
 	import Footer from "$components/Footer.svelte";
 	import copy from "$data/copy.json";
-	import { entered } from "$stores/misc.js";
+	import { entered, inModal } from "$stores/misc.js";
 
 	$: console.log({ copy });
 </script>
@@ -34,5 +35,6 @@
 		content={copy.inline2.content}
 	/>
 	<Scroll id="city" background="city" steps={copy.citySteps} />
+
 	<Footer />
 {/if}

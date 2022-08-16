@@ -1,11 +1,15 @@
 <script>
 	import Toggle from "$components/helpers/Toggle.svelte";
 	import logo from "$svg/logo.svg";
-	import { entered, language, soundOn } from "$stores/misc.js";
+	import { entered, language, soundOn, inFreePlay } from "$stores/misc.js";
 	import { fade } from "svelte/transition";
 	import scrollY from "$stores/scrollY.js";
 
 	$: logoVisible = $entered && $scrollY > 300;
+
+	const exitFreePlay = () => {
+		$inFreePlay = false;
+	};
 </script>
 
 <section id="top-bar">
@@ -22,6 +26,7 @@
 		<button on:click={() => ($soundOn = !$soundOn)}
 			>{$soundOn ? "mute" : "unmute"}</button
 		>
+		<button on:click={exitFreePlay}>exit free play</button>
 		<Toggle
 			label=""
 			style="inner"
