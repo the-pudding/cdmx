@@ -1,4 +1,5 @@
 <script>
+	import Icon from "$components/helpers/Icon.svelte";
 	import { language, entered } from "$stores/misc.js";
 	import copy from "$data/copy.json";
 	import { tick } from "svelte";
@@ -21,23 +22,10 @@
 	</div>
 
 	<div class="buttons">
-		<button on:click={enter}>let's go!</button>
+		<button on:click={enter}
+			>start audio story <span><Icon name="volume-2" /></span></button
+		>
 	</div>
-
-	<!-- {#if !$language}
-		<div class="buttons">
-			{#each ["english", "spanish"] as l}
-				{@const selected = $language === l}
-				{@const onClick = () => {
-					$language = l;
-					scrollToStart();
-				}}
-				<button on:click={onClick} class:selected
-					>{l === "spanish" ? "español" : l}</button
-				>
-			{/each}
-		</div>
-	{/if} -->
 </section>
 
 <style>
@@ -69,5 +57,13 @@
 	}
 	.selected {
 		background: var(--color-gray-100);
+	}
+	button {
+		display: flex;
+		align-items: center;
+	}
+	span {
+		display: flex;
+		margin-left: 8px;
 	}
 </style>

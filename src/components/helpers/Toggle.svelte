@@ -33,6 +33,9 @@
 </div>
 
 <style>
+	button {
+		border-radius: 0;
+	}
 	.toggle button,
 	.label {
 		font-family: inherit;
@@ -42,7 +45,7 @@
 	.toggle--inner [role="switch"][aria-checked="true"] :first-child,
 	[role="switch"][aria-checked="false"] :last-child {
 		display: inline-block;
-		border-radius: 4px;
+		/* border-radius: 4px; */
 		background: var(--color-gray-900);
 		color: var(--color-gray-100);
 	}

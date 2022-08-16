@@ -23,10 +23,14 @@
 	</div>
 
 	<div class="buttons">
+		{#if $inFreePlay}
+			<button on:click={exitFreePlay}>exit free play</button>
+		{/if}
+
 		<button on:click={() => ($soundOn = !$soundOn)}
 			>{$soundOn ? "mute" : "unmute"}</button
 		>
-		<button on:click={exitFreePlay}>exit free play</button>
+
 		<Toggle
 			label=""
 			style="inner"
@@ -58,6 +62,11 @@
 		border: none;
 		display: block;
 		color: var(--color-fg);
+	}
+	button {
+		border: none;
+		text-decoration: underline;
+		border-radius: 0;
 	}
 	.buttons {
 		display: flex;
