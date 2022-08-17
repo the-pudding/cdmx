@@ -6,3 +6,5 @@ export const soundOn = writable(true);
 export const entered = writable(false); /* entered the story */
 export const inModal = writable(false); /* in free play instruction modal */
 export const inFreePlay = writable(false); /* in zoomable/panable free play */
+
+export const ambiLoopTime = writable(0);

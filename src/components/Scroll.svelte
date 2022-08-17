@@ -1,4 +1,5 @@
 <script>
+	import AmbiLoop from "$components/AmbiLoop.svelte";
 	import Sound from "$components/Sound.svelte";
 	import Vendor from "$components/Vendor.svelte";
 	import Background from "$components/Background.svelte";
@@ -83,7 +84,14 @@
 	</div>
 
 	{#if currentSound}
-		<Sound src={currentSound} />
+		{#if id === "intro"}
+			<AmbiLoop
+				sounds={steps.map((d) => `assets/sound/${d.sound}.mp3`)}
+				{scrollValue}
+			/>
+		{:else}
+			<Sound src={currentSound} />
+		{/if}
 	{/if}
 
 	{#if currentVendor}
