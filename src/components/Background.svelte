@@ -61,7 +61,7 @@
 	const flyTo = () => {
 		const flyLocations = {
 			chatarrero: [-1.5, -1],
-			taco: [-1, -1.9],
+			tacos: [-1, -1.9],
 			bullfighter: [0, -2]
 		};
 

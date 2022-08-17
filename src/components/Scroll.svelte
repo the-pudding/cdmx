@@ -86,7 +86,7 @@
 	{#if currentSound}
 		{#if id === "intro"}
 			<AmbiLoop
-				sounds={steps.map((d) => `assets/sound/${d.sound}.mp3`)}
+				sounds={steps.map((d) => `assets/sound/ambi/${d.sound}.mp3`)}
 				{scrollValue}
 			/>
 		{:else}
