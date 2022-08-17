@@ -1,4 +1,5 @@
 <script>
+	import { base } from "$app/paths";
 	import copy from "$data/copy.json";
 	import { language } from "$stores/misc.js";
 
@@ -8,9 +9,11 @@
 		const el = document.getElementById("scroll-to-explore");
 		el.scrollIntoView({ block: "center" });
 	};
+
+	$: bgImage = `${base}/assets/img/city.jpg`;
 </script>
 
-<section id="title">
+<section id="title" style={`background-image: url(${bgImage})`}>
 	<h1>{@html hed[$language]}</h1>
 	<h2>{@html dek[$language]}</h2>
 
@@ -23,7 +26,6 @@
 
 <style>
 	section {
-		background-image: url(/assets/img/city.jpg);
 		height: 100vh;
 		background-position: center;
 		background-repeat: no-repeat;
