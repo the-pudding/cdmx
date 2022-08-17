@@ -4,28 +4,28 @@
 	export let sounds;
 	export let scrollValue;
 
-	$: console.log({ scrollValue });
+	let controls = false;
 </script>
 
 {#each sounds as src, i}
 	{@const muted = !$soundOn || i !== scrollValue}
-	<audio controls {src} {muted} autoplay loop>
+	<audio {src} {muted} {controls} autoplay loop>
 		<!-- TODO: accessibility -->
 		<track kind="captions" />
 	</audio>
 {/each}
 
 <style>
-	audio {
+	/* audio {
 		position: fixed;
 	}
-	audio:nth-child(1) {
+	audio:nth-child(2) {
 		top: 1em;
 	}
-	audio:nth-child(2) {
+	audio:nth-child(3) {
 		top: 5em;
 	}
-	audio:nth-child(3) {
+	audio:nth-child(4) {
 		top: 10em;
-	}
+	} */
 </style>
