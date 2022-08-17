@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "_app/immutable/start-9733a170.js",
+    "file": "_app/immutable/start-9cdd14d4.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -65,7 +65,7 @@
     ]
   },
   "src/routes/index.svelte": {
-    "file": "_app/immutable/pages/index.svelte-76bcd5b2.js",
+    "file": "_app/immutable/pages/index.svelte-c9ccfbf8.js",
     "src": "src/routes/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
@@ -76,7 +76,7 @@
       "_wordmark-15d53902.js"
     ],
     "css": [
-      "_app/immutable/assets/index-fc311d4c.css"
+      "_app/immutable/assets/index-4d3899d9.css"
     ]
   },
   "_index-bb6fa99f.js": {
@@ -101,16 +101,16 @@
     "file": "_app/immutable/assets/elements-83b17d31.css",
     "src": "src/routes/demo/elements.css"
   },
-  "src/routes/demo/fonts.css": {
-    "file": "_app/immutable/assets/fonts-694798f8.css",
-    "src": "src/routes/demo/fonts.css"
-  },
   "src/routes/__layout.css": {
     "file": "_app/immutable/assets/__layout-0e9d5134.css",
     "src": "src/routes/__layout.css"
   },
+  "src/routes/demo/fonts.css": {
+    "file": "_app/immutable/assets/fonts-694798f8.css",
+    "src": "src/routes/demo/fonts.css"
+  },
   "src/routes/index.css": {
-    "file": "_app/immutable/assets/index-fc311d4c.css",
+    "file": "_app/immutable/assets/index-4d3899d9.css",
     "src": "src/routes/index.css"
   }
 }

@@ -8,11 +8,9 @@
 		const el = document.getElementById("scroll-to-explore");
 		el.scrollIntoView({ block: "center" });
 	};
-
-	const url = "url(/assets/img/city.jpg)";
 </script>
 
-<section id="title" style={`background-image: ${url}`}>
+<section id="title">
 	<h1>{@html hed[$language]}</h1>
 	<h2>{@html dek[$language]}</h2>
 
@@ -25,7 +23,7 @@
 
 <style>
 	section {
-		/* background-image: url(/assets/img/city.jpg); */
+		background-image: url(/assets/img/city.jpg);
 		height: 100vh;
 		background-position: center;
 		background-repeat: no-repeat;
