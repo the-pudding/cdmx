@@ -23,7 +23,7 @@
 
 <style>
 	section {
-		background-image: url(assets/img/city.jpg);
+		background-image: url(/assets/img/city.jpg);
 		height: 100vh;
 		background-position: center;
 		background-repeat: no-repeat;
