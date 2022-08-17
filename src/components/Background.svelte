@@ -1,4 +1,5 @@
 <script>
+	import InteractiveLayer from "$components/InteractiveLayer.svelte";
 	import { select, zoom, zoomIdentity } from "d3";
 	import viewport from "$stores/viewport";
 	import { onMount } from "svelte";
@@ -14,6 +15,7 @@
 	let z;
 	let background;
 	let ratio = 0;
+	const flyDuration = 1500;
 
 	const handleZoom = (e) => {
 		select(background).style(
@@ -33,7 +35,7 @@
 			zoomableH = ratio * zoomableW;
 
 			z = zoom()
-				.scaleExtent([1, 4])
+				.scaleExtent([1, 3])
 				.translateExtent([
 					[0, 0],
 					[zoomableW, zoomableH]
@@ -43,9 +45,17 @@
 			select(wrapper).call(z);
 
 			if (!$inFreePlay) {
+				reset();
 				select(wrapper).on("wheel.zoom", null); // disable wheel;
 			}
 		}
+	};
+
+	const reset = () => {
+		select(wrapper)
+			.transition()
+			.duration(flyDuration)
+			.call(z.transform, zoomIdentity);
 	};
 
 	const flyTo = () => {
@@ -57,10 +67,7 @@
 
 		if (wrapper) {
 			if (highlight === undefined) {
-				select(wrapper)
-					.transition()
-					.duration(1500)
-					.call(z.transform, zoomIdentity);
+				reset();
 			} else {
 				const t = zoomIdentity
 					.translate(
@@ -68,7 +75,7 @@
 						zoomableH * flyLocations[highlight][1]
 					)
 					.scale(3);
-				select(wrapper).transition().duration(1500).call(z.transform, t);
+				select(wrapper).transition().duration(flyDuration).call(z.transform, t);
 			}
 		}
 	};
@@ -82,22 +89,32 @@
 	});
 </script>
 
-<img {src} bind:this={background} class="background" style:opacity />
+<div class="background" bind:this={background}>
+	<img {src} style:opacity />
 
-<!-- <button on:click={go} style="position: absolute; top: 0"
-	>go to laptop guy</button
-> -->
+	{#if $inFreePlay}
+		<InteractiveLayer />
+	{/if}
+</div>
+
 <style>
-	img.background {
-		transform-origin: 0px 0px;
-		min-width: 1024px;
-
-		width: 100%;
+	.test {
+		background: red;
+		opacity: 0.4;
+		height: 100px;
+		width: 100px;
+		position: absolute;
+		top: 50%;
+		left: 40%;
+	}
+	.background {
 		position: sticky;
 		top: 0;
 		left: 0;
+		min-width: 1024px;
+		width: 100%;
+		transform-origin: 0px 0px;
 	}
-
 	@media screen and (max-width: 1024px) {
 		img.background {
 			height: 100vh;

@@ -7,6 +7,7 @@
 	import Footer from "$components/Footer.svelte";
 	import copy from "$data/copy.json";
 	import { entered } from "$stores/misc.js";
+	import { onMount } from "svelte";
 
 	$: console.log({ copy });
 </script>
