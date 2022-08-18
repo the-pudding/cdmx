@@ -10,7 +10,7 @@
 		el.scrollIntoView({ block: "center" });
 	};
 
-	$: bgImage = `${base}/assets/img/city.jpg`;
+	$: bgImage = `${base}/assets/img/background/city.jpg`;
 </script>
 
 <section id="title" style={`background-image: url(${bgImage})`}>

@@ -1,16 +1,18 @@
 <script>
 	import InteractiveLayer from "$components/InteractiveLayer.svelte";
+	import Vendor from "$components/Vendor.svelte";
 	import { select, zoom, zoomIdentity } from "d3";
 	import viewport from "$stores/viewport";
 	import { onMount } from "svelte";
 	import { inFreePlay } from "$stores/misc.js";
 	import loadImage from "$utils/loadImage.js";
 
-	export let src;
+	export let backgroundId;
 	export let zoomable;
 	export let wrapper;
 	export let highlight;
 	export let opacity = 1;
+	export let currentVendor;
 
 	let z;
 	let background;
@@ -81,7 +83,7 @@
 	};
 
 	onMount(async () => {
-		const img = await loadImage("assets/img/city.jpg");
+		const img = await loadImage("assets/img/background/city.jpg");
 		ratio = img.height / img.width;
 		if (zoomable) {
 			setupZoom();
@@ -90,7 +92,30 @@
 </script>
 
 <div class="background" bind:this={background}>
-	<img {src} style:opacity />
+	{#if backgroundId === "apartment"}
+		<img
+			src="assets/img/background/apartment_ext.png"
+			class="apartment"
+			alt="illustration of apartment in cdmx"
+			style={`z-index: 1`}
+		/>
+		<img
+			src="assets/img/background/apartment_int.png"
+			class="apartment"
+			alt="illustration of apartment in cdmx"
+			style={`z-index: 3`}
+		/>
+
+		{#if currentVendor}
+			<Vendor src={currentVendor} />
+		{/if}
+	{:else if backgroundId === "city"}
+		<img
+			src="assets/img/background/city.jpg"
+			style:opacity
+			alt="illustration of cdmx streets"
+		/>
+	{/if}
 
 	{#if $inFreePlay}
 		<InteractiveLayer />
@@ -98,15 +123,6 @@
 </div>
 
 <style>
-	.test {
-		background: red;
-		opacity: 0.4;
-		height: 100px;
-		width: 100px;
-		position: absolute;
-		top: 50%;
-		left: 40%;
-	}
 	.background {
 		position: sticky;
 		top: 0;
@@ -114,6 +130,13 @@
 		min-width: 1024px;
 		width: 100%;
 		transform-origin: 0px 0px;
+	}
+	img {
+		width: 100%;
+	}
+	.apartment {
+		position: absolute;
+		top: 0;
 	}
 	@media screen and (max-width: 1024px) {
 		img.background {

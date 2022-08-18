@@ -1,7 +1,6 @@
 <script>
 	import AmbiLoop from "$components/AmbiLoop.svelte";
 	import Sound from "$components/Sound.svelte";
-	import Vendor from "$components/Vendor.svelte";
 	import Background from "$components/Background.svelte";
 	import Scrolly from "$components/helpers/Scrolly.svelte";
 	import Inline from "$components/Inline.svelte";
@@ -26,7 +25,7 @@
 			: undefined;
 	$: currentVendor =
 		scrollValue !== undefined && currentStep.vendor
-			? `assets/img/${currentStep.vendor}.jpeg`
+			? `assets/img/${currentStep.vendor}.png`
 			: undefined;
 	$: currentHighlight =
 		scrollValue !== undefined && currentStep.highlight
@@ -65,11 +64,12 @@
 	<div class="sticky" bind:this={wrapper}>
 		{#if background}
 			<Background
-				src={`assets/img/${background}.jpg`}
+				backgroundId={background}
 				{zoomable}
 				{wrapper}
 				highlight={currentHighlight}
 				opacity={$inModal ? 0.7 : 1}
+				{currentVendor}
 			/>
 		{/if}
 
@@ -92,10 +92,6 @@
 		{:else}
 			<Sound src={currentSound} />
 		{/if}
-	{/if}
-
-	{#if currentVendor}
-		<Vendor src={currentVendor} {scrollValue} />
 	{/if}
 
 	<Scrolly bind:value={scrollValue}>
