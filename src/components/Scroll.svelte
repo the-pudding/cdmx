@@ -96,14 +96,17 @@
 
 	<Scrolly bind:value={scrollValue}>
 		{#each steps as step, i}
-			{@const id = id === "intro" && i === 0 ? "scroll-to-start" : null}
+			{@const stepId = id === "intro" && i === 0 ? "scroll-to-start" : null}
 			{@const active = scrollValue === i}
 			{@const background = textBg}
+			{@const last = id === "city" && i === steps.length - 1}
+
 			<div
-				{id}
+				id={stepId}
 				class="step"
 				class:active
 				class:background
+				class:last
 				style:font-size={fontSize}
 			>
 				{@html step[$language]}
@@ -118,7 +121,7 @@
 
 <style>
 	.spacer {
-		height: 75vh;
+		height: 150vh;
 	}
 	.steps {
 		display: flex;
@@ -133,6 +136,9 @@
 	.step.background {
 		background: var(--color-gray-100);
 		padding: 2em;
+	}
+	.step.last {
+		margin-bottom: 0;
 	}
 	.step:first-of-type {
 		margin-top: 0;
