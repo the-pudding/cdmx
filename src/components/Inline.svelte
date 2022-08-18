@@ -10,6 +10,9 @@
 	const startFreePlay = () => {
 		$inModal = false;
 		$inFreePlay = true;
+
+		const el = document.getElementById("scroll-to-explore");
+		el.scrollIntoView({ block: "center" });
 	};
 </script>
 
