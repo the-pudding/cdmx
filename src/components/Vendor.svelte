@@ -1,7 +1,7 @@
 <script>
 	import { fly } from "svelte/transition";
 	import viewport from "$stores/viewport.js";
-	import { onMount, onDestroy } from "svelte";
+	import { onMount, onDestroy, afterUpdate } from "svelte";
 	import loadImage from "$utils/loadImage.js";
 
 	export let src;
@@ -23,22 +23,29 @@
 	$: exit = { x: rightBorder - middle, duration: 5000, opacity: 1 };
 
 	onMount(async () => {
+		console.log("mount");
 		const img = await loadImage("assets/img/background/apartment_int.png");
 		ratio = img.height / img.width;
 	});
+
+	onDestroy(() => {
+		console.log("destroy");
+	});
+
+	afterUpdate(() => {
+		console.log("afterUpdate");
+	});
 </script>
 
-{#key src}
-	<img
-		{src}
-		in:fly={enter}
-		out:fly={exit}
-		style:left={`${middle}px`}
-		style:top={`${imageH * 0.15}px`}
-		class:big={imageW > 1350}
-		alt="vendor"
-	/>
-{/key}
+<img
+	{src}
+	in:fly={enter}
+	out:fly={exit}
+	style:left={`${middle}px`}
+	style:top={`${imageH * 0.15}px`}
+	class:big={imageW > 1350}
+	alt="vendor"
+/>
 
 <style>
 	img {
