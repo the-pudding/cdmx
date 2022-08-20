@@ -6,6 +6,7 @@
 	import { onMount } from "svelte";
 	import { inFreePlay } from "$stores/misc.js";
 	import loadImage from "$utils/loadImage.js";
+	import scrollY from "$stores/scrollY.js";
 
 	export let backgroundId;
 	export let zoomable;
@@ -55,10 +56,17 @@
 	};
 
 	const reset = () => {
-		select(wrapper)
-			.transition()
-			.duration(flyDuration)
-			.call(z.transform, zoomIdentity);
+		if ($scrollY > 14000) {
+			select(wrapper)
+				.transition()
+				.duration(flyDuration)
+				.call(z.transform, zoomIdentity);
+		} else {
+			const t = zoomIdentity
+				.translate(zoomableW * -0.75, zoomableH * -0.3)
+				.scale(3);
+			select(wrapper).transition().duration(flyDuration).call(z.transform, t);
+		}
 	};
 
 	const flyTo = () => {
@@ -142,6 +150,7 @@
 		position: absolute;
 		top: 0;
 	}
+	/* TODO this might not be doing anything? */
 	@media screen and (max-width: 1024px) {
 		img.background {
 			height: 100vh;
