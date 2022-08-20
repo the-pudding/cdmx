@@ -12,6 +12,7 @@
 	export let wrapper;
 	export let highlight;
 	export let opacity = 1;
+	export let vendors;
 	export let currentVendor;
 
 	let z;
@@ -106,9 +107,12 @@
 			style={`z-index: 3`}
 		/>
 
-		{#if currentVendor}
-			<Vendor src={currentVendor} />
-		{/if}
+		{#each vendors as vendor}
+			<Vendor
+				src={`assets/img/${vendor}.png`}
+				onStage={vendor === currentVendor}
+			/>
+		{/each}
 	{:else if backgroundId === "city"}
 		<img
 			src="assets/img/background/city.jpg"

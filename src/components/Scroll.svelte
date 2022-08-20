@@ -8,6 +8,7 @@
 	import scrollY from "$stores/scrollY.js";
 	import copy from "$data/copy.json";
 	import { browser } from "$app/env";
+	import _ from "lodash";
 
 	export let id;
 	export let steps;
@@ -23,9 +24,10 @@
 		scrollValue !== undefined && currentStep.sound
 			? `assets/sound/${currentStep.sound}.mp3`
 			: undefined;
+	$: vendors = _.uniq(steps.filter((d) => d.vendor).map((d) => d.vendor));
 	$: currentVendor =
 		scrollValue !== undefined && currentStep.vendor
-			? `assets/img/${currentStep.vendor}.png`
+			? currentStep.vendor
 			: undefined;
 	$: currentHighlight =
 		scrollValue !== undefined && currentStep.highlight
@@ -69,6 +71,7 @@
 				{wrapper}
 				highlight={currentHighlight}
 				opacity={$inModal ? 0.7 : 1}
+				{vendors}
 				{currentVendor}
 			/>
 		{/if}
