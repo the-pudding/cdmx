@@ -107,9 +107,7 @@
 		/>
 
 		{#if currentVendor}
-			{#key currentVendor}
-				<Vendor src={currentVendor} />
-			{/key}
+			<Vendor src={currentVendor} />
 		{/if}
 	{:else if backgroundId === "city"}
 		<img

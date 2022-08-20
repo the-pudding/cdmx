@@ -1,7 +1,7 @@
 <script>
 	import { fly } from "svelte/transition";
 	import viewport from "$stores/viewport.js";
-	import { onMount, onDestroy, afterUpdate } from "svelte";
+	import { onMount, tick } from "svelte";
 	import loadImage from "$utils/loadImage.js";
 
 	export let src;
@@ -16,36 +16,41 @@
 	$: middle = 0.46 * imageW;
 	$: enter = {
 		x: leftBorder - middle,
-		duration: 3000,
+		duration: 8000,
 		opacity: 1,
 		delay: 800
 	};
-	$: exit = { x: rightBorder - middle, duration: 5000, opacity: 1 };
+	$: exit = {
+		x: rightBorder - middle,
+		duration: 5000,
+		opacity: 1
+	};
 
 	onMount(async () => {
-		console.log("mount");
 		const img = await loadImage("assets/img/background/apartment_int.png");
 		ratio = img.height / img.width;
 	});
 
-	onDestroy(() => {
-		console.log("destroy");
-	});
-
-	afterUpdate(() => {
-		console.log("afterUpdate");
-	});
+	let imageEl;
+	const beforeExit = async () => {
+		imageEl.style.animation = null;
+		imageEl.style.left = middle;
+	};
 </script>
 
-<img
-	{src}
-	in:fly={enter}
-	out:fly={exit}
-	style:left={`${middle}px`}
-	style:top={`${imageH * 0.15}px`}
-	class:big={imageW > 1350}
-	alt="vendor"
-/>
+{#key src}
+	<img
+		{src}
+		in:fly={enter}
+		out:fly={exit}
+		on:outrostart={beforeExit}
+		style:left={`${middle}px`}
+		style:top={`${imageH * 0.15}px`}
+		class:big={imageW > 1350}
+		alt="vendor"
+		bind:this={imageEl}
+	/>
+{/key}
 
 <style>
 	img {
