@@ -49,7 +49,6 @@
 		justify-content: space-between;
 		right: 10px;
 		top: 10px;
-		z-index: 2000;
 	}
 	.invisible {
 		visibility: hidden;
