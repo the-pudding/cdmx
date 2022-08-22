@@ -150,14 +150,13 @@
 		position: absolute;
 		top: 0;
 	}
-	/* TODO this might not be doing anything? */
 	@media screen and (max-width: 1024px) {
-		img.background {
+		img {
 			height: 100vh;
 		}
 	}
 	@media screen and (min-width: 1300px) {
-		img.background {
+		img {
 			transform: translate(0, -10%);
 		}
 	}

@@ -1,4 +1,5 @@
 <script>
+	import Toggle from "$components/helpers/Toggle.svelte";
 	import Icon from "$components/helpers/Icon.svelte";
 	import { language, entered } from "$stores/misc.js";
 	import copy from "$data/copy.json";
@@ -21,6 +22,14 @@
 		{/each}
 	</div>
 
+	<Toggle
+		label=""
+		style="inner"
+		bind:value={$language}
+		options={["english", "spanish"]}
+		displayOptions={["english", "español"]}
+	/>
+
 	<div class="buttons">
 		<button on:click={enter}
 			>start audio story <span><Icon name="volume-2" /></span></button
@@ -36,6 +45,9 @@
 		flex-direction: column;
 		align-items: center;
 		margin-top: 7em;
+	}
+	.intro {
+		margin: 0 1em;
 	}
 	.intro,
 	.welcome {

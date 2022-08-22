@@ -20,13 +20,13 @@
 		width: 100%;
 	}
 	.wordmark {
-		visibility: hidden;
+		display: none;
 		max-width: 10em;
 		margin: 0 auto;
 		padding: 1em 0;
 	}
 	.visible {
-		visibility: visible;
+		display: block;
 	}
 
 	.wordmark a {

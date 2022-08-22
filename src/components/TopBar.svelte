@@ -5,7 +5,7 @@
 	import { fade } from "svelte/transition";
 	import scrollY from "$stores/scrollY.js";
 
-	$: logoVisible = $entered && $scrollY > 300;
+	$: visible = $entered && $scrollY > 300;
 
 	const exitFreePlay = () => {
 		$inFreePlay = false;
@@ -13,32 +13,35 @@
 </script>
 
 <section id="top-bar">
-	{#if logoVisible}
+	{#if visible}
 		<div class="logo" transition:fade>
 			<a href="https://pudding.cool" aria-label="The Pudding">{@html logo}</a>
 		</div>
 	{/if}
+
 	<div class="logo invisible">
 		<a href="https://pudding.cool" aria-label="The Pudding">{@html logo}</a>
 	</div>
 
-	<div class="buttons">
-		{#if $inFreePlay}
-			<button on:click={exitFreePlay}>exit free play</button>
-		{/if}
+	{#if visible}
+		<div class="buttons">
+			{#if $inFreePlay}
+				<button on:click={exitFreePlay}>exit free play</button>
+			{/if}
 
-		<button on:click={() => ($soundOn = !$soundOn)}
-			>{$soundOn ? "mute" : "unmute"}</button
-		>
+			<button on:click={() => ($soundOn = !$soundOn)}
+				>{$soundOn ? "mute" : "unmute"}</button
+			>
 
-		<Toggle
-			label=""
-			style="inner"
-			bind:value={$language}
-			options={["english", "spanish"]}
-			displayOptions={["english", "español"]}
-		/>
-	</div>
+			<Toggle
+				label=""
+				style="inner"
+				bind:value={$language}
+				options={["english", "spanish"]}
+				displayOptions={["english", "español"]}
+			/>
+		</div>
+	{/if}
 </section>
 
 <style>
@@ -49,6 +52,7 @@
 		justify-content: space-between;
 		right: 10px;
 		top: 10px;
+		z-index: 100;
 	}
 	.invisible {
 		visibility: hidden;

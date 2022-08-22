@@ -42,10 +42,10 @@
 {#key src}
 	<img
 		{src}
+		alt="vendor"
 		style:left={`${$x}px`}
 		style:top={`${imageH * 0.15}px`}
 		class:big={imageW > 1350}
-		alt="vendor"
 	/>
 {/key}
 

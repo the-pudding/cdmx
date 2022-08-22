@@ -13,7 +13,6 @@
 	export let id;
 	export let steps;
 	export let background;
-	export let fontSize = "1em";
 	export let textBg = true;
 
 	let scrollValue;
@@ -104,14 +103,7 @@
 			{@const background = textBg}
 			{@const last = id === "city" && i === steps.length - 1}
 
-			<div
-				id={stepId}
-				class="step"
-				class:active
-				class:background
-				class:last
-				style:font-size={fontSize}
-			>
+			<div id={stepId} class="step" class:active class:background class:last>
 				{@html step[$language]}
 			</div>
 		{/each}
@@ -162,5 +154,13 @@
 		visibility: hidden;
 		position: absolute;
 		top: 0;
+	}
+	:global(section#intro .step) {
+		font-size: 1.5em;
+	}
+	@media only screen and (max-width: 400px) {
+		:global(section#intro .step) {
+			font-size: 1.2em;
+		}
 	}
 </style>

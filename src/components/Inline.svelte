@@ -32,6 +32,7 @@
 	section {
 		max-width: 700px;
 		margin: 5em auto;
+		padding: 0 1em;
 	}
 	.modal {
 		position: absolute;

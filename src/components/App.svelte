@@ -7,7 +7,6 @@
 	import Footer from "$components/Footer.svelte";
 	import copy from "$data/copy.json";
 	import { entered } from "$stores/misc.js";
-	import { onMount } from "svelte";
 
 	$: console.log({ copy });
 </script>
@@ -16,12 +15,7 @@
 <Landing />
 
 {#if $entered}
-	<Scroll
-		id="intro"
-		steps={copy.preTitleProse}
-		fontSize={"1.5em"}
-		textBg={false}
-	/>
+	<Scroll id="intro" steps={copy.preTitleProse} textBg={false} />
 	<Title />
 	<Inline
 		id="inline1"
