@@ -40,6 +40,13 @@
 		position: relative;
 	}
 
+	h1 {
+		font-size: 4em;
+	}
+	h2 {
+		font-size: 2em;
+	}
+
 	h1,
 	h2,
 	div {

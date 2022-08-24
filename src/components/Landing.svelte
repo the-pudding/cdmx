@@ -17,8 +17,8 @@
 
 <section id="landing">
 	<div class="intro">
-		{#each intro as text}
-			<p>{@html text}</p>
+		{#each intro as text, i}
+			<p class:big={i === 0}>{@html text}</p>
 		{/each}
 	</div>
 
@@ -77,5 +77,8 @@
 	span {
 		display: flex;
 		margin-left: 8px;
+	}
+	.big {
+		font-size: 4em;
 	}
 </style>

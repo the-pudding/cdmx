@@ -4,6 +4,7 @@
 	import loadImage from "$utils/loadImage.js";
 	import { tweened } from "svelte/motion";
 	import { quadOut } from "svelte/easing";
+	import inView from "$actions/inView.js";
 
 	export let src;
 	export let onStage;
@@ -15,11 +16,15 @@
 	$: imageW = $viewport.width > 1024 ? $viewport.width : 1024;
 	$: imageH = ratio * imageW;
 
-	$: leftWing = 0.08 * imageW;
+	$: leftWing = $viewport.width < 600 ? -0.2 * imageW : -0.08 * imageW;
 	$: rightWing = 0.95 * imageW;
-	$: middle = 0.46 * imageW;
+	$: middle = $viewport.width < 600 ? 0.45 * imageW : 0.45 * imageW;
 
 	$: onStage, update();
+
+	const onLeaveScreen = () => {
+		x.set(leftWing, { duration: 0 });
+	};
 
 	const update = () => {
 		if (onStage) {
@@ -46,6 +51,8 @@
 		style:left={`${$x}px`}
 		style:top={`${imageH * 0.15}px`}
 		class:big={imageW > 1350}
+		use:inView
+		on:exit={onLeaveScreen}
 	/>
 {/key}
 
