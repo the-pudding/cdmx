@@ -24,7 +24,7 @@
 
 	const onEnter = () => {
 		$ambi = 1;
-		$ambiVolume = 0.1;
+		$ambiVolume = 0.2;
 	};
 </script>
 
