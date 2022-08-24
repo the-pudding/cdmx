@@ -1,10 +1,15 @@
 <script>
-	import AmbiLoop from "$components/AmbiLoop.svelte";
 	import Sound from "$components/Sound.svelte";
 	import Background from "$components/Background.svelte";
 	import Scrolly from "$components/helpers/Scrolly.svelte";
 	import Inline from "$components/Inline.svelte";
-	import { language, inModal, inFreePlay } from "$stores/misc.js";
+	import {
+		language,
+		inModal,
+		inFreePlay,
+		ambi,
+		ambiVolume
+	} from "$stores/misc.js";
 	import scrollY from "$stores/scrollY.js";
 	import copy from "$data/copy.json";
 	import { browser } from "$app/env";
@@ -38,6 +43,21 @@
 		$scrollY > 16000 &&
 		!$inFreePlay;
 	$: zoomable = id === "city";
+
+	$: scrollValue, stepChange();
+	const stepChange = () => {
+		if (id === "intro") {
+			if (scrollValue !== undefined) {
+				$ambi = scrollValue + 1;
+				$ambiVolume = 0.75;
+			} else if (scrollValue === undefined && $scrollY > 2000) {
+				$ambi = 3;
+				$ambiVolume = 0.75;
+			} else {
+				$ambi = undefined;
+			}
+		}
+	};
 
 	$: if ($inFreePlay && id === "city") disableScroll();
 	$: if (!$inFreePlay && id === "city") enableScroll();
@@ -86,14 +106,7 @@
 	</div>
 
 	{#if currentSound}
-		{#if id === "intro"}
-			<AmbiLoop
-				sounds={steps.map((d) => `assets/sound/ambi/${d.sound}.mp3`)}
-				{scrollValue}
-			/>
-		{:else}
-			<Sound src={currentSound} />
-		{/if}
+		<Sound src={currentSound} />
 	{/if}
 
 	<Scrolly bind:value={scrollValue}>

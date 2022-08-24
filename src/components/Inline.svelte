@@ -1,6 +1,13 @@
 <script>
-	import { language, inModal, inFreePlay } from "$stores/misc.js";
+	import {
+		language,
+		inModal,
+		inFreePlay,
+		ambi,
+		ambiVolume
+	} from "$stores/misc.js";
 	import { fade } from "svelte/transition";
+	import inView from "$actions/inView.js";
 
 	export let id;
 	export let content;
@@ -14,9 +21,20 @@
 		const el = document.getElementById("scroll-to-explore");
 		el.scrollIntoView({ block: "center" });
 	};
+
+	const onEnter = () => {
+		$ambi = 1;
+		$ambiVolume = 0.1;
+	};
 </script>
 
-<section {id} class:modal transition:fade>
+<section
+	{id}
+	class:modal
+	transition:fade
+	use:inView={{ bottom: 200 }}
+	on:enter={onEnter}
+>
 	<h2>{@html title}</h2>
 	{#each content as p}
 		{@const text = p[$language]}
