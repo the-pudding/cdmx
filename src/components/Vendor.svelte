@@ -4,7 +4,6 @@
 	import loadImage from "$utils/loadImage.js";
 	import { tweened } from "svelte/motion";
 	import { quadOut } from "svelte/easing";
-	import inView from "$actions/inView.js";
 
 	export let src;
 	export let onStage;
@@ -13,20 +12,16 @@
 
 	$: x = tweened(leftWing, { duration: 3000, easing: quadOut });
 
-	$: imageW = $viewport.width > 1024 ? $viewport.width : 1024;
+	// TODO: fix
+	$: imageW = $viewport.width > 1378 ? $viewport.width : 1378;
 	$: imageH = ratio * imageW;
 
-	$: big = imageW > 1350;
-	$: top = big ? imageH * 0.08 : imageH * 0.15;
+	$: top = imageH * 0.15;
 	$: leftWing = $viewport.width < 600 ? -0.2 * imageW : -0.08 * imageW;
 	$: rightWing = 0.95 * imageW;
 	$: middle = 0.45 * imageW;
 
 	$: onStage, update();
-
-	// const onLeaveScreen = () => {
-	// 	x.set(leftWing, { duration: 0 });
-	// };
 
 	const update = () => {
 		if (onStage) {
@@ -47,13 +42,7 @@
 </script>
 
 {#key src}
-	<img
-		{src}
-		alt="vendor"
-		style:left={`${$x}px`}
-		style:top={`${top}px`}
-		class:big
-	/>
+	<img {src} alt="vendor" style:left={`${$x}px`} style:top={`${top}px`} />
 {/key}
 
 <style>
@@ -61,8 +50,6 @@
 		z-index: 2;
 		height: 200px;
 		position: absolute;
-	}
-	.big {
 		transform: scale(1.3);
 	}
 </style>

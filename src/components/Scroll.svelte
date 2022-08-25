@@ -159,7 +159,7 @@
 		top: 0;
 		width: 100%;
 		height: 100vh;
-		min-width: 1024px;
+		min-width: 1378px;
 		overflow: hidden;
 	}
 	.placeholder {
