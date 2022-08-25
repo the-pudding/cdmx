@@ -16,15 +16,17 @@
 	$: imageW = $viewport.width > 1024 ? $viewport.width : 1024;
 	$: imageH = ratio * imageW;
 
+	$: big = imageW > 1350;
+	$: top = big ? imageH * 0.08 : imageH * 0.15;
 	$: leftWing = $viewport.width < 600 ? -0.2 * imageW : -0.08 * imageW;
 	$: rightWing = 0.95 * imageW;
-	$: middle = $viewport.width < 600 ? 0.45 * imageW : 0.45 * imageW;
+	$: middle = 0.45 * imageW;
 
 	$: onStage, update();
 
-	const onLeaveScreen = () => {
-		x.set(leftWing, { duration: 0 });
-	};
+	// const onLeaveScreen = () => {
+	// 	x.set(leftWing, { duration: 0 });
+	// };
 
 	const update = () => {
 		if (onStage) {
@@ -49,10 +51,8 @@
 		{src}
 		alt="vendor"
 		style:left={`${$x}px`}
-		style:top={`${imageH * 0.15}px`}
-		class:big={imageW > 1350}
-		use:inView
-		on:exit={onLeaveScreen}
+		style:top={`${top}px`}
+		class:big
 	/>
 {/key}
 
@@ -63,6 +63,6 @@
 		position: absolute;
 	}
 	.big {
-		transform: scale(1.5);
+		transform: scale(1.3);
 	}
 </style>

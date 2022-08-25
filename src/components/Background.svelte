@@ -38,6 +38,8 @@
 			zoomableW = $viewport.width > 1024 ? $viewport.width : 1024;
 			zoomableH = ratio * zoomableW;
 
+			console.log("setup", zoomableW, zoomableH);
+
 			z = zoom()
 				.scaleExtent([1, 3])
 				.translateExtent([
@@ -57,11 +59,16 @@
 
 	const reset = () => {
 		if ($scrollY > 14000) {
-			select(wrapper)
-				.transition()
-				.duration(flyDuration)
-				.call(z.transform, zoomIdentity);
+			// select(wrapper)
+			// 	.transition()
+			// 	.duration(flyDuration)
+			// 	.call(z.transform, zoomIdentity);
+			// const t = zoomIdentity.scale(1);
+			// select(wrapper).transition().duration(flyDuration).call(z.transform, t);
+			select(wrapper).call(z.scaleTo, 1);
 		} else {
+			console.log("to guy");
+			// zoomed on the guy
 			const t = zoomIdentity
 				.translate(zoomableW * -0.75, zoomableH * -0.3)
 				.scale(3);
@@ -80,13 +87,13 @@
 			if (highlight === undefined) {
 				reset();
 			} else {
-				const t = zoomIdentity
-					.translate(
-						zoomableW * flyLocations[highlight][0],
-						zoomableH * flyLocations[highlight][1]
-					)
-					.scale(3);
-				select(wrapper).transition().duration(flyDuration).call(z.transform, t);
+				// const t = zoomIdentity
+				// 	.translate(
+				// 		zoomableW * flyLocations[highlight][0],
+				// 		zoomableH * flyLocations[highlight][1]
+				// 	)
+				// 	.scale(3);
+				// select(wrapper).transition().duration(flyDuration).call(z.transform, t);
 			}
 		}
 	};
@@ -100,40 +107,40 @@
 	});
 </script>
 
-<div class="background" bind:this={background}>
-	{#if backgroundId === "apartment"}
-		<img
-			src="assets/img/background/apartment_ext.png"
-			class="apartment"
-			alt="illustration of apartment in cdmx"
-			style={`z-index: 1`}
-		/>
-		<img
-			src="assets/img/background/apartment_int.png"
-			class="apartment"
-			alt="illustration of apartment in cdmx"
-			style={`z-index: 3`}
-		/>
+<!-- <div class="background" bind:this={background}> -->
+{#if backgroundId === "apartment"}
+	<img
+		src="assets/img/background/apartment_ext.png"
+		class="apartment"
+		alt="illustration of apartment in cdmx"
+		style={`z-index: 1`}
+	/>
+	<img
+		src="assets/img/background/apartment_int.png"
+		class="apartment"
+		alt="illustration of apartment in cdmx"
+		style={`z-index: 3`}
+	/>
 
-		{#each vendors as vendor}
-			<Vendor
-				src={`assets/img/${vendor}.png`}
-				onStage={vendor === currentVendor}
-			/>
-		{/each}
-	{:else if backgroundId === "city"}
-		<img
-			src="assets/img/background/city.jpg"
-			style:opacity
-			alt="illustration of cdmx streets"
+	{#each vendors as vendor}
+		<Vendor
+			src={`assets/img/${vendor}.png`}
+			onStage={vendor === currentVendor}
 		/>
-	{/if}
+	{/each}
+{:else if backgroundId === "city"}
+	<img
+		src="assets/img/background/city.jpg"
+		style:opacity
+		alt="illustration of cdmx streets"
+	/>
+{/if}
 
-	{#if $inFreePlay}
-		<InteractiveLayer />
-	{/if}
-</div>
+{#if $inFreePlay}
+	<InteractiveLayer />
+{/if}
 
+<!-- </div> -->
 <style>
 	.background {
 		position: sticky;
