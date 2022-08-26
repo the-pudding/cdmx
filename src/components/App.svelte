@@ -20,7 +20,7 @@
 
 	<Scroll id="intro" steps={copy.preTitleProse} textBg={false} />
 
-	<Title />
+	<!-- <Title /> -->
 
 	<Inline
 		id="inline1"

@@ -12,16 +12,17 @@
 	};
 </script>
 
-<!-- <div class="container">
+<div class="container">
 	{#each ids as id}
 		<button id={`${id}-button`} on:click|stopPropagation={onClick}>{id}</button>
 	{/each}
 	<button class="stop" on:click={() => (src = undefined)}>stop</button>
-</div> -->
+</div>
 
-<!-- {#if src}
+{#if src}
 	<Sound {src} />
-{/if} -->
+{/if}
+
 <style>
 	.container {
 		position: absolute;

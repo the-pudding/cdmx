@@ -3,6 +3,7 @@
 	import Background from "$components/Background.svelte";
 	import Scrolly from "$components/helpers/Scrolly.svelte";
 	import Inline from "$components/Inline.svelte";
+	import Title from "$components/Title.svelte";
 	import {
 		language,
 		inModal,
@@ -23,20 +24,19 @@
 	let scrollValue;
 	let wrapper;
 
-	$: currentStep = scrollValue !== undefined ? steps[scrollValue] : undefined;
+	$: currentStep =
+		scrollValue === undefined || scrollValue > steps.length - 1
+			? undefined
+			: steps[scrollValue];
 	$: currentSound =
-		scrollValue !== undefined && currentStep.sound
+		currentStep && currentStep.sound
 			? `assets/sound/${currentStep.sound}.mp3`
 			: undefined;
 	$: vendors = _.uniq(steps.filter((d) => d.vendor).map((d) => d.vendor));
 	$: currentVendor =
-		scrollValue !== undefined && currentStep.vendor
-			? currentStep.vendor
-			: undefined;
+		currentStep && currentStep.vendor ? currentStep.vendor : undefined;
 	$: currentHighlight =
-		scrollValue !== undefined && currentStep.highlight
-			? currentStep.highlight
-			: undefined;
+		currentStep && currentStep.highlight ? currentStep.highlight : undefined;
 	$: $inModal =
 		id === "city" &&
 		scrollValue === undefined &&
@@ -83,6 +83,10 @@
 
 <section {id} class="steps">
 	<div class="sticky" bind:this={wrapper}>
+		{#if id === "intro"}
+			<Title {scrollValue} />
+		{/if}
+
 		{#if background}
 			<Background
 				backgroundId={background}
@@ -105,10 +109,6 @@
 		{/if}
 	</div>
 
-	{#if currentSound}
-		<Sound src={currentSound} />
-	{/if}
-
 	<Scrolly bind:value={scrollValue}>
 		{#each steps as step, i}
 			{@const stepId = id === "intro" && i === 0 ? "scroll-to-start" : null}
@@ -120,10 +120,18 @@
 				{@html step[$language]}
 			</div>
 		{/each}
+
+		{#if id === "intro"}
+			<div class="step extra" />
+		{/if}
 	</Scrolly>
 
 	{#if id === "city"}
 		<div class="spacer" id="scroll-to-explore" />
+	{/if}
+
+	{#if currentSound}
+		<Sound src={currentSound} />
 	{/if}
 </section>
 
@@ -140,6 +148,9 @@
 		text-align: center;
 		margin: 80vh 1em;
 		max-width: 600px;
+	}
+	.extra {
+		height: 10px;
 	}
 	.step.background {
 		background: var(--color-gray-100);
