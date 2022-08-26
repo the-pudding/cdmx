@@ -18,7 +18,6 @@
 
 	export let id;
 	export let steps;
-	export let background;
 	export let textBg = true;
 
 	let scrollValue;
@@ -42,7 +41,6 @@
 		scrollValue === undefined &&
 		$scrollY > 16000 &&
 		!$inFreePlay;
-	$: zoomable = id === "city";
 
 	$: scrollValue, stepChange();
 	const stepChange = () => {
@@ -85,12 +83,10 @@
 	<div class="sticky" bind:this={wrapper}>
 		{#if id === "intro"}
 			<Title {scrollValue} />
-		{/if}
-
-		{#if background}
+		{:else if id === "apartment" || id === "city"}
 			<Background
-				backgroundId={background}
-				{zoomable}
+				{id}
+				zoomable={id === "city"}
 				{wrapper}
 				highlight={currentHighlight}
 				opacity={$inModal ? 0.7 : 1}
@@ -139,6 +135,9 @@
 	.spacer {
 		height: 150vh;
 	}
+	.extra {
+		height: 10px;
+	}
 	.steps {
 		display: flex;
 		flex-direction: column;
@@ -148,9 +147,6 @@
 		text-align: center;
 		margin: 80vh 1em;
 		max-width: 600px;
-	}
-	.extra {
-		height: 10px;
 	}
 	.step.background {
 		background: var(--color-gray-100);

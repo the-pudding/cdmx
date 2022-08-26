@@ -8,7 +8,7 @@
 	import loadImage from "$utils/loadImage.js";
 	import scrollY from "$stores/scrollY.js";
 
-	export let backgroundId;
+	export let id;
 	export let zoomable;
 	export let wrapper;
 	export let highlight;
@@ -16,10 +16,10 @@
 	export let vendors;
 	export let currentVendor;
 
-	let cityBg;
 	let z;
 	let zoomableW;
 	let zoomableH;
+	let cityBg;
 	let ratio = 0;
 	const flyDuration = 1500;
 
@@ -46,7 +46,7 @@
 
 			if (!$inFreePlay) {
 				reset();
-				select(wrapper).on("wheel.zoom", null); // disable wheel;
+				select(wrapper).on("wheel.zoom", null); // disable wheel
 			}
 		}
 	};
@@ -59,7 +59,7 @@
 	};
 
 	const highlightChange = () => {
-		if (wrapper) {
+		if (zoomable) {
 			if (highlight === undefined) {
 				reset();
 			} else {
@@ -105,18 +105,16 @@
 	});
 </script>
 
-{#if backgroundId === "apartment"}
+{#if id === "apartment"}
 	<img
 		src="assets/img/background/apartment_ext.png"
-		class="apartment"
+		class="apartment ext"
 		alt="illustration of apartment in cdmx"
-		style={`z-index: 1`}
 	/>
 	<img
 		src="assets/img/background/apartment_int.png"
-		class="apartment"
+		class="apartment int"
 		alt="illustration of apartment in cdmx"
-		style={`z-index: 3`}
 	/>
 
 	{#each vendors as vendor}
@@ -125,13 +123,13 @@
 			onStage={vendor === currentVendor}
 		/>
 	{/each}
-{:else if backgroundId === "city"}
+{:else if id === "city"}
 	<img
 		src="assets/img/background/city.jpg"
+		class="city"
 		style:opacity
 		alt="illustration of cdmx streets"
 		bind:this={cityBg}
-		class="city"
 	/>
 {/if}
 
@@ -150,5 +148,11 @@
 	.apartment {
 		position: absolute;
 		top: 0;
+	}
+	.apartment.ext {
+		z-index: 1;
+	}
+	.apartment.int {
+		z-index: 3;
 	}
 </style>

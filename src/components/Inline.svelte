@@ -23,8 +23,10 @@
 	};
 
 	const onEnter = () => {
-		$ambi = 1;
-		$ambiVolume = 0.2;
+		if (id === "inline1") {
+			$ambi = 1;
+			$ambiVolume = 0.2;
+		}
 	};
 </script>
 

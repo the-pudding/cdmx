@@ -1,6 +1,5 @@
 <script>
 	import Background from "$components/Background.svelte";
-	import { base } from "$app/paths";
 	import copy from "$data/copy.json";
 	import { language } from "$stores/misc.js";
 	import scrollY from "$stores/scrollY.js";
@@ -26,7 +25,7 @@
 </script>
 
 <section id="title">
-	<Background backgroundId="city" />
+	<Background id="city" />
 
 	{#if !titlesVisible}
 		<div class="gradient" style={`--gradient: ${gradient}%`} transition:fade />
