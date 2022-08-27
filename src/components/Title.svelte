@@ -16,6 +16,9 @@
 		el.scrollIntoView({ block: "center" });
 	};
 
+	$: titlesVisible = scrollValue === 3 || leaving;
+	$: leaving = scrollValue === undefined && $scrollY > 2000;
+
 	const gradient = tweened(100, { duration: 800, easing: cubicOut });
 	$: scrollValue, updateGradient();
 
@@ -28,9 +31,6 @@
 			$gradient = 100 - (scrollValue + 1) * 25;
 		}
 	};
-
-	$: titlesVisible = scrollValue === 3 || leaving;
-	$: leaving = scrollValue === undefined && $scrollY > 2000;
 </script>
 
 <section id="title">
