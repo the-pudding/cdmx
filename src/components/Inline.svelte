@@ -22,7 +22,7 @@
 		el.scrollIntoView({ block: "center" });
 	};
 
-	const onEnter = () => {
+	const adjustAmbi = () => {
 		if (id === "inline1") {
 			$ambi = 1;
 			$ambiVolume = 0.2;
@@ -35,7 +35,7 @@
 	class:modal
 	transition:fade
 	use:inView={{ bottom: 200 }}
-	on:enter={onEnter}
+	on:enter={adjustAmbi}
 >
 	<h2>{@html title}</h2>
 	{#each content as p}

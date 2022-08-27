@@ -9,6 +9,6 @@ export const inModal = writable(false); /* in free play instruction modal */
 export const inFreePlay = writable(false); /* in zoomable/panable free play */
 
 export const ambi = writable(undefined); /* which ambi track is playing */
-export const ambiVolume = tweened(0.75, {
+export const ambiVolume = tweened(0, {
 	duration: 3000
 });

@@ -4,6 +4,8 @@
 	import { language } from "$stores/misc.js";
 	import scrollY from "$stores/scrollY.js";
 	import { fade } from "svelte/transition";
+	import { tweened } from "svelte/motion";
+	import { cubicOut } from "svelte/easing";
 
 	export let scrollValue;
 
@@ -14,22 +16,29 @@
 		el.scrollIntoView({ block: "center" });
 	};
 
+	const gradient = tweened(100, { duration: 800, easing: cubicOut });
+	$: scrollValue, updateGradient();
+
+	const updateGradient = () => {
+		if (scrollValue === undefined && leaving) {
+			$gradient = 0;
+		} else if (scrollValue === undefined) {
+			$gradient = 100;
+		} else {
+			$gradient = 100 - (scrollValue + 1) * 25;
+		}
+	};
+
 	$: titlesVisible = scrollValue === 3 || leaving;
 	$: leaving = scrollValue === undefined && $scrollY > 2000;
-	$: gradient =
-		scrollValue === undefined && leaving
-			? 0
-			: scrollValue === undefined
-			? 100
-			: 500 - scrollValue * 150;
 </script>
 
 <section id="title">
-	<Background id="city" />
-
 	{#if !titlesVisible}
-		<div class="gradient" style={`--gradient: ${gradient}%`} transition:fade />
+		<div class="gradient" style={`--gradient: ${$gradient}%`} out:fade />
 	{/if}
+
+	<Background id="city" />
 
 	{#if titlesVisible}
 		<div class="titles" transition:fade>
@@ -64,7 +73,7 @@
 		width: 100vw;
 		position: absolute;
 		top: 0;
-		background: radial-gradient(white, rgb(255, 255, 255, 0) var(--gradient));
+		background: radial-gradient(white var(--gradient), transparent);
 	}
 
 	.titles {

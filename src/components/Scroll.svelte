@@ -42,15 +42,19 @@
 		$scrollY > 16000 &&
 		!$inFreePlay;
 
-	$: scrollValue, stepChange();
-	const stepChange = () => {
+	$: scrollValue, adjustAmbi();
+	const adjustAmbi = () => {
+		const levels = [0.4, 0.6, 0.75];
 		if (id === "intro") {
-			if (scrollValue !== undefined) {
+			if (scrollValue !== undefined && scrollValue < 3) {
 				$ambi = scrollValue + 1;
-				$ambiVolume = 0.75;
-			} else if (scrollValue === undefined && $scrollY > 2000) {
+				$ambiVolume = levels[scrollValue];
+			} else if (
+				(scrollValue === undefined || scrollValue === 3) &&
+				$scrollY > 2000
+			) {
 				$ambi = 3;
-				$ambiVolume = 0.75;
+				$ambiVolume = levels[2];
 			} else {
 				$ambi = undefined;
 			}
@@ -105,7 +109,7 @@
 		{/if}
 	</div>
 
-	<Scrolly bind:value={scrollValue}>
+	<Scrolly bind:value={scrollValue} hide={id === "intro" && scrollValue === 3}>
 		{#each steps as step, i}
 			{@const stepId = id === "intro" && i === 0 ? "scroll-to-start" : null}
 			{@const active = scrollValue === i}
@@ -135,9 +139,6 @@
 	.spacer {
 		height: 150vh;
 	}
-	.extra {
-		height: 10px;
-	}
 	.steps {
 		display: flex;
 		flex-direction: column;
@@ -147,6 +148,10 @@
 		text-align: center;
 		margin: 80vh 1em;
 		max-width: 600px;
+	}
+	.step.extra {
+		height: 10px;
+		margin: 65vh 1em;
 	}
 	.step.background {
 		background: var(--color-gray-100);

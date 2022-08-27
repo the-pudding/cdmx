@@ -17,6 +17,7 @@
 	export let bottom = 0;
 	export let increments = 100;
 	export let value = undefined;
+	export let hide;
 
 	const steps = [];
 	const threshold = [];
@@ -75,12 +76,12 @@
 	});
 </script>
 
-<div bind:this={container}>
+<div bind:this={container} class:cover={!hide}>
 	<slot />
 </div>
 
 <style>
-	div {
+	.cover {
 		z-index: 4;
 	}
 </style>
