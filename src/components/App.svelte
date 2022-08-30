@@ -35,5 +35,7 @@
 
 	<Scroll id="city" steps={copy.citySteps} />
 
+	<Inline id="thanks" title={copy.thanks.title} content={copy.thanks.content} />
+
 	<Footer />
 {/if}

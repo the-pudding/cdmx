@@ -2,7 +2,7 @@ import { writable } from "svelte/store";
 import { tweened } from "svelte/motion";
 
 export const language = writable("english");
-export const soundOn = writable(true);
+export const soundOn = writable(false);
 
 export const entered = writable(false); /* entered the story */
 export const inModal = writable(false); /* in free play instruction modal */
