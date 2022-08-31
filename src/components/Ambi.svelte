@@ -27,18 +27,3 @@
 		<track kind="captions" />
 	</audio>
 {/each}
-
-<!-- <style>
-	audio {
-		position: fixed;
-	}
-	audio:nth-child(2) {
-		top: 1em;
-	}
-	audio:nth-child(3) {
-		top: 5em;
-	}
-	audio:nth-child(4) {
-		top: 10em;
-	}
-</style> -->

@@ -42,8 +42,6 @@
 		$scrollY > 16000 &&
 		!$inFreePlay;
 
-	// $: console.log(scrollValue, $scrollY, $inFreePlay, id);
-
 	$: scrollValue, adjustAmbi();
 	const adjustAmbi = () => {
 		const levels = [0.4, 0.6, 0.75];
@@ -51,14 +49,6 @@
 			if (scrollValue !== undefined && scrollValue < 3) {
 				$ambi = scrollValue + 1;
 				$ambiVolume = levels[scrollValue];
-			} else if (
-				(scrollValue === undefined || scrollValue === 3) &&
-				$scrollY > 2000
-			) {
-				$ambi = 3;
-				$ambiVolume = levels[2];
-			} else {
-				$ambi = undefined;
 			}
 		}
 	};
@@ -133,7 +123,9 @@
 	{/if}
 
 	{#if currentSound}
-		<Sound src={currentSound} />
+		{#key currentSound}
+			<Sound src={currentSound} />
+		{/key}
 	{/if}
 </section>
 

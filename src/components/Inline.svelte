@@ -25,7 +25,7 @@
 	const adjustAmbi = () => {
 		if (id === "inline1") {
 			$ambi = 1;
-			$ambiVolume = 0.2;
+			$ambiVolume = 0.15;
 		}
 	};
 </script>
