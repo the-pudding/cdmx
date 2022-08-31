@@ -42,6 +42,8 @@
 		$scrollY > 16000 &&
 		!$inFreePlay;
 
+	// $: console.log(scrollValue, $scrollY, $inFreePlay, id);
+
 	$: scrollValue, adjustAmbi();
 	const adjustAmbi = () => {
 		const levels = [0.4, 0.6, 0.75];
@@ -169,7 +171,7 @@
 		align-items: center;
 		position: sticky;
 		top: 0;
-		width: 100%;
+		width: 100vw;
 		height: 100vh;
 		min-width: 1378px;
 		overflow: hidden;

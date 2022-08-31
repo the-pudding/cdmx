@@ -12,3 +12,5 @@ export const ambi = writable(undefined); /* which ambi track is playing */
 export const ambiVolume = tweened(0, {
 	duration: 3000
 });
+
+export const freePlaySound = writable(undefined);

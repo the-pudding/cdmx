@@ -1,7 +1,7 @@
 <script>
 	import Background from "$components/Background.svelte";
 	import copy from "$data/copy.json";
-	import { language } from "$stores/misc.js";
+	import { language, inModal } from "$stores/misc.js";
 	import scrollY from "$stores/scrollY.js";
 	import { fade } from "svelte/transition";
 	import { tweened } from "svelte/motion";

@@ -4,7 +4,7 @@
 	import { select, zoom, zoomIdentity } from "d3";
 	import viewport from "$stores/viewport";
 	import { onMount } from "svelte";
-	import { inFreePlay } from "$stores/misc.js";
+	import { inFreePlay, freePlaySound } from "$stores/misc.js";
 	import loadImage from "$utils/loadImage.js";
 	import scrollY from "$stores/scrollY.js";
 
@@ -52,9 +52,12 @@
 	};
 
 	const handleZoom = (e) => {
+		let x = e.transform.x;
+		let y = e.transform.y;
+
 		select(cityBg).style(
 			"transform",
-			`translate(${e.transform.x}px, ${e.transform.y}px) scale(${e.transform.k})`
+			`translate(${x}px, ${y}px) scale(${e.transform.k})`
 		);
 	};
 
@@ -69,7 +72,7 @@
 	};
 
 	const reset = () => {
-		if ($scrollY > 14000) {
+		if ($scrollY > 13000) {
 			select(wrapper)
 				.transition()
 				.duration(flyDuration)
@@ -124,25 +127,30 @@
 		/>
 	{/each}
 {:else if id === "city"}
-	<img
-		src="assets/img/background/city.jpg"
-		class="city"
-		style:opacity
-		alt="illustration of cdmx streets"
-		bind:this={cityBg}
-	/>
-{/if}
+	<div bind:this={cityBg} class="city-wrapper">
+		<img
+			src="assets/img/background/city.jpg"
+			class="city"
+			style:opacity
+			alt="illustration of cdmx streets"
+			on:click={() => ($freePlaySound = undefined)}
+		/>
 
-{#if $inFreePlay}
-	<InteractiveLayer />
+		{#if $inFreePlay}
+			<InteractiveLayer />
+		{/if}
+	</div>
 {/if}
 
 <style>
 	img {
 		width: 100%;
 	}
-	.city {
+	.city-wrapper {
 		transform-origin: 0px 0px;
+		position: relative;
+	}
+	.city {
 		min-width: 1378px;
 	}
 	.apartment {
