@@ -4,7 +4,7 @@
 	import { select, zoom, zoomIdentity } from "d3";
 	import viewport from "$stores/viewport";
 	import { onMount } from "svelte";
-	import { inFreePlay, freePlaySound } from "$stores/misc.js";
+	import { inFreePlay, freePlaySelection, flyLocations } from "$stores/misc.js";
 	import loadImage from "$utils/loadImage.js";
 	import scrollY from "$stores/scrollY.js";
 
@@ -25,6 +25,8 @@
 
 	$: cityBg, $viewport.width, $inFreePlay, setupZoom();
 	$: highlight, highlightChange();
+	$: if ($freePlaySelection) flyTo($freePlaySelection);
+	$: isMobile = $viewport.width < 600;
 
 	const setupZoom = () => {
 		if (zoomable) {
@@ -82,21 +84,19 @@
 		}
 	};
 
-	const flyTo = (location) => {
-		const flyLocations = {
-			guy: [-0.75, -0.3],
-			chatarrero: [-1.5, -1],
-			tacos: [-1, -1.9],
-			toreros: [0, -2]
-		};
+	const flyTo = (id) => {
+		const scale = isMobile ? 2 : 3;
 
-		const t = zoomIdentity
-			.translate(
-				zoomableW * flyLocations[location][0],
-				zoomableH * flyLocations[location][1]
-			)
-			.scale(3);
-		select(wrapper).transition().duration(flyDuration).call(z.transform, t);
+		if ($flyLocations[id]) {
+			const location = isMobile
+				? $flyLocations[id].mobile
+				: $flyLocations[id].desktop;
+
+			const t = zoomIdentity
+				.translate(zoomableW * location[0], zoomableH * location[1])
+				.scale(scale);
+			select(wrapper).transition().duration(flyDuration).call(z.transform, t);
+		}
 	};
 
 	onMount(async () => {
@@ -133,7 +133,7 @@
 			class="city"
 			style:opacity
 			alt="illustration of cdmx streets"
-			on:click={() => ($freePlaySound = undefined)}
+			on:click={() => ($freePlaySelection = undefined)}
 		/>
 
 		{#if $inFreePlay}

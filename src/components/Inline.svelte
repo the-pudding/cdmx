@@ -57,8 +57,10 @@
 	.modal {
 		position: absolute;
 		top: 0;
+		left: 50%;
+		transform: translate(-50%, 0);
 		background: var(--color-gray-200);
-		padding: 1.5em;
+		padding: 1em 1.5em;
 		box-shadow: 0 3px 7px rgb(0 0 0 / 30%);
 		z-index: 3000;
 	}

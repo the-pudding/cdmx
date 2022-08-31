@@ -1,6 +1,7 @@
 <script>
 	import Sound from "$components/Sound.svelte";
-	import Background from "$components/Background.svelte";
+	import Apartment from "$components/Apartment.svelte";
+	import City from "$components/City.svelte";
 	import Scrolly from "$components/helpers/Scrolly.svelte";
 	import Inline from "$components/Inline.svelte";
 	import Title from "$components/Title.svelte";
@@ -21,7 +22,7 @@
 	export let textBg = true;
 
 	let scrollValue;
-	let wrapper;
+	let sticky;
 
 	$: currentStep =
 		scrollValue === undefined || scrollValue > steps.length - 1
@@ -32,10 +33,6 @@
 			? `assets/sound/${currentStep.sound}.mp3`
 			: undefined;
 	$: vendors = _.uniq(steps.filter((d) => d.vendor).map((d) => d.vendor));
-	$: currentVendor =
-		currentStep && currentStep.vendor ? currentStep.vendor : undefined;
-	$: currentHighlight =
-		currentStep && currentStep.highlight ? currentStep.highlight : undefined;
 	$: $inModal =
 		id === "city" &&
 		scrollValue === undefined &&
@@ -76,19 +73,13 @@
 </script>
 
 <section {id} class="steps">
-	<div class="sticky" bind:this={wrapper}>
+	<div class="sticky" bind:this={sticky}>
 		{#if id === "intro"}
 			<Title {scrollValue} />
-		{:else if id === "apartment" || id === "city"}
-			<Background
-				{id}
-				zoomable={id === "city"}
-				{wrapper}
-				highlight={currentHighlight}
-				opacity={$inModal ? 0.7 : 1}
-				{vendors}
-				{currentVendor}
-			/>
+		{:else if id === "apartment"}
+			<Apartment {currentStep} {vendors} />
+		{:else if id === "city"}
+			<City {currentStep} {sticky} />
 		{/if}
 
 		{#if $inModal}
@@ -160,12 +151,11 @@
 	.sticky {
 		display: flex;
 		flex-direction: column;
-		align-items: center;
+		align-items: flex-start;
 		position: sticky;
 		top: 0;
-		width: 100vw;
 		height: 100vh;
-		min-width: 1378px;
+		width: 100%;
 		overflow: hidden;
 	}
 	.placeholder {

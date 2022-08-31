@@ -12,16 +12,16 @@
 
 	$: x = tweened(leftWing, { duration: 3000, easing: quadOut });
 
-	// TODO: fix
-	$: imageW = $viewport.width > 1378 ? $viewport.width : 1378;
+	$: imageW = $viewport.width > 1047 ? $viewport.width : 1047;
 	$: imageH = ratio * imageW;
 
 	$: top = imageH * 0.15;
-	$: leftWing = $viewport.width < 600 ? -0.2 * imageW : -0.08 * imageW;
-	$: rightWing = 0.95 * imageW;
-	$: middle = 0.45 * imageW;
+	$: leftWing = -10;
+	$: middle = 50;
+	$: rightWing = 110;
+	$: big = $viewport.width > 1200;
 
-	$: onStage, update();
+	$: onStage, $viewport.width, update();
 
 	const update = () => {
 		if (onStage) {
@@ -42,7 +42,13 @@
 </script>
 
 {#key src}
-	<img {src} alt="vendor" style:left={`${$x}px`} style:top={`${top}px`} />
+	<img
+		{src}
+		alt="vendor"
+		style:top={`${top}px`}
+		style:left={`${$x}%`}
+		class:big
+	/>
 {/key}
 
 <style>
@@ -50,6 +56,8 @@
 		z-index: 2;
 		height: 200px;
 		position: absolute;
+	}
+	.big {
 		transform: scale(1.3);
 	}
 </style>

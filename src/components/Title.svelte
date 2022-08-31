@@ -1,5 +1,6 @@
 <script>
 	import Background from "$components/Background.svelte";
+	import City from "$components/City.svelte";
 	import copy from "$data/copy.json";
 	import { language, inModal } from "$stores/misc.js";
 	import scrollY from "$stores/scrollY.js";
@@ -38,7 +39,7 @@
 		<div class="gradient" style={`--gradient: ${$gradient}%`} out:fade />
 	{/if}
 
-	<Background id="city" />
+	<!-- <City /> -->
 
 	{#if titlesVisible}
 		<div class="titles" transition:fade>

@@ -81,6 +81,9 @@
 </div>
 
 <style>
+	div {
+		align-self: center;
+	}
 	.cover {
 		z-index: 4;
 	}
