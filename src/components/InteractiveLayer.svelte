@@ -2,6 +2,7 @@
 	import Sound from "$components/Sound.svelte";
 	import copy from "$data/copy.json";
 	import { freePlaySelection, buttonLocations } from "$stores/misc.js";
+	import { fade } from "svelte/transition";
 
 	let src;
 
@@ -25,6 +26,7 @@
 			style:left={`${$buttonLocations[id][0]}%`}
 			style:top={`${$buttonLocations[id][1]}%`}
 			class:selected={$freePlaySelection === id}
+			transition:fade
 		/>
 	{/if}
 {/each}
@@ -40,7 +42,7 @@
 		position: absolute;
 		background: transparent;
 		box-shadow: inset 0px 0px 25px 0px rgb(255, 215, 0, 0.5),
-			0px 0px 40px 0px rgb(255, 215, 0, 0.8);
+			0px 0px 70px 0px rgb(255, 215, 0, 0.7);
 		border: none;
 		height: 100px;
 		width: 100px;
@@ -48,7 +50,7 @@
 	}
 	.selected,
 	button:hover {
-		box-shadow: inset 0px 0px 25px 0px rgba(212, 0, 255, 0.5),
-			0px 0px 40px 0px rgb(212, 0, 255, 0.8);
+		box-shadow: inset 0px 0px 25px 0px rgba(72, 189, 240, 0.5),
+			0px 0px 70px 0px rgb(72, 189, 240, 0.7);
 	}
 </style>
