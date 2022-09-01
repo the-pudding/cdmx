@@ -19,6 +19,8 @@
 
 	$: titlesVisible = scrollValue === 3 || leaving;
 	$: leaving = scrollValue === undefined && $scrollY > 2000;
+	$: buttonText =
+		$language === "english" ? "skip to explore this map" : "ir directo al mapa";
 
 	const gradient = tweened(100, { duration: 800, easing: cubicOut });
 	$: scrollValue, updateGradient();
@@ -50,7 +52,7 @@
 				<div>{@html byline[$language]}</div>
 			{/each}
 		</div>
-		<button on:click={skip} transition:fade>skip to explore this map</button>
+		<button on:click={skip} transition:fade>{buttonText}</button>
 	{/if}
 </section>
 

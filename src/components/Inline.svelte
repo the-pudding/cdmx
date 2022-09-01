@@ -14,6 +14,8 @@
 	export let title;
 	export let modal;
 
+	$: buttonText = $language === "english" ? "explore!" : "¡explora!";
+
 	const startFreePlay = () => {
 		$inModal = false;
 		$inFreePlay = true;
@@ -37,14 +39,14 @@
 	use:inView={{ bottom: 200 }}
 	on:enter={adjustAmbi}
 >
-	<h2>{@html title}</h2>
+	<h2>{@html title[$language]}</h2>
 	{#each content as p}
 		{@const text = p[$language]}
 		<p>{@html text}</p>
 	{/each}
 
 	{#if id === "free"}
-		<button on:click={startFreePlay}>explore!</button>
+		<button on:click={startFreePlay}>{buttonText}</button>
 	{/if}
 </section>
 

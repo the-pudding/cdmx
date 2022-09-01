@@ -6,6 +6,7 @@
 	import scrollY from "$stores/scrollY.js";
 
 	$: visible = $entered && $scrollY > 300;
+	$: buttonText = $language === "english" ? "exit free play" : "salir";
 
 	const exitFreePlay = () => {
 		$inFreePlay = false;
@@ -26,7 +27,7 @@
 	{#if visible}
 		<div class="buttons">
 			{#if $inFreePlay}
-				<button on:click={exitFreePlay}>exit free play</button>
+				<button on:click={exitFreePlay}>{buttonText}</button>
 			{/if}
 
 			<button on:click={() => ($soundOn = !$soundOn)}

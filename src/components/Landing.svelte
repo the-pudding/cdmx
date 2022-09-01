@@ -6,6 +6,8 @@
 	import { tick } from "svelte";
 
 	$: intro = copy.landing[$language];
+	$: buttonText =
+		$language === "english" ? "start audio story" : "iniciar (incluye audio)";
 
 	const enter = async () => {
 		$entered = true;
@@ -32,7 +34,7 @@
 
 	<div class="buttons">
 		<button on:click={enter}
-			>start audio story <span><Icon name="volume-2" /></span></button
+			>{buttonText}<span><Icon name="volume-2" /></span></button
 		>
 	</div>
 </section>
