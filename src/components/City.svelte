@@ -77,13 +77,14 @@
 			const t = zoomIdentity
 				.translate(zoomableW * location[0], zoomableH * location[1])
 				.scale(scale);
-			select(wrapper).transition().duration(flyDuration).call(z.transform, t);
+
+			select(sticky).transition().duration(flyDuration).call(z.transform, t);
 		}
 	};
 
 	const reset = () => {
 		if ($scrollY > 13000) {
-			select(wrapper)
+			select(sticky)
 				.transition()
 				.duration(flyDuration)
 				.call(z.transform, zoomIdentity);
