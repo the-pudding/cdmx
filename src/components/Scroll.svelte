@@ -139,7 +139,7 @@
 		margin: 65vh 1em;
 	}
 	.step.background {
-		background: var(--color-gray-100);
+		background: var(--step-background);
 		padding: 2em;
 	}
 	.step.last {

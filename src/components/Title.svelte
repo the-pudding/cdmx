@@ -17,6 +17,12 @@
 		el.scrollIntoView({ block: "center" });
 	};
 
+	$: panelWidth =
+		scrollValue === undefined && $scrollY < 1000
+			? 0
+			: scrollValue === undefined
+			? 100
+			: 25 * (scrollValue + 1);
 	$: titlesVisible = scrollValue === 3 || leaving;
 	$: leaving = scrollValue === undefined && $scrollY > 2000;
 	$: buttonText =
@@ -36,12 +42,18 @@
 	};
 </script>
 
-<section id="title">
-	{#if !titlesVisible}
+<div id="title">
+	<!-- {#if !titlesVisible}
 		<div class="gradient" style={`--gradient: ${$gradient}%`} out:fade />
-	{/if}
+	{/if} -->
 
-	<!-- <City /> -->
+	<div
+		class="panel-wrapper"
+		style:width={`${panelWidth}%`}
+		class:faded={panelWidth !== 100}
+	>
+		<City />
+	</div>
 
 	{#if titlesVisible}
 		<div class="titles" transition:fade>
@@ -54,10 +66,10 @@
 		</div>
 		<button on:click={skip} transition:fade>{buttonText}</button>
 	{/if}
-</section>
+</div>
 
 <style>
-	section {
+	#title {
 		width: 100%;
 		height: 100vh;
 		background-position: center;
@@ -66,7 +78,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		align-items: center;
+		align-items: flex-start;
 		text-align: center;
 		position: relative;
 	}
@@ -77,6 +89,15 @@
 		position: absolute;
 		top: 0;
 		background: radial-gradient(white var(--gradient), transparent);
+	}
+
+	.panel-wrapper {
+		opacity: 1;
+		overflow: hidden;
+		transition: all 1s;
+	}
+	.faded {
+		opacity: 0.2;
 	}
 
 	.titles {
@@ -94,7 +115,7 @@
 
 	h1,
 	h2,
-	div {
+	.titles {
 		background: white;
 		padding: 0 0.4em;
 	}
@@ -102,5 +123,7 @@
 	button {
 		position: absolute;
 		bottom: 30px;
+		left: 50%;
+		transform: translate(-50%, 0);
 	}
 </style>

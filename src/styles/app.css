@@ -17,6 +17,8 @@
 	--z-top: 100;
 	--z-overlay: 1000;
 
+	--step-background: #fff8eb;
+
 	/* presets (used in reset.css) */
 	--button-outline: var(--color-gray-300);
 

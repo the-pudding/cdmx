@@ -52,7 +52,7 @@
 
 	.toggle--inner button {
 		padding: 0.5em;
-		background-color: var(--color-white);
+		background-color: var(--step-background);
 		border: 2px solid var(--color-gray-900);
 	}
 
