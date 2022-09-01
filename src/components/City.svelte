@@ -94,7 +94,7 @@
 	};
 
 	onMount(async () => {
-		const img = await loadImage("assets/img/background/city.jpg");
+		const img = await loadImage("assets/img/background/city_final.jpg");
 		ratio = img.height / img.width;
 		setupZoom();
 	});
@@ -102,7 +102,7 @@
 
 <div class="city-wrapper" bind:this={wrapper}>
 	<img
-		src="assets/img/background/city.jpg"
+		src="assets/img/background/city_final.jpg"
 		style:opacity
 		alt="illustration of cdmx streets"
 		on:click={() => ($freePlaySelection = undefined)}

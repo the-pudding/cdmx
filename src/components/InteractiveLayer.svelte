@@ -42,7 +42,7 @@
 		position: absolute;
 		background: transparent;
 		box-shadow: inset 0px 0px 25px 0px rgb(255, 215, 0, 0.5),
-			0px 0px 70px 0px rgb(255, 215, 0, 0.7);
+			0px 0px 70px 0px rgb(255, 215, 0, 1);
 		border: none;
 		height: 100px;
 		width: 100px;
@@ -51,6 +51,6 @@
 	.selected,
 	button:hover {
 		box-shadow: inset 0px 0px 25px 0px rgba(72, 189, 240, 0.5),
-			0px 0px 70px 0px rgb(72, 189, 240, 0.7);
+			0px 0px 70px 0px rgb(72, 189, 240, 1);
 	}
 </style>

@@ -6,7 +6,7 @@
 	import Ambi from "$components/Ambi.svelte";
 	import Footer from "$components/Footer.svelte";
 	import copy from "$data/copy.json";
-	import { entered, ambi, ambiVolume } from "$stores/misc.js";
+	import { entered } from "$stores/misc.js";
 
 	$: console.log({ copy });
 </script>
