@@ -19,6 +19,8 @@
 	const startFreePlay = () => {
 		$inModal = false;
 		$inFreePlay = true;
+		$ambi = 1;
+		$ambiVolume = 0.2;
 
 		const el = document.getElementById("scroll-to-explore");
 		el.scrollIntoView({ block: "center" });
@@ -61,7 +63,8 @@
 		top: 0;
 		left: 50%;
 		transform: translate(-50%, 0);
-		background: var(--color-gray-200);
+		background: white;
+		border: 2px solid black;
 		padding: 1em 1.5em;
 		box-shadow: 0 3px 7px rgb(0 0 0 / 30%);
 		z-index: 3000;

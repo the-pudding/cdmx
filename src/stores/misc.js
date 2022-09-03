@@ -38,6 +38,7 @@ export const buttonLocations = readable({
 });
 
 export const flyLocations = readable({
+	afilador: { desktop: [-1.3, -0.9], mobile: [-1.5, -1] },
 	guy: { desktop: [-0.75, -0.3], mobile: [-0.2, -0.3] },
 	chatarrero: { desktop: [-1.5, -1], mobile: [-1.5, -1] },
 	tacos: { desktop: [-1, -1.9], mobile: [-1, -1.9] },

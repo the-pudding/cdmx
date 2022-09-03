@@ -3,6 +3,7 @@
 	import Apartment from "$components/Apartment.svelte";
 	import City from "$components/City.svelte";
 	import Scrolly from "$components/helpers/Scrolly.svelte";
+	import Description from "$components/Description.svelte";
 	import Inline from "$components/Inline.svelte";
 	import Title from "$components/Title.svelte";
 	import {
@@ -36,7 +37,7 @@
 	$: $inModal =
 		id === "city" &&
 		scrollValue === undefined &&
-		$scrollY > 16000 &&
+		$scrollY > 13000 &&
 		!$inFreePlay;
 
 	$: scrollValue, adjustAmbi();
@@ -70,6 +71,8 @@
 			window.onscroll = () => {};
 		}
 	};
+
+	$: console.log({ scrollValue });
 </script>
 
 <section {id} class="steps">
@@ -80,6 +83,7 @@
 			<Apartment {currentStep} {vendors} />
 		{:else if id === "city"}
 			<City {currentStep} {sticky} />
+			<Description />
 		{/if}
 
 		{#if $inModal}
@@ -92,7 +96,10 @@
 		{/if}
 	</div>
 
-	<Scrolly bind:value={scrollValue} hide={id === "intro" && scrollValue === 3}>
+	<Scrolly
+		bind:value={scrollValue}
+		hide={id === "intro" && (scrollValue === 3 || scrollValue === undefined)}
+	>
 		{#each steps as step, i}
 			{@const stepId = id === "intro" && i === 0 ? "scroll-to-start" : null}
 			{@const active = scrollValue === i}

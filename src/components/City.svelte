@@ -24,7 +24,6 @@
 	let ratio = 0;
 
 	$: isMobile = $viewport.width < 600;
-	$: opacity = $inModal ? 0.7 : 1;
 	$: wrapper, $viewport.width, $inFreePlay, setupZoom();
 	$: currentHighlight =
 		currentStep && currentStep.highlight ? currentStep.highlight : undefined;
@@ -100,12 +99,12 @@
 	});
 </script>
 
-<div class="city-wrapper" bind:this={wrapper}>
+<div class="city-wrapper" bind:this={wrapper} class:in-modal={$inModal}>
 	<img
 		src="assets/img/background/city.jpg"
-		style:opacity
 		alt="illustration of cdmx streets"
 		on:click={() => ($freePlaySelection = undefined)}
+		class:free-play-selection={$freePlaySelection}
 	/>
 
 	{#if $inFreePlay}
@@ -117,9 +116,19 @@
 	img {
 		width: 100%;
 		min-width: 1378px;
+		opacity: 1;
+		transition: opacity 500ms;
 	}
 	.city-wrapper {
 		transform-origin: 0px 0px;
 		position: relative;
+		opacity: 1;
+		transition: opacity 500ms;
+	}
+	.in-modal {
+		opacity: 0.7;
+	}
+	.free-play-selection {
+		opacity: 0.5;
 	}
 </style>

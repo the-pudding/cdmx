@@ -1,5 +1,4 @@
 <script>
-	import Background from "$components/Background.svelte";
 	import City from "$components/City.svelte";
 	import copy from "$data/copy.json";
 	import { language, inModal } from "$stores/misc.js";
@@ -17,12 +16,16 @@
 		el.scrollIntoView({ block: "center" });
 	};
 
-	$: panelWidth =
-		scrollValue === undefined && $scrollY < 1000
-			? 0
-			: scrollValue === undefined
-			? 100
-			: 25 * (scrollValue + 1);
+	// $: panelWidth =
+	// 	scrollValue === undefined && $scrollY < 1000
+	// 		? 0
+	// 		: scrollValue === undefined
+	// 		? 100
+	// 		: 25 * (scrollValue + 1);
+	// $: faded = panelWidth !== 100
+	$: panelWidth = 100;
+	$: faded = $gradient > 0;
+
 	$: titlesVisible = scrollValue === 3 || leaving;
 	$: leaving = scrollValue === undefined && $scrollY > 2000;
 	$: buttonText =
@@ -43,15 +46,11 @@
 </script>
 
 <div id="title">
-	<!-- {#if !titlesVisible}
+	{#if !titlesVisible}
 		<div class="gradient" style={`--gradient: ${$gradient}%`} out:fade />
-	{/if} -->
+	{/if}
 
-	<div
-		class="panel-wrapper"
-		style:width={`${panelWidth}%`}
-		class:faded={panelWidth !== 100}
-	>
+	<div class="panel-wrapper" style:width={`${panelWidth}%`} class:faded>
 		<City />
 	</div>
 
@@ -60,9 +59,11 @@
 			<h1>{@html hed[$language]}</h1>
 			<h2>{@html dek[$language]}</h2>
 
-			{#each bylines as byline}
-				<div>{@html byline[$language]}</div>
-			{/each}
+			<div class="bylines">
+				{#each bylines as byline}
+					<div>{@html byline[$language]}</div>
+				{/each}
+			</div>
 		</div>
 		<button on:click={skip} transition:fade>{buttonText}</button>
 	{/if}
@@ -84,6 +85,7 @@
 	}
 
 	.gradient {
+		z-index: 1000;
 		height: 100vh;
 		width: 100vw;
 		position: absolute;
@@ -97,27 +99,38 @@
 		transition: all 1s;
 	}
 	.faded {
-		opacity: 0.2;
+		opacity: 0.7;
 	}
 
 	.titles {
 		position: absolute;
 		top: 30%;
 		width: 100vw;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 	}
 
 	h1 {
-		font-size: 4em;
+		font-size: 5em;
+		transform: rotate(2deg);
 	}
 	h2 {
 		font-size: 2em;
+		transform: rotate(-1deg);
+		max-width: 600px;
 	}
-
 	h1,
 	h2,
-	.titles {
+	.bylines {
 		background: white;
 		padding: 0 0.4em;
+		border: 2px solid black;
+	}
+
+	.bylines {
+		font-family: var(--sans);
+		padding: 0.8em;
 	}
 
 	button {

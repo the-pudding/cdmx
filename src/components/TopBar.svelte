@@ -1,7 +1,14 @@
 <script>
 	import Toggle from "$components/helpers/Toggle.svelte";
+	import Icon from "$components/helpers/Icon.svelte";
 	import logo from "$svg/logo.svg";
-	import { entered, language, soundOn, inFreePlay } from "$stores/misc.js";
+	import {
+		entered,
+		language,
+		soundOn,
+		inFreePlay,
+		freePlaySelection
+	} from "$stores/misc.js";
 	import { fade } from "svelte/transition";
 	import scrollY from "$stores/scrollY.js";
 
@@ -10,6 +17,7 @@
 
 	const exitFreePlay = () => {
 		$inFreePlay = false;
+		$freePlaySelection = undefined;
 	};
 </script>
 
