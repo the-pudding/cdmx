@@ -38,7 +38,7 @@
 	}
 	.toggle button,
 	.label {
-		font-family: inherit;
+		font-family: var(--sans);
 		font-size: 1em;
 	}
 

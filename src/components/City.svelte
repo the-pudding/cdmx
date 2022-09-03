@@ -66,16 +66,15 @@
 	};
 
 	const flyTo = (id) => {
-		const scale = isMobile ? 2 : 3;
+		const scale = 2;
 
 		if ($flyLocations[id]) {
-			const location = isMobile
-				? $flyLocations[id].mobile
-				: $flyLocations[id].desktop;
+			const location = $flyLocations[id] || [0, 0];
 
-			const t = zoomIdentity
-				.translate(zoomableW * location[0], zoomableH * location[1])
-				.scale(scale);
+			const x = $viewport.width / 2 - zoomableW * scale * location[0];
+			const y = $viewport.height / 2 - zoomableH * scale * location[1];
+
+			const t = zoomIdentity.translate(x, y).scale(scale);
 
 			select(sticky).transition().duration(flyDuration).call(z.transform, t);
 		}

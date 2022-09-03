@@ -1,7 +1,7 @@
 <script>
 	import Sound from "$components/Sound.svelte";
 	import copy from "$data/copy.json";
-	import { freePlaySelection, buttonLocations, inModal } from "$stores/misc.js";
+	import { freePlaySelection, flyLocations, inModal } from "$stores/misc.js";
 	import { fade } from "svelte/transition";
 
 	let src;
@@ -21,12 +21,12 @@
 <img src="assets/img/afilador.png" />
 
 {#each ids as id}
-	{#if $buttonLocations[id]}
+	{#if $flyLocations[id]}
 		<button
 			id={`${id}-button`}
 			on:click|stopPropagation={onClick}
-			style:left={`${$buttonLocations[id][0]}%`}
-			style:top={`${$buttonLocations[id][1]}%`}
+			style:left={`${$flyLocations[id][0] * 100}%`}
+			style:top={`${$flyLocations[id][1] * 100}%`}
 			class:selected={$freePlaySelection === id}
 			transition:fade
 		/>
@@ -42,7 +42,8 @@
 <style>
 	button {
 		position: absolute;
-		background: transparent;
+		background: rgb(30, 30, 30, 0.6);
+		transform: translate(-50%, -50%);
 		/* box-shadow: inset 0px 0px 25px 0px rgb(255, 215, 0, 0.5),
 			0px 0px 70px 0px rgb(255, 215, 0, 1); */
 		border: none;

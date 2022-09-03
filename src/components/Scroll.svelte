@@ -39,6 +39,9 @@
 		scrollValue === undefined &&
 		$scrollY > 13000 &&
 		!$inFreePlay;
+	$: hide =
+		$inFreePlay ||
+		(id === "intro" && (scrollValue === 3 || scrollValue === undefined));
 
 	$: scrollValue, adjustAmbi();
 	const adjustAmbi = () => {
@@ -71,12 +74,10 @@
 			window.onscroll = () => {};
 		}
 	};
-
-	$: console.log({ scrollValue });
 </script>
 
 <section {id} class="steps">
-	<div class="sticky" bind:this={sticky}>
+	<div class="sticky" bind:this={sticky} class:apartment={id === "apartment"}>
 		{#if id === "intro"}
 			<Title {scrollValue} />
 		{:else if id === "apartment"}
@@ -96,10 +97,7 @@
 		{/if}
 	</div>
 
-	<Scrolly
-		bind:value={scrollValue}
-		hide={id === "intro" && (scrollValue === 3 || scrollValue === undefined)}
-	>
+	<Scrolly bind:value={scrollValue} {hide}>
 		{#each steps as step, i}
 			{@const stepId = id === "intro" && i === 0 ? "scroll-to-start" : null}
 			{@const active = scrollValue === i}
@@ -164,6 +162,9 @@
 		height: 100vh;
 		width: 100%;
 		overflow: hidden;
+	}
+	.apartment {
+		align-items: center;
 	}
 	.placeholder {
 		width: 100%;

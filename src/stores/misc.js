@@ -15,32 +15,27 @@ export const ambiVolume = tweened(0, {
 
 export const freePlaySelection = writable(undefined); /* id of vendor */
 
-export const buttonLocations = readable({
-	afilador: [53, 38],
-	agua: [60, 79],
-	camotero: [62, 52],
-	cartero: [67, 57],
-	chatarrero: [66, 40],
-	elotero: [25, 70],
-	gasero: [40, 60],
-	globero: [80, 26],
-	heladero: [73, 28],
-	merenguero: [81, 42],
-	metro: [89, 81],
-	obleas: [0, 41],
-	organillero: [0, 51],
-	panadero: [65, 68],
-	recolector: [25, 43],
-	ropa: [87, 68],
-	tamalero: [35, 39],
-	trompetista: [34, 32],
-	verdulero: [50, 70]
-});
-
 export const flyLocations = readable({
-	afilador: { desktop: [-1.3, -0.9], mobile: [-1.5, -1] },
-	guy: { desktop: [-0.75, -0.3], mobile: [-0.2, -0.3] },
-	chatarrero: { desktop: [-1.5, -1], mobile: [-1.5, -1] },
-	tacos: { desktop: [-1, -1.9], mobile: [-1, -1.9] },
-	toreros: { desktop: [0, -2], mobile: [0, -2] }
+	afilador: [0.56, 0.42],
+	agua: [0.61, 0.84],
+	camotero: [0.65, 0.57],
+	cartero: [0.71, 0.62],
+	chatarrero: [0.66, 0.47],
+	elotero: [0.28, 0.75],
+	gasero: [0.43, 0.63],
+	globero: [0.83, 0.31],
+	guy: [0.38, 0.22],
+	heladero: [0.76, 0.33],
+	merenguero: [0.85, 0.47],
+	metro: [0.84, 0.8],
+	obleas: [0.09, 0.46],
+	organillero: [0.09, 0.57],
+	panadero: [0.69, 0.71],
+	recolector: [0.28, 0.47],
+	ropa: [0.9, 0.7],
+	tacos: [0.5, 0.5],
+	tamalero: [0.37, 0.43],
+	toreros: [0.14, 0.77],
+	trompetista: [0.4, 0.37],
+	verdulero: [0.5, 0.76]
 });

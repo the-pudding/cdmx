@@ -22,7 +22,7 @@
 		opacity: 0;
 		left: 50%;
 		transform: translate(-50%, 0);
-		top: 7em;
+		bottom: 2em;
 		text-align: center;
 		border: 3px solid var(--color-fg);
 		padding: 1em;
