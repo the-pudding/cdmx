@@ -18,10 +18,14 @@
 	};
 </script>
 
-<img src="assets/img/afilador.png" />
-
 {#each ids as id}
 	{#if $flyLocations[id]}
+		<!-- <img
+			class="vendor"
+			class:visible={id === $freePlaySelection}
+			src={`assets/img/${id}.png`}
+		/> -->
+
 		<button
 			id={`${id}-button`}
 			on:click|stopPropagation={onClick}
@@ -65,12 +69,16 @@
 		left: 51%;
 	}
 
-	img {
+	.vendor {
 		position: absolute;
-		top: 37%;
-		left: 51%;
-		transform: scaleX(-1);
-		height: 124px;
+		top: 0;
+		width: 100%;
+		min-width: 1378px;
+		opacity: 0;
 		transition: opacity 500ms;
+		z-index: 100;
+	}
+	img.visible {
+		opacity: 1;
 	}
 </style>

@@ -23,6 +23,7 @@
 	let zoomableH;
 	let ratio = 0;
 
+	$: isMobile = $viewport.width < 600;
 	$: wrapper, $viewport.width, $inFreePlay, setupZoom();
 	$: currentHighlight =
 		currentStep && currentStep.highlight ? currentStep.highlight : undefined;
@@ -72,6 +73,8 @@
 
 			let x = $viewport.width / 2 - zoomableW * scale * location[0];
 			let y = $viewport.height / 2 - zoomableH * scale * location[1];
+
+			if (isMobile) y -= 200;
 
 			const xLimit = (zoomableW * 2 - $viewport.width) * -1;
 			const yLimit = (zoomableH * 2 - $viewport.height) * -1;
