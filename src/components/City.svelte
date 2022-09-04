@@ -23,7 +23,6 @@
 	let zoomableH;
 	let ratio = 0;
 
-	$: isMobile = $viewport.width < 600;
 	$: wrapper, $viewport.width, $inFreePlay, setupZoom();
 	$: currentHighlight =
 		currentStep && currentStep.highlight ? currentStep.highlight : undefined;
@@ -71,8 +70,16 @@
 		if ($flyLocations[id]) {
 			const location = $flyLocations[id] || [0, 0];
 
-			const x = $viewport.width / 2 - zoomableW * scale * location[0];
-			const y = $viewport.height / 2 - zoomableH * scale * location[1];
+			let x = $viewport.width / 2 - zoomableW * scale * location[0];
+			let y = $viewport.height / 2 - zoomableH * scale * location[1];
+
+			const xLimit = (zoomableW * 2 - $viewport.width) * -1;
+			const yLimit = (zoomableH * 2 - $viewport.height) * -1;
+
+			if (x > 0) x = 0;
+			else if (x < xLimit) x = xLimit;
+			if (y > 0) y = 0;
+			else if (y < yLimit) y = yLimit;
 
 			const t = zoomIdentity.translate(x, y).scale(scale);
 
