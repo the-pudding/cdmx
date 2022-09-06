@@ -28,7 +28,7 @@
 	};
 </script>
 
-{#each ids as id}
+{#each ids as id, i}
 	{@const left = `${$locations[id][0] * 100}%`}
 	{@const top = `${$locations[id][1] * 100}%`}
 	{@const width = `${$locations[id][2]}px`}
@@ -51,6 +51,19 @@
 		>
 			{title}
 			<span style={`font-size: 12px`}>(click to hear me!)</span>
+		</div>
+
+		<div
+			class="number"
+			style:left
+			style:top
+			style={`transform: translate(${-$locations[id][2] / 2 - 15}px, ${
+				-$locations[id][3] / 2 - 15
+			}px)`}
+			class:faded={$freePlayHover && id !== $freePlayHover}
+			class:visible={!$freePlaySelection}
+		>
+			{i + 1}
 		</div>
 
 		<button
@@ -98,6 +111,24 @@
 	.preview.visible {
 		opacity: 1;
 		z-index: 100;
+	}
+
+	.number {
+		position: absolute;
+		border: 3px solid var(--color-fg);
+		background: white;
+		padding: 0.1em;
+		font-weight: bold;
+		width: 30px;
+		text-align: center;
+		opacity: 0;
+		transition: opacity 500ms;
+	}
+	.number.visible {
+		opacity: 0.8;
+	}
+	.number.faded {
+		opacity: 0.5;
 	}
 
 	.vendor {
