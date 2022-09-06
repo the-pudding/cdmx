@@ -41,7 +41,7 @@
 	use:inView={{ bottom: 200 }}
 	on:enter={adjustAmbi}
 >
-	<h2>{@html title[$language]}</h2>
+	<h2 class="title">{@html title[$language]}</h2>
 	{#each content as p}
 		{@const text = p[$language]}
 		<p>{@html text}</p>
@@ -65,12 +65,21 @@
 		left: 50%;
 		transform: translate(-50%, 0);
 		background: white;
-		border: 2px solid black;
+		border: 3px solid var(--color-fg);
 		padding: 1em 1.5em;
 		box-shadow: 0 3px 7px rgb(0 0 0 / 30%);
 		z-index: 3000;
 	}
 	.modal h2 {
 		margin: 0;
+	}
+	:not(#free) h2.title {
+		background: white;
+		border: 3px solid var(--color-fg);
+		width: fit-content;
+		padding: 0.4em;
+		transform: rotate(-3deg);
+		margin-bottom: 1em;
+		margin-left: -10px;
 	}
 </style>

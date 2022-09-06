@@ -4,7 +4,7 @@
 	import { select, zoom, zoomIdentity } from "d3";
 	import viewport from "$stores/viewport";
 	import { onMount } from "svelte";
-	import { inFreePlay, freePlaySelection, flyLocations } from "$stores/misc.js";
+	import { inFreePlay, freePlaySelection, locations } from "$stores/misc.js";
 	import loadImage from "$utils/loadImage.js";
 	import scrollY from "$stores/scrollY.js";
 
@@ -87,10 +87,10 @@
 	const flyTo = (id) => {
 		const scale = isMobile ? 2 : 3;
 
-		if ($flyLocations[id]) {
+		if ($locations[id]) {
 			const location = isMobile
-				? $flyLocations[id].mobile
-				: $flyLocations[id].desktop;
+				? $locations[id].mobile
+				: $locations[id].desktop;
 
 			const t = zoomIdentity
 				.translate(zoomableW * location[0], zoomableH * location[1])

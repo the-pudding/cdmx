@@ -4,6 +4,7 @@
 	export let options = ["on", "off"];
 	export let displayOptions = ["on", "off"];
 	export let value = options[0];
+	export let borderless = false;
 
 	let checked = value === options[0];
 
@@ -24,6 +25,7 @@
 		aria-checked={checked}
 		aria-labelledby={id}
 		on:click={handleClick}
+		class:borderless
 	>
 		{#if style === "inner"}
 			<span>{displayOptions[0]}</span>
@@ -42,6 +44,10 @@
 		font-size: 1em;
 	}
 
+	.toggle {
+		height: 100%;
+	}
+
 	.toggle--inner [role="switch"][aria-checked="true"] :first-child,
 	[role="switch"][aria-checked="false"] :last-child {
 		display: inline-block;
@@ -54,6 +60,11 @@
 		padding: 0.5em;
 		background-color: white;
 		border: 2px solid var(--color-gray-900);
+		height: 100%;
+	}
+
+	.toggle--inner button.borderless {
+		border: none;
 	}
 
 	.toggle--inner button span {

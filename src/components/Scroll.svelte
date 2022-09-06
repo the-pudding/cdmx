@@ -145,6 +145,7 @@
 	}
 	.step.background {
 		background: var(--step-background);
+		border: 3px solid var(--color-fg);
 		padding: 2em;
 	}
 	.step.last {

@@ -33,12 +33,12 @@
 	</div>
 
 	{#if visible}
-		<div class="buttons">
+		<div class="buttons" transition:fade>
 			{#if $inFreePlay}
-				<button on:click={exitFreePlay}>{buttonText}</button>
+				<button class="exit" on:click={exitFreePlay}>{buttonText}</button>
 			{/if}
 
-			<button on:click={() => ($soundOn = !$soundOn)}
+			<button class="mute" on:click={() => ($soundOn = !$soundOn)}
 				>{$soundOn ? "mute" : "unmute"}</button
 			>
 
@@ -48,6 +48,7 @@
 				bind:value={$language}
 				options={["english", "spanish"]}
 				displayOptions={["english", "español"]}
+				borderless={true}
 			/>
 		</div>
 	{/if}
@@ -77,11 +78,22 @@
 	}
 	button {
 		border: none;
-		text-decoration: underline;
+		background: white;
 		border-radius: 0;
+		height: 100%;
 	}
+	button:hover {
+		background: #d9e8ed;
+	}
+	button.mute {
+		width: 75px;
+	}
+	/* button.exit {
+		width: 110px;
+	} */
 	.buttons {
 		display: flex;
 		align-items: center;
+		border: 2px solid black;
 	}
 </style>

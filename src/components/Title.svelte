@@ -55,7 +55,7 @@
 	</div>
 
 	{#if titlesVisible}
-		<div class="titles" transition:fade>
+		<div class="titles" transition:fade={{ duration: 1000 }}>
 			<h1>{@html hed[$language]}</h1>
 			<h2>{@html dek[$language]}</h2>
 
@@ -125,7 +125,7 @@
 	.bylines {
 		background: white;
 		padding: 0 0.4em;
-		border: 2px solid black;
+		border: 2px solid var(--color-fg);
 	}
 
 	.bylines {

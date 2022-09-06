@@ -4,10 +4,9 @@
 	import {
 		freePlaySelection,
 		freePlayHover,
-		flyLocations,
-		inModal
+		locations,
+		language
 	} from "$stores/misc.js";
-	import { fade } from "svelte/transition";
 
 	const ids = copy.soundBank.map((d) => d.id);
 
@@ -18,6 +17,7 @@
 	const onClick = (e) => {
 		const clickedId = e.target.id.replace("-button", "");
 		$freePlaySelection = clickedId;
+		$freePlayHover = undefined;
 	};
 	const onButtonHover = (e) => {
 		if (!$freePlaySelection)
@@ -29,22 +29,39 @@
 </script>
 
 {#each ids as id}
-	{#if $flyLocations[id]}
+	{@const left = `${$locations[id][0] * 100}%`}
+	{@const top = `${$locations[id][1] * 100}%`}
+	{@const width = `${$locations[id][2]}px`}
+	{@const height = `${$locations[id][3]}px`}
+	{@const title = copy.soundBank.filter((d) => d.id === id)[0].title[$language]}
+
+	{#if $locations[id]}
 		<img
 			class="vendor"
-			class:visible={id === $freePlaySelection || id === $freePlayHover}
 			src={`assets/img/freeplay/${id}.png`}
+			class:visible={id === $freePlaySelection || id === $freePlayHover}
 		/>
+
+		<div
+			style:left
+			style:top
+			style={`--translate-y: ${$locations[id][3] / 2 + 8}px`}
+			class="preview"
+			class:visible={title && id === $freePlayHover}
+		>
+			{title}
+			<span style={`font-size: 12px`}>(click to hear me!)</span>
+		</div>
 
 		<button
 			id={`${id}-button`}
 			on:click|stopPropagation={onClick}
 			on:mouseenter={onButtonHover}
 			on:mouseleave={onButtonLeave}
-			style:left={`${$flyLocations[id][0] * 100}%`}
-			style:top={`${$flyLocations[id][1] * 100}%`}
-			class:selected={$freePlaySelection === id}
-			transition:fade
+			style:left
+			style:top
+			style:width
+			style:height
 		/>
 	{/if}
 {/each}
@@ -59,25 +76,28 @@
 	button {
 		position: absolute;
 		background: transparent;
+		/* background: rgb(0, 0, 0, 0.5); */
 		transform: translate(-50%, -50%);
 		border: none;
-		height: 100px;
-		width: 100px;
 		border-radius: 50px;
 		z-index: 11;
 	}
 
-	.selected,
-	button:hover {
-		/* box-shadow: inset 0px 0px 25px 0px rgba(72, 189, 240, 0.5),
-			0px 0px 70px 0px rgb(72, 189, 240, 1); */
-	}
-
-	.description {
+	.preview {
 		position: absolute;
-		border: 2px solid black;
-		top: 37%;
-		left: 51%;
+		z-index: -1;
+		background: white;
+		border: 3px solid var(--color-fg);
+		opacity: 0;
+		padding: 0.4em;
+		transition: opacity 500ms;
+		transform: translate(-50%, var(--translate-y));
+		max-width: 300px;
+		text-align: center;
+	}
+	.preview.visible {
+		opacity: 1;
+		z-index: 100;
 	}
 
 	.vendor {

@@ -5,7 +5,7 @@
 		freePlayHover,
 		inModal,
 		inFreePlay,
-		flyLocations
+		locations
 	} from "$stores/misc.js";
 	import viewport from "$stores/viewport.js";
 	import scrollY from "$stores/scrollY.js";
@@ -69,8 +69,8 @@
 	const flyTo = (id) => {
 		const scale = 2;
 
-		if ($flyLocations[id]) {
-			const location = $flyLocations[id] || [0, 0];
+		if ($locations[id]) {
+			const location = $locations[id] || [0, 0];
 
 			let x = $viewport.width / 2 - zoomableW * scale * location[0];
 			let y = $viewport.height / 2 - zoomableH * scale * location[1];

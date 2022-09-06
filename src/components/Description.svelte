@@ -46,7 +46,7 @@
 		position: absolute;
 		right: -15px;
 		top: -15px;
-		border: 3px solid black;
+		border: 3px solid var(--color-fg);
 		border-radius: 0;
 	}
 </style>
