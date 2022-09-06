@@ -30,6 +30,7 @@
 		currentStep && currentStep.highlight ? currentStep.highlight : undefined;
 	$: currentHighlight, highlightChange();
 	$: if ($freePlaySelection) flyTo($freePlaySelection);
+	$: if ($inModal) reset();
 
 	const highlightChange = () => {
 		if (currentHighlight === undefined) {
