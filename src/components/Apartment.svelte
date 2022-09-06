@@ -26,6 +26,7 @@
 <style>
 	img {
 		width: 100%;
+		min-height: 100vh;
 		min-width: 1047px;
 		position: absolute;
 		top: 0;
