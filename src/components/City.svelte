@@ -2,6 +2,7 @@
 	import InteractiveLayer from "$components/InteractiveLayer.svelte";
 	import {
 		freePlaySelection,
+		freePlayHover,
 		inModal,
 		inFreePlay,
 		flyLocations
@@ -108,12 +109,12 @@
 	});
 </script>
 
-<div class="city-wrapper" bind:this={wrapper} class:in-modal={$inModal}>
+<div class="city-wrapper" bind:this={wrapper}>
 	<img
 		src="assets/img/background/city.jpg"
 		alt="illustration of cdmx streets"
-		on:click={() => ($freePlaySelection = undefined)}
-		class:free-play-selection={$freePlaySelection}
+		class:in-modal={$inModal}
+		class:free-play-selection={$freePlaySelection || $freePlayHover}
 	/>
 
 	{#if $inFreePlay}

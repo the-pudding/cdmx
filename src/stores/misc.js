@@ -14,6 +14,7 @@ export const ambiVolume = tweened(0, {
 });
 
 export const freePlaySelection = writable(undefined); /* id of vendor */
+export const freePlayHover = writable(undefined);
 
 export const flyLocations = readable({
 	afilador: [0.56, 0.42],

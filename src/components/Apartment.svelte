@@ -20,7 +20,10 @@
 />
 
 {#each vendors as vendor}
-	<Vendor src={`assets/img/${vendor}.png`} onStage={vendor === currentVendor} />
+	<Vendor
+		src={`assets/img/window/${vendor}.png`}
+		onStage={vendor === currentVendor}
+	/>
 {/each}
 
 <style>

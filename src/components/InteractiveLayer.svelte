@@ -1,10 +1,13 @@
 <script>
 	import Sound from "$components/Sound.svelte";
 	import copy from "$data/copy.json";
-	import { freePlaySelection, flyLocations, inModal } from "$stores/misc.js";
+	import {
+		freePlaySelection,
+		freePlayHover,
+		flyLocations,
+		inModal
+	} from "$stores/misc.js";
 	import { fade } from "svelte/transition";
-
-	let src;
 
 	const ids = copy.soundBank.map((d) => d.id);
 
@@ -16,19 +19,28 @@
 		const clickedId = e.target.id.replace("-button", "");
 		$freePlaySelection = clickedId;
 	};
+	const onButtonHover = (e) => {
+		if (!$freePlaySelection)
+			$freePlayHover = e.target.id.replace("-button", "");
+	};
+	const onButtonLeave = () => {
+		$freePlayHover = undefined;
+	};
 </script>
 
 {#each ids as id}
 	{#if $flyLocations[id]}
-		<!-- <img
+		<img
 			class="vendor"
-			class:visible={id === $freePlaySelection}
-			src={`assets/img/${id}.png`}
-		/> -->
+			class:visible={id === $freePlaySelection || id === $freePlayHover}
+			src={`assets/img/freeplay/${id}.png`}
+		/>
 
 		<button
 			id={`${id}-button`}
 			on:click|stopPropagation={onClick}
+			on:mouseenter={onButtonHover}
+			on:mouseleave={onButtonLeave}
 			style:left={`${$flyLocations[id][0] * 100}%`}
 			style:top={`${$flyLocations[id][1] * 100}%`}
 			class:selected={$freePlaySelection === id}
@@ -46,14 +58,13 @@
 <style>
 	button {
 		position: absolute;
-		background: rgb(30, 30, 30, 0.6);
+		background: transparent;
 		transform: translate(-50%, -50%);
-		/* box-shadow: inset 0px 0px 25px 0px rgb(255, 215, 0, 0.5),
-			0px 0px 70px 0px rgb(255, 215, 0, 1); */
 		border: none;
 		height: 100px;
 		width: 100px;
 		border-radius: 50px;
+		z-index: 11;
 	}
 
 	.selected,
@@ -75,10 +86,11 @@
 		width: 100%;
 		min-width: 1378px;
 		opacity: 0;
+		z-index: -1;
 		transition: opacity 500ms;
-		z-index: 100;
 	}
 	img.visible {
 		opacity: 1;
+		z-index: 10;
 	}
 </style>
