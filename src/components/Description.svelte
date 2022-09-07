@@ -6,6 +6,8 @@
 	$: vendor = copy.soundBank.filter((d) => d.id === $freePlaySelection);
 
 	$: description = vendor.length ? vendor[0].description[$language] : null;
+	$: extra =
+		vendor.length && vendor[0].extra ? vendor[0].extra[$language] : null;
 	$: title = vendor.length ? vendor[0].title[$language] : null;
 
 	const close = () => {
@@ -16,6 +18,11 @@
 <div class="description" class:visible={description && title}>
 	<h3>{@html title}</h3>
 	<p>{@html description}</p>
+
+	{#if extra}
+		<p class="extra">{@html extra}</p>
+	{/if}
+
 	<button class="close" on:click={close}><Icon name="x" /></button>
 </div>
 
@@ -41,6 +48,10 @@
 	}
 	p {
 		margin: 0;
+	}
+	.extra {
+		font-style: italic;
+		margin-top: 12px;
 	}
 	.close {
 		position: absolute;
