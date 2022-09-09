@@ -3,6 +3,8 @@
 	import { freePlaySelection, language } from "$stores/misc.js";
 	import copy from "$data/copy.json";
 
+	const ids = copy.soundBank.map((d) => d.id);
+
 	$: vendor = copy.soundBank.filter((d) => d.id === $freePlaySelection);
 
 	$: description = vendor.length ? vendor[0].description[$language] : null;
@@ -13,10 +15,26 @@
 	const close = () => {
 		$freePlaySelection = undefined;
 	};
+
+	const goPrevious = () => {
+		const current = ids.findIndex((d) => d === $freePlaySelection);
+		const p = current - 1 >= 0 ? current - 1 : ids.length - 1;
+		$freePlaySelection = ids[p];
+	};
+	const goNext = () => {
+		const current = ids.findIndex((d) => d === $freePlaySelection);
+		const n = current + 1 < ids.length ? current + 1 : 0;
+		$freePlaySelection = ids[n];
+	};
 </script>
 
 <div class="description" class:visible={description && title}>
-	<h3>{@html title}</h3>
+	<div class="title-row">
+		<button on:click={goPrevious}>{"<"}</button>
+		<h3>{@html title}</h3>
+		<button on:click={goNext}>{">"}</button>
+	</div>
+
 	<p>{@html description}</p>
 
 	{#if extra}
@@ -43,6 +61,11 @@
 	.visible {
 		opacity: 1;
 	}
+	.title-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-evenly;
+	}
 	h3 {
 		font-weight: bold;
 	}
@@ -55,9 +78,22 @@
 	}
 	.close {
 		position: absolute;
-		right: -15px;
-		top: -15px;
-		border: 3px solid var(--color-fg);
+		right: 0;
+		top: 0;
 		border-radius: 0;
+		border: none;
+		background: transparent;
+	}
+
+	@media only screen and (max-width: 600px) {
+		.description {
+			width: 100%;
+			bottom: 0;
+			border: none;
+		}
+		h3 {
+			margin-left: 12px;
+			margin-right: 12px;
+		}
 	}
 </style>

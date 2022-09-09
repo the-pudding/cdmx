@@ -9,9 +9,11 @@
 		inFreePlay,
 		language
 	} from "$stores/misc.js";
+	import viewport from "$stores/viewport.js";
 
 	const ids = copy.soundBank.map((d) => d.id);
 
+	$: isMobile = $viewport.width < 600;
 	$: src = $freePlaySelection
 		? `assets/sound/${$freePlaySelection}.mp3`
 		: undefined;
@@ -24,15 +26,15 @@
 		}
 	};
 	const onButtonHover = (e) => {
-		if ($inFreePlay && !$freePlaySelection)
+		if ($inFreePlay && !$freePlaySelection && !isMobile)
 			$freePlayHover = e.target.id.replace("-button", "");
 	};
 	const onButtonLeave = () => {
-		if ($inFreePlay) $freePlayHover = undefined;
+		if ($inFreePlay && !isMobile) $freePlayHover = undefined;
 	};
 </script>
 
-{#each ids as id, i}
+{#each ids as id}
 	{@const left = `${$locations[id][0] * 100}%`}
 	{@const top = `${$locations[id][1] * 100}%`}
 	{@const width = `${$locations[id][2]}px`}
@@ -49,16 +51,18 @@
 	{#if $locations[id]}
 		<img src={`assets/img/freeplay/${id}.png`} class:visible={imgVisible} />
 
-		<div
-			style:left
-			style:top
-			style={`--translate-y: ${$locations[id][3] / 2 + 8}px`}
-			class="preview"
-			class:visible={previewVisible}
-		>
-			{title}
-			<span style={`font-size: 12px`}>(click to hear me!)</span>
-		</div>
+		{#if !isMobile}
+			<div
+				style:left
+				style:top
+				style={`--translate-y: ${$locations[id][3] / 2 + 8}px`}
+				class="preview"
+				class:visible={previewVisible}
+			>
+				{title}
+				<span style={`font-size: 12px`}>(click to hear me!)</span>
+			</div>
+		{/if}
 
 		<button
 			id={`${id}-button`}

@@ -100,7 +100,7 @@
 	};
 
 	const flyTo = (id) => {
-		const scale = 2;
+		const scale = isMobile ? 1.3 : 2;
 
 		if ($locations[id]) {
 			const location = $locations[id] || [0, 0];
@@ -110,8 +110,8 @@
 
 			if (isMobile) y -= 200;
 
-			const xLimit = (zoomableW * 2 - $viewport.width) * -1;
-			const yLimit = (zoomableH * 2 - $viewport.height) * -1;
+			const xLimit = (zoomableW * scale - $viewport.width) * -1;
+			const yLimit = (zoomableH * scale - $viewport.height) * -1;
 
 			if (x > 0) x = 0;
 			else if (x < xLimit) x = xLimit;
@@ -148,7 +148,7 @@
 		style:opacity
 	/>
 
-	<!-- <InteractiveLayer /> -->
+	<InteractiveLayer />
 </div>
 
 <style>

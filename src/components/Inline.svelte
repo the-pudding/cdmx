@@ -73,7 +73,7 @@
 	.modal h2 {
 		margin: 0;
 	}
-	:not(#free) h2.title {
+	:not(#free) h2 {
 		background: white;
 		border: 3px solid var(--color-fg);
 		width: fit-content;
@@ -91,6 +91,7 @@
 		}
 		h2 {
 			text-align: center;
+			margin-left: 0px !important;
 		}
 	}
 </style>
