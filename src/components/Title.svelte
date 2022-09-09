@@ -90,6 +90,7 @@
 		transform: translate(0, -50%);
 		opacity: 0;
 		transition: opacity 1s;
+		z-index: 101;
 	}
 
 	h1,

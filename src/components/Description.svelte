@@ -48,6 +48,7 @@
 	.description {
 		position: absolute;
 		width: 75%;
+		max-width: 1000px;
 		opacity: 0;
 		left: 50%;
 		transform: translate(-50%, 0);
@@ -87,9 +88,8 @@
 
 	@media only screen and (max-width: 600px) {
 		.description {
-			width: 100%;
-			bottom: 0;
-			border: none;
+			width: 98%;
+			bottom: 4px;
 		}
 		h3 {
 			margin-left: 12px;

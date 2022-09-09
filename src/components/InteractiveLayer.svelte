@@ -32,6 +32,8 @@
 	const onButtonLeave = () => {
 		if ($inFreePlay && !isMobile) $freePlayHover = undefined;
 	};
+
+	// TODO: translate "click to hear me"
 </script>
 
 {#each ids as id}
@@ -59,7 +61,7 @@
 				class="preview"
 				class:visible={previewVisible}
 			>
-				{title}
+				<strong>{title}</strong>
 				<span style={`font-size: 12px`}>(click to hear me!)</span>
 			</div>
 		{/if}
