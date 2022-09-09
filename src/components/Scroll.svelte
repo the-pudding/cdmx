@@ -25,6 +25,8 @@
 	let scrollValue;
 	let sticky;
 
+	$: console.log({ scrollValue });
+
 	const scrollStore = writable(undefined);
 	$: $scrollStore = scrollValue;
 	const prev = previous(scrollStore);

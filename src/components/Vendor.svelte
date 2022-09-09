@@ -3,23 +3,25 @@
 	import { onMount } from "svelte";
 	import loadImage from "$utils/loadImage.js";
 	import { tweened } from "svelte/motion";
-	import { quadOut } from "svelte/easing";
+	import { cubicOut } from "svelte/easing";
 
 	export let src;
 	export let onStage;
 
 	let ratio = 0;
 
-	// TODO: percent isn't working, consistent spot for all screen sizes (look at city)
-	$: x = tweened(leftWing, { duration: 3000, easing: quadOut });
+	$: x = tweened(leftWing, {
+		duration: 3500,
+		easing: cubicOut
+	});
 
 	$: imageW = $viewport.width > 1047 ? $viewport.width : 1047;
 	$: imageH = ratio * imageW;
 
 	$: top = imageH * 0.15;
-	$: leftWing = -25;
-	$: middle = 55;
-	$: rightWing = 150;
+	$: leftWing = big ? $viewport.width * 0 : $viewport.width * -0.5;
+	$: middle = $viewport.width * 0.55;
+	$: rightWing = big ? $viewport.width * 1 : $viewport.width * 1.5;
 	$: big = $viewport.width > 1200;
 
 	$: onStage, $viewport.width, update();
@@ -47,7 +49,7 @@
 		{src}
 		alt="vendor"
 		style:top={`${top}px`}
-		style:left={`${$x}%`}
+		style:left={`${$x}px`}
 		class:big
 	/>
 {/key}

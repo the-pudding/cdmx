@@ -45,9 +45,12 @@
 				on:click={() => ($soundOn = !$soundOn)}
 			>
 				{#if $soundOn}
-					<Icon name="volume-x" />
+					<div class="mute-text">turn sound off</div>
+					<Icon name="volume-x" width={"1.5em"} height={"1.5em"} />
 				{:else}
-					<Icon name="volume-2" />
+					<div class="mute-text">turn sound on</div>
+					<Icon name="volume-2" width={"1.5em"} height={"1.5em"} />
+					<div class="mute-text">sound is recommended!</div>
 				{/if}
 			</button>
 
@@ -99,7 +102,7 @@
 		background: #d9e8ed;
 	}
 	button.mute-button {
-		width: 75px;
+		padding: 1em;
 	}
 	.muted {
 		background: #e2a0a0;
@@ -108,5 +111,8 @@
 		display: flex;
 		align-items: center;
 		border: 2px solid black;
+	}
+	.mute-text {
+		font-size: 12px;
 	}
 </style>
