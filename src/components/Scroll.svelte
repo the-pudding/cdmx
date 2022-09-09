@@ -53,7 +53,7 @@
 		}
 	};
 
-	$: hide =
+	$: sendBack =
 		$inFreePlay ||
 		(id === "intro" && (scrollValue === numSteps - 1 || leavingBottom));
 
@@ -90,7 +90,7 @@
 		{/if}
 	</div>
 
-	<Scrolly bind:value={scrollValue} {hide}>
+	<Scrolly bind:value={scrollValue} {sendBack}>
 		{#each steps as step, i}
 			{@const stepId = id === "intro" && i === 0 ? "scroll-to-start" : null}
 			{@const active = scrollValue === i}
@@ -104,6 +104,8 @@
 
 		{#if id === "intro"}
 			<div class="step extra" />
+		{:else if id === "city" && $inFreePlay}
+			<div class="spacer" />
 		{/if}
 	</Scrolly>
 

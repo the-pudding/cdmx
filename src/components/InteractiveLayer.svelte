@@ -4,7 +4,9 @@
 	import {
 		freePlaySelection,
 		freePlayHover,
+		highlightedVendor,
 		locations,
+		inFreePlay,
 		language
 	} from "$stores/misc.js";
 
@@ -15,16 +17,18 @@
 		: undefined;
 
 	const onClick = (e) => {
-		const clickedId = e.target.id.replace("-button", "");
-		$freePlaySelection = clickedId;
-		$freePlayHover = undefined;
+		if ($inFreePlay) {
+			const clickedId = e.target.id.replace("-button", "");
+			$freePlaySelection = clickedId;
+			$freePlayHover = undefined;
+		}
 	};
 	const onButtonHover = (e) => {
-		if (!$freePlaySelection)
+		if ($inFreePlay && !$freePlaySelection)
 			$freePlayHover = e.target.id.replace("-button", "");
 	};
 	const onButtonLeave = () => {
-		$freePlayHover = undefined;
+		if ($inFreePlay) $freePlayHover = undefined;
 	};
 </script>
 
@@ -35,19 +39,22 @@
 	{@const height = `${$locations[id][3]}px`}
 	{@const title = copy.soundBank.filter((d) => d.id === id)[0].title[$language]}
 
+	{@const imgVisible =
+		id === $freePlaySelection ||
+		id === $freePlayHover ||
+		id === $highlightedVendor}
+	{@const previewVisible = $inFreePlay && title && id === $freePlayHover}
+	{@const buttonExists = $inFreePlay}
+
 	{#if $locations[id]}
-		<img
-			class="vendor"
-			src={`assets/img/freeplay/${id}.png`}
-			class:visible={id === $freePlaySelection || id === $freePlayHover}
-		/>
+		<img src={`assets/img/freeplay/${id}.png`} class:visible={imgVisible} />
 
 		<div
 			style:left
 			style:top
 			style={`--translate-y: ${$locations[id][3] / 2 + 8}px`}
 			class="preview"
-			class:visible={title && id === $freePlayHover}
+			class:visible={previewVisible}
 		>
 			{title}
 			<span style={`font-size: 12px`}>(click to hear me!)</span>
@@ -55,6 +62,7 @@
 
 		<button
 			id={`${id}-button`}
+			class:visible={buttonExists}
 			on:click|stopPropagation={onClick}
 			on:mouseenter={onButtonHover}
 			on:mouseleave={onButtonLeave}
@@ -73,6 +81,20 @@
 {/if}
 
 <style>
+	img {
+		position: absolute;
+		top: 0;
+		width: 100%;
+		min-width: 1378px;
+		opacity: 0;
+		z-index: -1;
+		transition: opacity 500ms;
+	}
+	img.visible {
+		opacity: 1;
+		z-index: 10;
+	}
+
 	button {
 		position: absolute;
 		background: transparent;
@@ -81,6 +103,10 @@
 		border: none;
 		border-radius: 50px;
 		z-index: 11;
+		display: none;
+	}
+	button.visible {
+		display: block;
 	}
 
 	.preview {
@@ -98,37 +124,5 @@
 	.preview.visible {
 		opacity: 1;
 		z-index: 100;
-	}
-
-	.number {
-		position: absolute;
-		border: 3px solid var(--color-fg);
-		background: white;
-		padding: 0.1em;
-		font-weight: bold;
-		width: 30px;
-		text-align: center;
-		opacity: 0;
-		transition: opacity 500ms;
-	}
-	.number.visible {
-		opacity: 0.8;
-	}
-	.number.faded {
-		opacity: 0.5;
-	}
-
-	.vendor {
-		position: absolute;
-		top: 0;
-		width: 100%;
-		min-width: 1378px;
-		opacity: 0;
-		z-index: -1;
-		transition: opacity 500ms;
-	}
-	img.visible {
-		opacity: 1;
-		z-index: 10;
 	}
 </style>

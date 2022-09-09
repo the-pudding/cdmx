@@ -5,6 +5,7 @@
 		freePlayHover,
 		inModal,
 		inFreePlay,
+		highlightedVendor,
 		locations
 	} from "$stores/misc.js";
 	import { browser } from "$app/env";
@@ -26,18 +27,22 @@
 	let ratio = 0;
 
 	$: isMobile = $viewport.width < 600;
+	$: opacity =
+		$inModal || $freePlaySelection || $freePlayHover || $highlightedVendor
+			? 0.4
+			: 1;
 	$: wrapper, $viewport.width, $inFreePlay, setupZoom();
-	$: currentHighlight =
+	$: $highlightedVendor =
 		currentStep && currentStep.highlight ? currentStep.highlight : undefined;
 	$: if ($freePlaySelection) flyTo($freePlaySelection);
 	$: if ($inModal) reset();
 	$: if (leavingTop) flyTo("guy");
-	$: currentHighlight, highlightChange();
+	$: $highlightedVendor, highlightChange();
 	$: freePlayChange, freePlayChange();
 
 	const highlightChange = () => {
-		if (currentHighlight) {
-			flyTo(currentHighlight);
+		if ($highlightedVendor) {
+			flyTo($highlightedVendor);
 		}
 	};
 
@@ -140,32 +145,22 @@
 	<img
 		src="assets/img/background/city.jpg"
 		alt="illustration of cdmx streets"
-		class:in-modal={$inModal}
-		class:free-play-selection={$freePlaySelection || $freePlayHover}
+		style:opacity
 	/>
 
-	{#if $inFreePlay}
-		<InteractiveLayer />
-	{/if}
+	<!-- <InteractiveLayer /> -->
 </div>
 
 <style>
 	img {
 		width: 100%;
 		min-width: 1378px;
-		opacity: 1;
-		transition: opacity 500ms;
+		transition: opacity 1s;
 	}
 	.city-wrapper {
 		transform-origin: 0px 0px;
 		position: relative;
 		opacity: 1;
-		transition: opacity 500ms;
-	}
-	.in-modal {
-		opacity: 0.7;
-	}
-	.free-play-selection {
-		opacity: 0.5;
+		transition: opacity 1s;
 	}
 </style>
