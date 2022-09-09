@@ -53,19 +53,6 @@
 			<span style={`font-size: 12px`}>(click to hear me!)</span>
 		</div>
 
-		<div
-			class="number"
-			style:left
-			style:top
-			style={`transform: translate(${-$locations[id][2] / 2 - 15}px, ${
-				-$locations[id][3] / 2 - 15
-			}px)`}
-			class:faded={$freePlayHover && id !== $freePlayHover}
-			class:visible={!$freePlaySelection}
-		>
-			{i + 1}
-		</div>
-
 		<button
 			id={`${id}-button`}
 			on:click|stopPropagation={onClick}

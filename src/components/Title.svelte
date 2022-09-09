@@ -2,32 +2,23 @@
 	import City from "$components/City.svelte";
 	import copy from "$data/copy.json";
 	import { language, inModal } from "$stores/misc.js";
-	import scrollY from "$stores/scrollY.js";
 	import { fade } from "svelte/transition";
 	import { tweened } from "svelte/motion";
 	import { cubicOut } from "svelte/easing";
 
 	export let scrollValue;
+	export let leavingBottom;
 
 	const { hed, dek, bylines } = copy;
 
 	const skip = () => {
 		const el = document.getElementById("scroll-to-explore");
 		el.scrollIntoView({ block: "center" });
+		$inModal = true;
 	};
 
-	// $: panelWidth =
-	// 	scrollValue === undefined && $scrollY < 1000
-	// 		? 0
-	// 		: scrollValue === undefined
-	// 		? 100
-	// 		: 25 * (scrollValue + 1);
-	// $: faded = panelWidth !== 100
-	$: panelWidth = 100;
-	$: faded = $gradient > 0;
-
-	$: titlesVisible = scrollValue === 3 || leaving;
-	$: leaving = scrollValue === undefined && $scrollY > 2000;
+	// TODO: use classes instead, might be causing scroll inconsistency
+	$: showTitles = scrollValue === 3 || leavingBottom;
 	$: buttonText =
 		$language === "english" ? "skip to explore this map" : "ir directo al mapa";
 
@@ -35,9 +26,7 @@
 	$: scrollValue, updateGradient();
 
 	const updateGradient = () => {
-		if (scrollValue === undefined && leaving) {
-			$gradient = 0;
-		} else if (scrollValue === undefined) {
+		if (scrollValue === undefined) {
 			$gradient = 100;
 		} else {
 			$gradient = 100 - (scrollValue + 1) * 25;
@@ -46,15 +35,13 @@
 </script>
 
 <div id="title">
-	{#if !titlesVisible}
+	{#if !showTitles}
 		<div class="gradient" style={`--gradient: ${$gradient}%`} out:fade />
 	{/if}
 
-	<div class="panel-wrapper" style:width={`${panelWidth}%`} class:faded>
-		<City />
-	</div>
+	<City />
 
-	{#if titlesVisible}
+	{#if showTitles}
 		<div class="titles" transition:fade={{ duration: 1000 }}>
 			<h1>{@html hed[$language]}</h1>
 			<h2>{@html dek[$language]}</h2>
@@ -91,35 +78,19 @@
 		position: absolute;
 		top: 0;
 		background: radial-gradient(white var(--gradient), transparent);
-	}
-
-	.panel-wrapper {
-		opacity: 1;
-		overflow: hidden;
-		transition: all 1s;
-	}
-	.faded {
-		opacity: 0.7;
+		transition: opacity 1000ms;
 	}
 
 	.titles {
 		position: absolute;
-		top: 30%;
 		width: 100vw;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		top: 50%;
+		transform: translate(0, -50%);
 	}
 
-	h1 {
-		font-size: 5em;
-		transform: rotate(2deg);
-	}
-	h2 {
-		font-size: 2em;
-		transform: rotate(-1deg);
-		max-width: 600px;
-	}
 	h1,
 	h2,
 	.bylines {
@@ -127,7 +98,13 @@
 		padding: 0 0.4em;
 		border: 2px solid var(--color-fg);
 	}
-
+	h1 {
+		font-size: 5em;
+	}
+	h2 {
+		font-size: 2em;
+		max-width: 600px;
+	}
 	.bylines {
 		font-family: var(--sans);
 		padding: 0.8em;
@@ -138,5 +115,17 @@
 		bottom: 30px;
 		left: 50%;
 		transform: translate(-50%, 0);
+	}
+
+	@media only screen and (max-width: 600px) {
+		h1 {
+			font-size: 4em;
+			margin: 0 0.4em;
+			padding: 0 0.1em;
+		}
+		h2 {
+			font-size: 1.2em;
+			margin: 16px 0.4em;
+		}
 	}
 </style>

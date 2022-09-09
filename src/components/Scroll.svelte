@@ -13,9 +13,9 @@
 		ambi,
 		ambiVolume
 	} from "$stores/misc.js";
-	import scrollY from "$stores/scrollY.js";
+	import { writable } from "svelte/store";
+	import { previous } from "$stores/previous.js";
 	import copy from "$data/copy.json";
-	import { browser } from "$app/env";
 	import _ from "lodash";
 
 	export let id;
@@ -25,6 +25,13 @@
 	let scrollValue;
 	let sticky;
 
+	const scrollStore = writable(undefined);
+	$: $scrollStore = scrollValue;
+	const prev = previous(scrollStore);
+
+	$: leavingTop = scrollValue === undefined && $prev === 0;
+	$: leavingBottom = scrollValue === undefined && $prev === numSteps - 1;
+	$: numSteps = id === "intro" ? steps.length + 1 : steps.length;
 	$: currentStep =
 		scrollValue === undefined || scrollValue > steps.length - 1
 			? undefined
@@ -34,44 +41,30 @@
 			? `assets/sound/${currentStep.sound}.mp3`
 			: undefined;
 	$: vendors = _.uniq(steps.filter((d) => d.vendor).map((d) => d.vendor));
-	$: $inModal =
-		id === "city" &&
-		scrollValue === undefined &&
-		$scrollY > 13000 &&
-		!$inFreePlay;
+
+	$: scrollValue, handleModal();
+	const handleModal = () => {
+		if (id === "city") {
+			if (leavingBottom && !$inFreePlay) {
+				$inModal = true;
+			} else {
+				$inModal = false;
+			}
+		}
+	};
+
 	$: hide =
 		$inFreePlay ||
-		(id === "intro" && (scrollValue === 3 || scrollValue === undefined));
+		(id === "intro" && (scrollValue === numSteps - 1 || leavingBottom));
 
 	$: scrollValue, adjustAmbi();
 	const adjustAmbi = () => {
 		const levels = [0.4, 0.6, 0.75];
 		if (id === "intro") {
-			if (scrollValue !== undefined && scrollValue < 3) {
+			if (scrollValue !== undefined && scrollValue < numSteps - 1) {
 				$ambi = scrollValue + 1;
 				$ambiVolume = levels[scrollValue];
 			}
-		}
-	};
-
-	$: if ($inFreePlay && id === "city") disableScroll();
-	$: if (!$inFreePlay && id === "city") enableScroll();
-
-	const disableScroll = () => {
-		if (browser) {
-			let scrollTop =
-				window.pageYOffset || window.document.documentElement.scrollTop;
-			let scrollLeft =
-				window.pageXOffset || window.document.documentElement.scrollLeft;
-			window.onscroll = () => {
-				window.scrollTo(scrollLeft, scrollTop);
-			};
-		}
-	};
-
-	const enableScroll = () => {
-		if (browser) {
-			window.onscroll = () => {};
 		}
 	};
 </script>
@@ -79,11 +72,11 @@
 <section {id} class="steps">
 	<div class="sticky" bind:this={sticky} class:apartment={id === "apartment"}>
 		{#if id === "intro"}
-			<Title {scrollValue} />
+			<Title {scrollValue} {leavingBottom} />
 		{:else if id === "apartment"}
 			<Apartment {currentStep} {vendors} />
 		{:else if id === "city"}
-			<City {currentStep} {sticky} />
+			<City {currentStep} {sticky} {leavingTop} />
 			<Description />
 		{/if}
 

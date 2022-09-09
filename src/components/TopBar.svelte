@@ -7,6 +7,7 @@
 		language,
 		soundOn,
 		inFreePlay,
+		inModal,
 		freePlaySelection
 	} from "$stores/misc.js";
 	import { fade } from "svelte/transition";
@@ -15,8 +16,12 @@
 	$: visible = $entered && $scrollY > 300;
 	$: buttonText = $language === "english" ? "exit free play" : "salir";
 
+	// TODO: i think i do want a volume symbol
+	// TODO: when muted, flash in some way, or "this piece is best with sound!"
+
 	const exitFreePlay = () => {
 		$inFreePlay = false;
+		$inModal = true;
 		$freePlaySelection = undefined;
 	};
 </script>
@@ -38,7 +43,10 @@
 				<button class="exit" on:click={exitFreePlay}>{buttonText}</button>
 			{/if}
 
-			<button class="mute" on:click={() => ($soundOn = !$soundOn)}
+			<button
+				class="mute-button"
+				class:muted={!$soundOn}
+				on:click={() => ($soundOn = !$soundOn)}
 				>{$soundOn ? "mute" : "unmute"}</button
 			>
 
@@ -85,12 +93,12 @@
 	button:hover {
 		background: #d9e8ed;
 	}
-	button.mute {
+	button.mute-button {
 		width: 75px;
 	}
-	/* button.exit {
-		width: 110px;
-	} */
+	.muted {
+		background: #e2a0a0;
+	}
 	.buttons {
 		display: flex;
 		align-items: center;

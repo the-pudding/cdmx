@@ -20,7 +20,7 @@
 		$inModal = false;
 		$inFreePlay = true;
 		$ambi = 1;
-		$ambiVolume = 0.2;
+		$ambiVolume = 0.1;
 
 		const el = document.getElementById("scroll-to-explore");
 		el.scrollIntoView({ block: "center" });
@@ -29,7 +29,7 @@
 	const adjustAmbi = () => {
 		if (id === "inline1") {
 			$ambi = 1;
-			$ambiVolume = 0.15;
+			$ambiVolume = 0.1;
 		}
 	};
 </script>
@@ -81,5 +81,16 @@
 		transform: rotate(-3deg);
 		margin-bottom: 1em;
 		margin-left: -10px;
+	}
+
+	@media only screen and (max-width: 600px) {
+		section {
+			margin: 5em auto;
+			width: 90%;
+			padding: 0;
+		}
+		h2 {
+			text-align: center;
+		}
 	}
 </style>

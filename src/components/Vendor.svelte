@@ -10,15 +10,16 @@
 
 	let ratio = 0;
 
+	// TODO: percent isn't working, consistent spot for all screen sizes (look at city)
 	$: x = tweened(leftWing, { duration: 3000, easing: quadOut });
 
 	$: imageW = $viewport.width > 1047 ? $viewport.width : 1047;
 	$: imageH = ratio * imageW;
 
 	$: top = imageH * 0.15;
-	$: leftWing = -10;
-	$: middle = 50;
-	$: rightWing = 110;
+	$: leftWing = -25;
+	$: middle = 55;
+	$: rightWing = 150;
 	$: big = $viewport.width > 1200;
 
 	$: onStage, $viewport.width, update();
@@ -56,8 +57,9 @@
 		z-index: 2;
 		height: 200px;
 		position: absolute;
+		transform: translate(-50%, 0);
 	}
 	.big {
-		transform: scale(1.3);
+		transform: translate(-50%, 0) scale(1.3);
 	}
 </style>

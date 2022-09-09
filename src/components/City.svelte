@@ -7,14 +7,15 @@
 		inFreePlay,
 		locations
 	} from "$stores/misc.js";
+	import { browser } from "$app/env";
 	import viewport from "$stores/viewport.js";
-	import scrollY from "$stores/scrollY.js";
 	import { onMount } from "svelte";
 	import { select, zoom, zoomIdentity } from "d3";
 	import loadImage from "$utils/loadImage.js";
 
 	export let currentStep;
 	export let sticky;
+	export let leavingTop;
 
 	const flyDuration = 1500;
 
@@ -28,15 +29,42 @@
 	$: wrapper, $viewport.width, $inFreePlay, setupZoom();
 	$: currentHighlight =
 		currentStep && currentStep.highlight ? currentStep.highlight : undefined;
-	$: currentHighlight, highlightChange();
 	$: if ($freePlaySelection) flyTo($freePlaySelection);
 	$: if ($inModal) reset();
+	$: if (leavingTop) flyTo("guy");
+	$: currentHighlight, highlightChange();
+	$: freePlayChange, freePlayChange();
 
 	const highlightChange = () => {
-		if (currentHighlight === undefined) {
-			reset();
-		} else {
+		if (currentHighlight) {
 			flyTo(currentHighlight);
+		}
+	};
+
+	const freePlayChange = () => {
+		if ($inFreePlay) {
+			disableScroll();
+		} else {
+			reset();
+			enableScroll();
+		}
+	};
+
+	const disableScroll = () => {
+		if (browser) {
+			let scrollTop =
+				window.pageYOffset || window.document.documentElement.scrollTop;
+			let scrollLeft =
+				window.pageXOffset || window.document.documentElement.scrollLeft;
+			window.onscroll = () => {
+				window.scrollTo(scrollLeft, scrollTop);
+			};
+		}
+	};
+
+	const enableScroll = () => {
+		if (browser) {
+			window.onscroll = () => {};
 		}
 	};
 
@@ -55,7 +83,6 @@
 		select(sticky).call(z);
 
 		if (!$inFreePlay) {
-			reset();
 			select(sticky).on("wheel.zoom", null); // disable wheel
 		}
 	};
@@ -93,13 +120,11 @@
 	};
 
 	const reset = () => {
-		if ($scrollY > 13000) {
+		if (z) {
 			select(sticky)
 				.transition()
 				.duration(flyDuration)
 				.call(z.transform, zoomIdentity);
-		} else {
-			flyTo("guy");
 		}
 	};
 
@@ -107,6 +132,7 @@
 		const img = await loadImage("assets/img/background/city.jpg");
 		ratio = img.height / img.width;
 		setupZoom();
+		flyTo("guy");
 	});
 </script>
 
