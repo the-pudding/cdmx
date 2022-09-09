@@ -76,7 +76,7 @@
 		const bottomRight = [zoomableW, zoomableH];
 
 		z = zoom()
-			.scaleExtent([1, 3])
+			.scaleExtent([1, 2])
 			.translateExtent([topLeft, bottomRight])
 			.on("zoom", handleZoom);
 

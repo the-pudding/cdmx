@@ -2,7 +2,6 @@
 	import City from "$components/City.svelte";
 	import copy from "$data/copy.json";
 	import { language, inModal } from "$stores/misc.js";
-	import { fade } from "svelte/transition";
 	import { tweened } from "svelte/motion";
 	import { cubicOut } from "svelte/easing";
 
@@ -17,7 +16,6 @@
 		$inModal = true;
 	};
 
-	// TODO: use classes instead, might be causing scroll inconsistency
 	$: showTitles = scrollValue === 3 || leavingBottom;
 	$: buttonText =
 		$language === "english" ? "skip to explore this map" : "ir directo al mapa";
@@ -72,7 +70,7 @@
 	}
 
 	.gradient {
-		z-index: 1000;
+		z-index: 100;
 		height: 100vh;
 		width: 100vw;
 		position: absolute;
@@ -120,6 +118,7 @@
 		transform: translate(-50%, 0);
 		opacity: 0;
 		transition: opacity 1s;
+		z-index: 101;
 	}
 
 	.visible {

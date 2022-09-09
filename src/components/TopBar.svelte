@@ -16,7 +16,7 @@
 	$: visible = $entered && $scrollY > 300;
 	$: buttonText = $language === "english" ? "exit free play" : "salir";
 
-	// TODO: i think i do want a volume symbol
+	// TODO: i think i do want a volume symbol (volume-x = muted, volume-2 = sound on)
 	// TODO: when muted, flash in some way, or "this piece is best with sound!"
 
 	const exitFreePlay = () => {
