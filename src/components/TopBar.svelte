@@ -39,16 +39,21 @@
 
 	{#if visible}
 		<div class="buttons" transition:fade>
-			{#if $inFreePlay}
-				<button class="exit" on:click={exitFreePlay}>{buttonText}</button>
-			{/if}
-
 			<button
 				class="mute-button"
 				class:muted={!$soundOn}
 				on:click={() => ($soundOn = !$soundOn)}
-				>{$soundOn ? "mute" : "unmute"}</button
 			>
+				{#if $soundOn}
+					<Icon name="volume-x" />
+				{:else}
+					<Icon name="volume-2" />
+				{/if}
+			</button>
+
+			{#if $inFreePlay}
+				<button class="exit" on:click={exitFreePlay}>{buttonText}</button>
+			{/if}
 
 			<Toggle
 				label=""
