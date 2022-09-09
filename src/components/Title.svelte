@@ -35,25 +35,25 @@
 </script>
 
 <div id="title">
-	{#if !showTitles}
-		<div class="gradient" style={`--gradient: ${$gradient}%`} out:fade />
-	{/if}
+	<div
+		class="gradient"
+		class:visible={!showTitles}
+		style={`--gradient: ${$gradient}%`}
+	/>
 
 	<City />
 
-	{#if showTitles}
-		<div class="titles" transition:fade={{ duration: 1000 }}>
-			<h1>{@html hed[$language]}</h1>
-			<h2>{@html dek[$language]}</h2>
+	<div class="titles" class:visible={showTitles}>
+		<h1>{@html hed[$language]}</h1>
+		<h2>{@html dek[$language]}</h2>
 
-			<div class="bylines">
-				{#each bylines as byline}
-					<div>{@html byline[$language]}</div>
-				{/each}
-			</div>
+		<div class="bylines">
+			{#each bylines as byline}
+				<div>{@html byline[$language]}</div>
+			{/each}
 		</div>
-		<button on:click={skip} transition:fade>{buttonText}</button>
-	{/if}
+	</div>
+	<button on:click={skip} class:visible={showTitles}>{buttonText}</button>
 </div>
 
 <style>
@@ -78,7 +78,8 @@
 		position: absolute;
 		top: 0;
 		background: radial-gradient(white var(--gradient), transparent);
-		transition: opacity 1000ms;
+		opacity: 0;
+		transition: opacity 1s;
 	}
 
 	.titles {
@@ -89,6 +90,8 @@
 		align-items: center;
 		top: 50%;
 		transform: translate(0, -50%);
+		opacity: 0;
+		transition: opacity 1s;
 	}
 
 	h1,
@@ -115,6 +118,12 @@
 		bottom: 30px;
 		left: 50%;
 		transform: translate(-50%, 0);
+		opacity: 0;
+		transition: opacity 1s;
+	}
+
+	.visible {
+		opacity: 1;
 	}
 
 	@media only screen and (max-width: 600px) {
