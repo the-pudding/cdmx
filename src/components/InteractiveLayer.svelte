@@ -80,6 +80,19 @@
 	{/if}
 {/each}
 
+<img
+	src={`assets/img/freeplay/toreros.png`}
+	class:visible={"toreros" === $freePlaySelection ||
+		"toreros" === $freePlayHover ||
+		"toreros" === $highlightedVendor}
+/>
+<img
+	src={`assets/img/freeplay/tacos.png`}
+	class:visible={"tacos" === $freePlaySelection ||
+		"tacos" === $freePlayHover ||
+		"tacos" === $highlightedVendor}
+/>
+
 {#if src}
 	{#key src}
 		<Sound {src} />

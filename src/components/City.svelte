@@ -134,7 +134,9 @@
 	};
 
 	onMount(async () => {
-		const img = await loadImage("assets/img/background/city.jpg");
+		const img = await loadImage(
+			"assets/img/background/city-big-compressed.jpg"
+		);
 		ratio = img.height / img.width;
 		setupZoom();
 		flyTo("guy");
@@ -143,7 +145,7 @@
 
 <div class="city-wrapper" bind:this={wrapper}>
 	<img
-		src="assets/img/background/city.jpg"
+		src="assets/img/background/city-big-compressed.jpg"
 		alt="illustration of cdmx streets"
 		style:opacity
 	/>

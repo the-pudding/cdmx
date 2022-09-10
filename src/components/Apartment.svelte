@@ -9,12 +9,12 @@
 </script>
 
 <img
-	src="assets/img/background/apartment_ext.png"
+	src="assets/img/background/apartment_ext_big_compressed.png"
 	class="ext"
 	alt="illustration of apartment in cdmx"
 />
 <img
-	src="assets/img/background/apartment_int.png"
+	src="assets/img/background/apartment_int_big_compressed.png"
 	class="int"
 	alt="illustration of apartment in cdmx"
 />

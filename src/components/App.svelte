@@ -1,7 +1,6 @@
 <script>
 	import TopBar from "$components/TopBar.svelte";
 	import Landing from "$components/Landing.svelte";
-	import Skip from "$components/Skip.svelte";
 	import Inline from "$components/Inline.svelte";
 	import Scroll from "$components/Scroll.svelte";
 	import Ambi from "$components/Ambi.svelte";
@@ -26,8 +25,6 @@
 />
 
 <Scroll id="apartment" steps={copy.apartmentSteps} />
-
-<Skip />
 
 <Inline
 	id="inline2"

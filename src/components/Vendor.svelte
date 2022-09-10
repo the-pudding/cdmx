@@ -39,7 +39,9 @@
 	};
 
 	onMount(async () => {
-		const img = await loadImage("assets/img/background/apartment_int.png");
+		const img = await loadImage(
+			"assets/img/background/apartment_ext_big_compressed.png"
+		);
 		ratio = img.height / img.width;
 	});
 </script>
