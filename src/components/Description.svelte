@@ -38,7 +38,10 @@
 	<p>{@html description}</p>
 
 	{#if extra}
-		<p class="extra">{@html extra}</p>
+		<details>
+			<summary>Fun fact</summary>
+			<p class="extra">{@html extra}</p>
+		</details>
 	{/if}
 
 	<button class="close" on:click={close}><Icon name="x" /></button>
@@ -74,9 +77,15 @@
 		margin: 0;
 		font-size: var(--18px);
 	}
+	details {
+		margin-top: 12px;
+	}
+	summary {
+		color: var(--highlight);
+	}
 	.extra {
 		font-style: italic;
-		margin-top: 12px;
+		font-size: var(--16px);
 	}
 	.close {
 		position: absolute;
