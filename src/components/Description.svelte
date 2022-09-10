@@ -72,6 +72,7 @@
 	}
 	p {
 		margin: 0;
+		font-size: var(--18px);
 	}
 	.extra {
 		font-style: italic;

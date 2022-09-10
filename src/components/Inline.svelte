@@ -54,16 +54,17 @@
 
 <style>
 	section {
-		width: 80%;
+		width: 90%;
 		max-width: 700px;
 		margin: 5em auto;
 		padding: 0 1em;
 	}
 	.modal {
 		position: absolute;
-		top: 0;
+		top: 50%;
 		left: 50%;
-		transform: translate(-50%, 0);
+		margin: 0;
+		transform: translate(-50%, -50%);
 		background: white;
 		border: 3px solid var(--color-fg);
 		padding: 1em 1.5em;
@@ -82,11 +83,13 @@
 		margin-bottom: 1em;
 		margin-left: -10px;
 	}
+	p {
+		font-size: var(--18px);
+	}
 
 	@media only screen and (max-width: 600px) {
 		section {
 			margin: 5em auto;
-			width: 90%;
 			padding: 0;
 		}
 		h2 {

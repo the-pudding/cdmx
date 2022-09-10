@@ -135,6 +135,7 @@
 		text-align: center;
 		margin: 80vh 1em;
 		max-width: 600px;
+		font-size: var(--18px);
 	}
 	.step.extra {
 		height: 10px;
