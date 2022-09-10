@@ -18,6 +18,7 @@
 	--z-overlay: 1000;
 
 	--step-background: rgb(255, 255, 255, 0.9);
+	--highlight: #893026;
 
 	/* presets (used in reset.css) */
 	--button-outline: var(--color-gray-300);
@@ -96,6 +97,6 @@ h6 {
 }
 
 a {
-	color: #893026;
+	color: var(--highlight);
 	font-weight: bold;
 }

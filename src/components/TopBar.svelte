@@ -16,9 +16,6 @@
 	$: visible = $entered && $scrollY > 300;
 	$: buttonText = $language === "english" ? "exit free play" : "salir";
 
-	// TODO: i think i do want a volume symbol (volume-x = muted, volume-2 = sound on)
-	// TODO: when muted, flash in some way, or "this piece is best with sound!"
-
 	const exitFreePlay = () => {
 		$inFreePlay = false;
 		$inModal = true;
@@ -39,18 +36,22 @@
 
 	{#if visible}
 		<div class="buttons" transition:fade>
-			<button
-				class="mute-button"
-				class:muted={!$soundOn}
-				on:click={() => ($soundOn = !$soundOn)}
-			>
+			{#if !$soundOn}
+				<div class="recommend">sound is recommended!</div>
+			{/if}
+
+			<button class="mute-button" on:click={() => ($soundOn = !$soundOn)}>
 				{#if $soundOn}
-					<div class="mute-text">turn sound off</div>
-					<Icon name="volume-x" width={"1.5em"} height={"1.5em"} />
+					<Icon name="volume-2" width={"1.3em"} height={"1.3em"} />
+					<div class="mute-text">mute</div>
 				{:else}
-					<div class="mute-text">turn sound on</div>
-					<Icon name="volume-2" width={"1.5em"} height={"1.5em"} />
-					<div class="mute-text">sound is recommended!</div>
+					<Icon
+						name="volume-x"
+						stroke="#893026"
+						width={"1.3em"}
+						height={"1.3em"}
+					/>
+					<div class="mute-text">unmute</div>
 				{/if}
 			</button>
 
@@ -99,20 +100,31 @@
 		height: 100%;
 	}
 	button:hover {
-		background: #d9e8ed;
+		background: var(--color-gray-100);
 	}
 	button.mute-button {
 		padding: 1em;
-	}
-	.muted {
-		background: #e2a0a0;
+		display: flex;
+		align-items: center;
 	}
 	.buttons {
 		display: flex;
 		align-items: center;
 		border: 2px solid black;
+		position: relative;
 	}
 	.mute-text {
-		font-size: 12px;
+		font-size: 14px;
+		margin-left: 8px;
+	}
+	.recommend {
+		position: absolute;
+		top: 0;
+		left: 0;
+		background: var(--highlight);
+		transform: translate(-50px, 170%) rotate(4deg);
+		padding: 0 6px;
+		border: 2px solid var(--color-fg);
+		color: white;
 	}
 </style>
