@@ -37,7 +37,7 @@
 	$: if ($freePlaySelection) flyTo($freePlaySelection);
 	$: if ($inModal) reset();
 	$: if (leavingTop) flyTo("guy");
-	$: $highlightedVendor, highlightChange();
+	$: $highlightedVendor, $viewport.width, highlightChange();
 	$: freePlayChange, freePlayChange();
 
 	const highlightChange = () => {
@@ -49,6 +49,8 @@
 	const freePlayChange = () => {
 		if ($inFreePlay) {
 			disableScroll();
+
+			if (isMobile) flyTo("afilador");
 		} else {
 			reset();
 			enableScroll();
@@ -88,7 +90,12 @@
 		select(sticky).call(z);
 
 		if (!$inFreePlay) {
-			select(sticky).on("wheel.zoom", null); // disable wheel
+			select(sticky).on("wheel.zoom", null); // disable zoom
+			select(sticky)
+				.on("mousedown.zoom", null)
+				.on("touchstart.zoom", null)
+				.on("touchmove.zoom", null)
+				.on("touchend.zoom", null); // disable pan
 		}
 	};
 

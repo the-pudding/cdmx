@@ -128,7 +128,7 @@
 
 	@media only screen and (max-width: 600px) {
 		h1 {
-			font-size: 4em;
+			font-size: 3.5em;
 			margin: 0 0.4em;
 			padding: 0 0.1em;
 		}
