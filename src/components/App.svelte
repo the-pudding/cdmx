@@ -14,26 +14,28 @@
 <TopBar />
 <Landing />
 
-<Ambi />
+{#if $entered}
+	<Ambi />
 
-<Scroll id="intro" steps={copy.preTitleProse} textBg={false} />
+	<Scroll id="intro" steps={copy.preTitleProse} textBg={false} />
 
-<Inline
-	id="inline1"
-	title={copy.inline1.title}
-	content={copy.inline1.content}
-/>
+	<Inline
+		id="inline1"
+		title={copy.inline1.title}
+		content={copy.inline1.content}
+	/>
 
-<Scroll id="apartment" steps={copy.apartmentSteps} />
+	<Scroll id="apartment" steps={copy.apartmentSteps} />
 
-<Inline
-	id="inline2"
-	title={copy.inline2.title}
-	content={copy.inline2.content}
-/>
+	<Inline
+		id="inline2"
+		title={copy.inline2.title}
+		content={copy.inline2.content}
+	/>
 
-<Scroll id="city" steps={copy.citySteps} />
+	<Scroll id="city" steps={copy.citySteps} />
 
-<Inline id="thanks" title={copy.thanks.title} content={copy.thanks.content} />
+	<Inline id="thanks" title={copy.thanks.title} content={copy.thanks.content} />
 
-<Footer />
+	<Footer />
+{/if}

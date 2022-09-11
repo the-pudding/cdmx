@@ -47,7 +47,7 @@
 		<p>{@html text}</p>
 	{/each}
 
-	{#if id === "free"}
+	{#if modal}
 		<button on:click={startFreePlay}>{buttonText}</button>
 	{/if}
 </section>
