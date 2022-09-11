@@ -12,6 +12,7 @@
 	import viewport from "$stores/viewport.js";
 
 	const ids = copy.soundBank.map((d) => d.id);
+	let teaching = true;
 
 	$: isMobile = $viewport.width < 600;
 	$: src = $freePlaySelection
@@ -19,6 +20,7 @@
 		: undefined;
 
 	const onClick = (e) => {
+		teaching = false;
 		if ($inFreePlay) {
 			const clickedId = e.target.id.replace("-button", "");
 			$freePlaySelection = clickedId;
@@ -26,14 +28,13 @@
 		}
 	};
 	const onButtonHover = (e) => {
+		if (e.target.id.replace("-button", "") === "afilador") teaching = false;
 		if ($inFreePlay && !$freePlaySelection && !isMobile)
 			$freePlayHover = e.target.id.replace("-button", "");
 	};
 	const onButtonLeave = () => {
 		if ($inFreePlay && !isMobile) $freePlayHover = undefined;
 	};
-
-	// TODO: translate "click to hear me"
 </script>
 
 {#each ids as id}
@@ -66,9 +67,22 @@
 			</div>
 		{/if}
 
+		{#if id === "afilador"}
+			<div
+				style:left
+				style:top
+				style={`--translate-y: ${$locations[id][3] / 2 + 8}px`}
+				class="preview"
+				class:visible={teaching}
+			>
+				Click me to hear my sound!
+			</div>
+		{/if}
+
 		<button
 			id={`${id}-button`}
 			class:visible={buttonExists}
+			class:teaching
 			on:click|stopPropagation={onClick}
 			on:mouseenter={onButtonHover}
 			on:mouseleave={onButtonLeave}
@@ -117,7 +131,6 @@
 	button {
 		position: absolute;
 		background: transparent;
-		/* background: rgb(0, 0, 0, 0.5); */
 		transform: translate(-50%, -50%);
 		border: none;
 		border-radius: 50px;
@@ -126,6 +139,29 @@
 	}
 	button.visible {
 		display: block;
+	}
+
+	button#afilador-button.teaching {
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+		transform: scale(1);
+		animation: pulse 2s infinite;
+	}
+
+	@keyframes pulse {
+		0% {
+			transform: translate(-50%, -50%) scale(0.95);
+			box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.8);
+		}
+
+		70% {
+			transform: translate(-50%, -50%) scale(1);
+			box-shadow: 0 0 0 30px rgba(0, 0, 0, 0);
+		}
+
+		100% {
+			transform: translate(-50%, -50%) scale(0.95);
+			box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+		}
 	}
 
 	.preview {
