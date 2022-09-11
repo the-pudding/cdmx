@@ -150,7 +150,9 @@
 		style:opacity
 	/>
 
-	<InteractiveLayer />
+	{#if sticky}
+		<InteractiveLayer />
+	{/if}
 </div>
 
 <style>

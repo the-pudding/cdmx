@@ -7,6 +7,7 @@
 		ambiVolume
 	} from "$stores/misc.js";
 	import { fade } from "svelte/transition";
+	import Icon from "$components/helpers/Icon.svelte";
 	import inView from "$actions/inView.js";
 
 	export let id;

@@ -67,7 +67,7 @@
 			</div>
 		{/if}
 
-		{#if id === "afilador"}
+		{#if id === "afilador" && $inFreePlay}
 			<div
 				style:left
 				style:top
