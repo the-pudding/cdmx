@@ -7,12 +7,12 @@
 		highlightedVendor,
 		locations,
 		inFreePlay,
-		language
+		language,
+		teaching
 	} from "$stores/misc.js";
 	import viewport from "$stores/viewport.js";
 
 	const ids = copy.soundBank.map((d) => d.id);
-	let teaching = true;
 
 	$: isMobile = $viewport.width < 600;
 	$: src = $freePlaySelection
@@ -20,7 +20,7 @@
 		: undefined;
 
 	const onClick = (e) => {
-		teaching = false;
+		$teaching = false;
 		if ($inFreePlay) {
 			const clickedId = e.target.id.replace("-button", "");
 			$freePlaySelection = clickedId;
@@ -28,7 +28,7 @@
 		}
 	};
 	const onButtonHover = (e) => {
-		if (e.target.id.replace("-button", "") === "afilador") teaching = false;
+		if (e.target.id.replace("-button", "") === "afilador") $teaching = false;
 		if ($inFreePlay && !$freePlaySelection && !isMobile)
 			$freePlayHover = e.target.id.replace("-button", "");
 	};
@@ -73,7 +73,7 @@
 				style:top
 				style={`--translate-y: ${$locations[id][3] / 2 + 8}px`}
 				class="preview"
-				class:visible={teaching}
+				class:visible={$teaching}
 			>
 				Click me to hear my sound!
 			</div>
@@ -82,7 +82,7 @@
 		<button
 			id={`${id}-button`}
 			class:visible={buttonExists}
-			class:teaching
+			class:teaching={$teaching}
 			on:click|stopPropagation={onClick}
 			on:mouseenter={onButtonHover}
 			on:mouseleave={onButtonLeave}

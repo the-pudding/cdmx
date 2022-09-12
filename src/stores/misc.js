@@ -13,6 +13,8 @@ export const ambiVolume = tweened(0, {
 	duration: 2000
 });
 
+export const teaching = writable(true);
+
 // id of vendor
 export const highlightedVendor = writable(undefined);
 export const freePlaySelection = writable(undefined);

@@ -6,7 +6,8 @@
 		inModal,
 		inFreePlay,
 		highlightedVendor,
-		locations
+		locations,
+		teaching
 	} from "$stores/misc.js";
 	import { browser } from "$app/env";
 	import viewport from "$stores/viewport.js";
@@ -38,7 +39,7 @@
 	$: if ($inModal) reset();
 	$: if (leavingTop) flyTo("guy");
 	$: $highlightedVendor, $viewport.width, highlightChange();
-	$: freePlayChange, freePlayChange();
+	$: $inFreePlay, freePlayChange();
 
 	const highlightChange = () => {
 		if ($highlightedVendor) {
@@ -51,7 +52,7 @@
 	const freePlayChange = () => {
 		if ($inFreePlay) {
 			disableScroll();
-			if (isMobile) flyTo("afilador");
+			if ($teaching) flyTo("afilador");
 		} else {
 			reset();
 			enableScroll();
