@@ -112,6 +112,10 @@
 		padding: 0.8em;
 	}
 
+	:global(.bylines a) {
+		font-weight: bold;
+	}
+
 	button {
 		position: absolute;
 		bottom: 30px;

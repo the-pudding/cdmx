@@ -30,7 +30,6 @@
 	};
 	const onButtonHover = (e) => {
 		if ($inFreePlay && !$freePlaySelection && !isMobile) {
-			if (e.target.id.replace("-button", "") === "afilador") $teaching = false;
 			$freePlayHover = e.target.id.replace("-button", "");
 		}
 	};
