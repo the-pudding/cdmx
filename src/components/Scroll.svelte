@@ -11,11 +11,13 @@
 		inModal,
 		inFreePlay,
 		ambi,
-		ambiVolume
+		ambiVolume,
+		highlightedVendor
 	} from "$stores/misc.js";
 	import { writable } from "svelte/store";
 	import { previous } from "$stores/previous.js";
 	import copy from "$data/copy.json";
+	import inView from "$actions/inView.js";
 	import _ from "lodash";
 
 	$: console.log({ scrollValue });
@@ -35,7 +37,7 @@
 	$: leavingBottom = scrollValue === undefined && $prev === numSteps - 1;
 	$: numSteps = id === "intro" ? steps.length + 1 : steps.length;
 	$: currentStep =
-		scrollValue === undefined || scrollValue > steps.length - 1
+		force || scrollValue === undefined || scrollValue > steps.length - 1
 			? undefined
 			: steps[scrollValue];
 	$: currentSound =
@@ -69,9 +71,30 @@
 			}
 		}
 	};
+
+	let force = false;
+	const forceModal = () => {
+		$highlightedVendor = undefined;
+		$inModal = true;
+	};
+	const forceReset = () => {
+		force = true;
+	};
+	const releaseForce = () => {
+		force = false;
+	};
 </script>
 
 <section {id} class="steps">
+	{#if id === "city"}
+		<div
+			id="detect-start"
+			use:inView={{ top: 100 }}
+			on:enter={forceReset}
+			on:exit={releaseForce}
+		/>
+	{/if}
+
 	<div class="sticky" bind:this={sticky} class:apartment={id === "apartment"}>
 		{#if id === "intro"}
 			<Title {scrollValue} {leavingBottom} />
@@ -107,12 +130,13 @@
 		{#if id === "intro"}
 			<div class="step extra" />
 		{:else if id === "city" && $inFreePlay}
-			<div class="spacer" />
+			<!-- <div class="spacer" /> -->
 		{/if}
 	</Scrolly>
 
 	{#if id === "city"}
-		<div class="spacer" id="scroll-to-explore" />
+		<div id="scroll-to-explore" />
+		<div id="detect-end" use:inView on:enter={forceModal} />
 	{/if}
 
 	{#if currentSound}
@@ -124,7 +148,16 @@
 
 <style>
 	.spacer {
-		height: 150vh;
+		height: 200vh;
+	}
+	#scroll-to-explore {
+		height: 100vh;
+	}
+	#detect-end {
+		height: 50vh;
+	}
+	#detect-start {
+		height: 10px;
 	}
 	.steps {
 		display: flex;
