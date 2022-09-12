@@ -76,7 +76,7 @@
 		{:else if id === "apartment"}
 			<Apartment {currentStep} {vendors} />
 		{:else if id === "city"}
-			<City {currentStep} {sticky} {leavingTop} />
+			<City location="freeplay" {currentStep} {sticky} {leavingTop} />
 			<Description />
 		{/if}
 

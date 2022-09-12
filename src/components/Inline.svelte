@@ -50,7 +50,7 @@
 
 	{#if modal}
 		<div class="modal-instructions">
-			<p style="margin-top: 0">You can:</p>
+			<p>You can:</p>
 			<ul>
 				<li><Icon name="zoom-in" /><span>Zoom</span></li>
 				<li>
@@ -66,12 +66,13 @@
 <style>
 	section {
 		width: 90%;
-		max-width: 450px;
+		max-width: 700px;
 		margin: 5em auto;
 		padding: 0 1em;
 	}
 	.modal {
 		position: absolute;
+		max-width: 450px;
 		top: 50%;
 		left: 50%;
 		margin: 0;
@@ -96,6 +97,13 @@
 	}
 	p {
 		font-size: var(--18px);
+	}
+	.modal-instructions {
+		font-family: var(--sans);
+	}
+	.modal-instructions p {
+		text-decoration: underline;
+		margin: 0;
 	}
 	.modal-instructions ul {
 		margin-bottom: 16px;

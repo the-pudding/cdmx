@@ -15,6 +15,7 @@
 	import { select, zoom, zoomIdentity } from "d3";
 	import loadImage from "$utils/loadImage.js";
 
+	export let location; // title or freeplay
 	export let currentStep;
 	export let sticky;
 	export let leavingTop;
@@ -154,12 +155,14 @@
 
 <div class="city-wrapper" bind:this={wrapper}>
 	<img
-		src="assets/img/background/city-bg-compressed-big.jpg"
+		src={`assets/img/background/${
+			location === "title" ? "city-big-compressed" : "city-bg-compressed-big"
+		}.jpg`}
 		alt="illustration of cdmx streets"
 		style:opacity
 	/>
 
-	{#if sticky}
+	{#if location === "freeplay"}
 		<InteractiveLayer />
 	{/if}
 </div>
@@ -173,7 +176,5 @@
 	.city-wrapper {
 		transform-origin: 0px 0px;
 		position: relative;
-		opacity: 1;
-		transition: opacity 1s;
 	}
 </style>

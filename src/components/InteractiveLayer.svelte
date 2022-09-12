@@ -6,6 +6,7 @@
 		freePlayHover,
 		highlightedVendor,
 		locations,
+		inModal,
 		inFreePlay,
 		language,
 		teaching
@@ -20,17 +21,18 @@
 		: undefined;
 
 	const onClick = (e) => {
-		$teaching = false;
 		if ($inFreePlay) {
+			$teaching = false;
 			const clickedId = e.target.id.replace("-button", "");
 			$freePlaySelection = clickedId;
 			$freePlayHover = undefined;
 		}
 	};
 	const onButtonHover = (e) => {
-		if (e.target.id.replace("-button", "") === "afilador") $teaching = false;
-		if ($inFreePlay && !$freePlaySelection && !isMobile)
+		if ($inFreePlay && !$freePlaySelection && !isMobile) {
+			if (e.target.id.replace("-button", "") === "afilador") $teaching = false;
 			$freePlayHover = e.target.id.replace("-button", "");
+		}
 	};
 	const onButtonLeave = () => {
 		if ($inFreePlay && !isMobile) $freePlayHover = undefined;
@@ -43,16 +45,23 @@
 	{@const width = `${$locations[id][2]}px`}
 	{@const height = `${$locations[id][3]}px`}
 	{@const title = copy.soundBank.filter((d) => d.id === id)[0].title[$language]}
-
-	{@const imgVisible =
+	{@const opacity =
 		id === $freePlaySelection ||
 		id === $freePlayHover ||
-		id === $highlightedVendor}
+		id === $highlightedVendor
+			? 1
+			: $inModal || $inFreePlay
+			? 0.4
+			: 0}
 	{@const previewVisible = $inFreePlay && title && id === $freePlayHover}
 	{@const buttonExists = $inFreePlay}
 
 	{#if $locations[id]}
-		<img src={`assets/img/freeplay/${id}.png`} class:visible={imgVisible} />
+		<img
+			src={`assets/img/freeplay/${id}.png`}
+			style:opacity
+			class:forward={opacity === 1}
+		/>
 
 		{#if !isMobile}
 			<div
@@ -94,18 +103,21 @@
 	{/if}
 {/each}
 
-<img
-	src={`assets/img/freeplay/toreros.png`}
-	class:visible={"toreros" === $freePlaySelection ||
-		"toreros" === $freePlayHover ||
-		"toreros" === $highlightedVendor}
-/>
-<img
-	src={`assets/img/freeplay/tacos.png`}
-	class:visible={"tacos" === $freePlaySelection ||
-		"tacos" === $freePlayHover ||
-		"tacos" === $highlightedVendor}
-/>
+{#each ["tacos", "toreros"] as id}
+	{@const opacity =
+		id === $freePlaySelection ||
+		id === $freePlayHover ||
+		id === $highlightedVendor
+			? 1
+			: $inModal || $inFreePlay
+			? 0.4
+			: 0}
+	<img
+		src={`assets/img/freeplay/${id}.png`}
+		style:opacity
+		class:forward={opacity === 1}
+	/>
+{/each}
 
 {#if src}
 	{#key src}
@@ -119,15 +131,12 @@
 		top: 0;
 		width: 100%;
 		min-width: 1378px;
-		opacity: 0;
 		z-index: -1;
 		transition: opacity 500ms;
 	}
-	img.visible {
-		opacity: 1;
+	img.forward {
 		z-index: 10;
 	}
-
 	button {
 		position: absolute;
 		background: transparent;

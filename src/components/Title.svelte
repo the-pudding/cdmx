@@ -39,7 +39,7 @@
 		style={`--gradient: ${$gradient}%`}
 	/>
 
-	<City />
+	<City location="title" />
 
 	<div class="titles" class:visible={showTitles}>
 		<h1>{@html hed[$language]}</h1>
