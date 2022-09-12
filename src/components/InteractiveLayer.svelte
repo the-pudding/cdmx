@@ -50,8 +50,6 @@
 		id === $freePlayHover ||
 		id === $highlightedVendor
 			? 1
-			: $inModal || $inFreePlay
-			? 0.4
 			: 0}
 	{@const previewVisible = $inFreePlay && title && id === $freePlayHover}
 	{@const buttonExists = $inFreePlay}
@@ -109,8 +107,6 @@
 		id === $freePlayHover ||
 		id === $highlightedVendor
 			? 1
-			: $inModal || $inFreePlay
-			? 0.4
 			: 0}
 	<img
 		src={`assets/img/freeplay/${id}.png`}

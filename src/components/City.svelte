@@ -155,9 +155,7 @@
 
 <div class="city-wrapper" bind:this={wrapper}>
 	<img
-		src={`assets/img/background/${
-			location === "title" ? "city-big-compressed" : "city-bg-compressed-big"
-		}.jpg`}
+		src={`assets/img/background/${"city-big-compressed"}.jpg`}
 		alt="illustration of cdmx streets"
 		style:opacity
 	/>
