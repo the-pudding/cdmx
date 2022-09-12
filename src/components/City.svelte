@@ -1,5 +1,5 @@
 <script>
-	import InteractiveLayer from "$components/InteractiveLayer.svelte";
+	import Interactive from "$components/Interactive.svelte";
 	import {
 		freePlaySelection,
 		freePlayHover,
@@ -161,7 +161,7 @@
 	/>
 
 	{#if location === "freeplay"}
-		<InteractiveLayer />
+		<Interactive />
 	{/if}
 </div>
 

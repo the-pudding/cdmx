@@ -18,6 +18,8 @@
 	import copy from "$data/copy.json";
 	import _ from "lodash";
 
+	$: console.log({ scrollValue });
+
 	export let id;
 	export let steps;
 	export let textBg = true;
