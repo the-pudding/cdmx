@@ -43,13 +43,14 @@
 	const highlightChange = () => {
 		if ($highlightedVendor) {
 			flyTo($highlightedVendor);
+		} else {
+			reset();
 		}
 	};
 
 	const freePlayChange = () => {
 		if ($inFreePlay) {
 			disableScroll();
-
 			if (isMobile) flyTo("afilador");
 		} else {
 			reset();

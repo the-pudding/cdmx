@@ -49,6 +49,16 @@
 	{/each}
 
 	{#if modal}
+		<div class="modal-instructions">
+			<p style="margin-top: 0">You can:</p>
+			<ul>
+				<li><Icon name="zoom-in" /><span>Zoom</span></li>
+				<li>
+					<Icon name="mouse-pointer" /><span>Click & drag to pan around</span>
+				</li>
+			</ul>
+		</div>
+
 		<button on:click={startFreePlay}>{buttonText}</button>
 	{/if}
 </section>
@@ -56,7 +66,7 @@
 <style>
 	section {
 		width: 90%;
-		max-width: 700px;
+		max-width: 450px;
 		margin: 5em auto;
 		padding: 0 1em;
 	}
@@ -86,6 +96,12 @@
 	}
 	p {
 		font-size: var(--18px);
+	}
+	.modal-instructions ul {
+		margin-bottom: 16px;
+	}
+	.modal-instructions span {
+		margin-left: 4px;
 	}
 
 	@media only screen and (max-width: 600px) {
