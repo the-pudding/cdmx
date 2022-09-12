@@ -142,7 +142,7 @@
 
 	onMount(async () => {
 		const img = await loadImage(
-			"assets/img/background/city-big-compressed.jpg"
+			"assets/img/background/city-bg-compressed-big.jpg"
 		);
 		ratio = img.height / img.width;
 		setupZoom();
@@ -152,7 +152,7 @@
 
 <div class="city-wrapper" bind:this={wrapper}>
 	<img
-		src="assets/img/background/city-big-compressed.jpg"
+		src="assets/img/background/city-bg-compressed-big.jpg"
 		alt="illustration of cdmx streets"
 		style:opacity
 	/>
