@@ -50,7 +50,11 @@
 		id === $highlightedVendor
 			? 1
 			: 0}
-	{@const previewVisible = $inFreePlay && title && id === $freePlayHover}
+	{@const previewVisible =
+		$inFreePlay &&
+		title &&
+		id === $freePlayHover &&
+		(!$teaching || "afilador" !== $freePlayHover)}
 	{@const buttonExists = $inFreePlay}
 
 	{#if $locations[id]}
@@ -62,7 +66,7 @@
 
 		{#if !isMobile}
 			<div
-				style:left
+				style:left={`${Math.max(12, $locations[id][0] * 100)}%`}
 				style:top
 				style={`--translate-y: ${$locations[id][3] / 2 + 8}px`}
 				class="preview"
@@ -177,6 +181,7 @@
 		padding: 0.4em;
 		transition: opacity 500ms;
 		transform: translate(-50%, var(--translate-y));
+		min-width: 200px;
 		max-width: 300px;
 		text-align: center;
 	}
