@@ -181,7 +181,7 @@
 		margin-bottom: 0;
 	}
 	.step:first-of-type {
-		margin-top: 0;
+		margin-top: -50vh;
 	}
 	.sticky {
 		display: flex;

@@ -10,17 +10,8 @@
 
 	const { hed, dek, bylines } = copy;
 
-	const skip = () => {
-		const el = document.getElementById("scroll-to-explore");
-		el.scrollIntoView({ block: "center" });
-		$inModal = true;
-	};
-
 	$: zoomed = $browserZoom > 200;
-	$: console.log($browserZoom);
 	$: showTitles = scrollValue === 3 || leavingBottom;
-	$: buttonText =
-		$language === "english" ? "skip to explore this map" : "ir directo al mapa";
 
 	const gradient = tweened(100, { duration: 800, easing: cubicOut });
 	$: scrollValue, updateGradient();
@@ -53,9 +44,6 @@
 			{/each}
 		</div>
 	</div>
-	<button on:click={skip} class:visible={showTitles} class:zoomed
-		>{buttonText}</button
-	>
 </div>
 
 <style>
@@ -124,6 +112,7 @@
 
 	:global(.bylines a) {
 		font-weight: bold;
+		color: var(--highlight);
 	}
 
 	button {

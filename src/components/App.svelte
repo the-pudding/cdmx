@@ -2,6 +2,7 @@
 	import TopBar from "$components/TopBar.svelte";
 	import Landing from "$components/Landing.svelte";
 	import Inline from "$components/Inline.svelte";
+	import Skip from "$components/Skip.svelte";
 	import Scroll from "$components/Scroll.svelte";
 	import Ambi from "$components/Ambi.svelte";
 	import Footer from "$components/Footer.svelte";
@@ -35,6 +36,8 @@
 	<Ambi />
 
 	<Scroll id="intro" steps={copy.preTitleProse} textBg={false} />
+
+	<Skip />
 
 	<Inline
 		id="inline1"
