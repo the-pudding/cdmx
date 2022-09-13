@@ -39,7 +39,7 @@ export const locations = readable({
 	panadero: [0.69, 0.72, 151, 161],
 	recolector: [0.27, 0.47, 141, 196],
 	ropa: [0.06, 0.73, 158, 168],
-	tacos: [0.14, 0.87, 100],
+	tacos: [0.14, 0.78, 100],
 	tamalero: [0.37, 0.44, 142, 146],
 	toreros: [0.44, 0.88, 100],
 	trompetista: [0.4, 0.35, 135, 130],

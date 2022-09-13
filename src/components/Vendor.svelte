@@ -5,20 +5,20 @@
 	import { tweened } from "svelte/motion";
 	import { cubicOut } from "svelte/easing";
 
-	export let src;
+	export let vendor;
 	export let onStage;
 
 	let ratio = 0;
 
 	$: x = tweened(leftWing, {
-		duration: 3500,
 		easing: cubicOut
 	});
 
+	$: src = `assets/img/window/${vendor}.png`;
 	$: imageW = $viewport.width > 1047 ? $viewport.width : 1047;
 	$: imageH = ratio * imageW;
 
-	$: top = imageH * 0.15;
+	$: top = vendor === "recolector" ? imageH * 0.1 : imageH * 0.15;
 	$: leftWing = big ? $viewport.width * 0 : $viewport.width * -0.5;
 	$: middle = $viewport.width * 0.55;
 	$: rightWing = big ? $viewport.width * 1 : $viewport.width * 1.5;
@@ -29,11 +29,11 @@
 	const update = () => {
 		if (onStage) {
 			x.set(leftWing, { duration: 0 });
-			$x = middle;
+			x.set(middle, { duration: 3500 });
 		} else {
 			if ($x > leftWing) {
 				x.set(middle, { duration: 0 });
-				$x = rightWing;
+				x.set(rightWing, { duration: 4500 });
 			}
 		}
 	};
@@ -53,16 +53,27 @@
 		style:top={`${top}px`}
 		style:left={`${$x}px`}
 		class:big
+		id={`moving-${vendor}`}
 	/>
 {/key}
 
 <style>
 	img {
 		z-index: 2;
-		height: 200px;
 		position: absolute;
 		transform: translate(-50%, 0);
 	}
+
+	#moving-afilador {
+		height: 200px;
+	}
+	#moving-recolector {
+		height: 250px;
+	}
+	#moving-tamalero {
+		height: 200px;
+	}
+
 	.big {
 		transform: translate(-50%, 0) scale(1.3);
 	}
