@@ -17,7 +17,7 @@
 	--z-top: 100;
 	--z-overlay: 1000;
 
-	--step-background: rgb(255, 255, 255, 0.9);
+	--step-background: rgb(255, 255, 255, 0.95);
 	--highlight: #893026;
 
 	/* presets (used in reset.css) */

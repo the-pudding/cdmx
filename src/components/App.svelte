@@ -6,14 +6,31 @@
 	import Ambi from "$components/Ambi.svelte";
 	import Footer from "$components/Footer.svelte";
 	import copy from "$data/copy.json";
-	import { entered } from "$stores/misc.js";
+	import {
+		entered,
+		inFreePlay,
+		inModal,
+		freePlaySelection,
+		browserZoom
+	} from "$stores/misc.js";
 
 	$: console.log({ copy });
+
+	const handleKey = (e) => {
+		if (e.key === "Escape" && $inFreePlay) {
+			$inFreePlay = false;
+			$inModal = true;
+			$freePlaySelection = undefined;
+		}
+	};
+
+	let outerWidth;
+	let innerWidth;
+	$: $browserZoom = Math.round((outerWidth / innerWidth) * 100);
 </script>
 
-<TopBar />
 <Landing />
-
+<TopBar />
 {#if $entered}
 	<Ambi />
 
@@ -39,3 +56,5 @@
 
 	<Footer />
 {/if}
+
+<svelte:window on:keydown={handleKey} bind:outerWidth bind:innerWidth />

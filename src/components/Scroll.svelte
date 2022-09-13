@@ -4,6 +4,7 @@
 	import City from "$components/City.svelte";
 	import Scrolly from "$components/helpers/Scrolly.svelte";
 	import Description from "$components/Description.svelte";
+	import Modal from "$components/Modal.svelte";
 	import Inline from "$components/Inline.svelte";
 	import Title from "$components/Title.svelte";
 	import {
@@ -74,7 +75,7 @@
 
 	let force = false;
 	const forceModal = () => {
-		$highlightedVendor = undefined;
+		force = true;
 		$inModal = true;
 	};
 	const forceReset = () => {
@@ -103,15 +104,7 @@
 		{:else if id === "city"}
 			<City location="freeplay" {currentStep} {sticky} {leavingTop} />
 			<Description />
-		{/if}
-
-		{#if $inModal}
-			<Inline
-				id="free"
-				title={copy.freePlay.title}
-				content={copy.freePlay.content}
-				modal={true}
-			/>
+			<Modal title={copy.freePlay.title} content={copy.freePlay.content} />
 		{/if}
 	</div>
 
@@ -136,7 +129,12 @@
 
 	{#if id === "city"}
 		<div id="scroll-to-explore" />
-		<div id="detect-end" use:inView on:enter={forceModal} />
+		<div
+			id="detect-end"
+			use:inView
+			on:enter={forceModal}
+			on:exit={releaseForce}
+		/>
 	{/if}
 
 	{#if currentSound}

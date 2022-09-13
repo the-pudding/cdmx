@@ -36,6 +36,7 @@
 
 <button
 	id={`${id}-button`}
+	tabindex="0"
 	class:visible={$inFreePlay}
 	class:teaching={$teaching}
 	on:click|stopPropagation={onClick}
@@ -60,8 +61,7 @@
 	button.visible {
 		display: block;
 	}
-
-	button#afilador-button.teaching {
+	#afilador-button.teaching {
 		box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
 		transform: scale(1);
 		animation: pulse 2s infinite;

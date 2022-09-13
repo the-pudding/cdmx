@@ -49,7 +49,7 @@
 {#key src}
 	<img
 		{src}
-		alt="vendor"
+		alt="street vendor passing by the window"
 		style:top={`${top}px`}
 		style:left={`${$x}px`}
 		class:big

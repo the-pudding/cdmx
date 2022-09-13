@@ -17,6 +17,7 @@
 
 <img
 	src={`assets/img/freeplay/${id}.png`}
+	alt={`${id} street vendor`}
 	class:forward={opacity === 1}
 	style:opacity
 />

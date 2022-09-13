@@ -11,12 +11,12 @@
 <img
 	src="assets/img/background/apartment_ext_big_compressed.png"
 	class="ext"
-	alt="illustration of apartment in cdmx"
+	alt="illustration of a man sitting at his desk looking out the window of his apartment in mexico city"
 />
 <img
 	src="assets/img/background/apartment_int_big_compressed.png"
 	class="int"
-	alt="illustration of apartment in cdmx"
+	alt="illustration of a man sitting at his desk looking out the window of his apartment in mexico city"
 />
 
 {#each vendors as vendor}

@@ -1,6 +1,6 @@
 <script>
 	import Icon from "$components/helpers/Icon.svelte";
-	import { freePlaySelection, language } from "$stores/misc.js";
+	import { freePlaySelection, language, browserZoom } from "$stores/misc.js";
 	import copy from "$data/copy.json";
 
 	const ids = copy.soundBank.map((d) => d.id);
@@ -10,7 +10,21 @@
 	$: description = vendor.length ? vendor[0].description[$language] : null;
 	$: extra =
 		vendor.length && vendor[0].extra ? vendor[0].extra[$language] : null;
-	$: title = vendor.length ? vendor[0].title[$language] : null;
+	$: title = vendor.length ? vendor[0].title[$language] : "";
+	$: visible = description && title;
+	$: visible, handleFocus();
+	$: zoomed = $browserZoom > 200;
+
+	let modalEl;
+	let lastFocusedEl;
+	const handleFocus = () => {
+		if (visible && modalEl) {
+			lastFocusedEl = document.activeElement;
+			modalEl.focus();
+		} else if (lastFocusedEl) {
+			lastFocusedEl.focus();
+		}
+	};
 
 	const close = () => {
 		$freePlaySelection = undefined;
@@ -28,7 +42,7 @@
 	};
 </script>
 
-<div class="description" class:visible={description && title}>
+<div class="description" class:visible class:zoomed bind:this={modalEl}>
 	<div class="title-row">
 		<button on:click={goPrevious}>{"<"}</button>
 		<h3>{@html title}</h3>
@@ -44,7 +58,9 @@
 		</details>
 	{/if}
 
-	<button class="close" on:click={close}><Icon name="x" /></button>
+	<button class="close" aria-label="close" on:click={close}
+		><Icon name="x" /></button
+	>
 </div>
 
 <style>
@@ -77,11 +93,21 @@
 		margin: 0;
 		font-size: var(--18px);
 	}
+	.zoomed p,
+	.zoomed details {
+		font-size: var(--12px);
+	}
+	.zoomed h3 {
+		font-size: var(--16px);
+	}
 	details {
 		margin-top: 12px;
 	}
 	summary {
 		color: var(--highlight);
+	}
+	summary:hover {
+		cursor: pointer;
 	}
 	.extra {
 		font-style: italic;

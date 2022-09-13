@@ -53,7 +53,14 @@
 	const freePlayChange = () => {
 		if ($inFreePlay) {
 			disableScroll();
-			if ($teaching) flyTo("afilador");
+
+			if (location === "freeplay") {
+				wrapper.focus();
+			}
+
+			if ($teaching) {
+				flyTo("afilador");
+			}
 		} else {
 			reset();
 			enableScroll();
@@ -153,10 +160,10 @@
 	});
 </script>
 
-<div class="city-wrapper" bind:this={wrapper}>
+<div class="city-wrapper" bind:this={wrapper} tabindex="-1">
 	<img
 		src={`assets/img/background/${"city-big-compressed"}.jpg`}
-		alt="illustration of cdmx streets"
+		alt="illustration of the streets of mexico city, filled with street vendors"
 		style:opacity
 	/>
 

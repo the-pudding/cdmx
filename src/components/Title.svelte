@@ -1,7 +1,7 @@
 <script>
 	import City from "$components/City.svelte";
 	import copy from "$data/copy.json";
-	import { language, inModal } from "$stores/misc.js";
+	import { language, inModal, browserZoom } from "$stores/misc.js";
 	import { tweened } from "svelte/motion";
 	import { cubicOut } from "svelte/easing";
 
@@ -16,6 +16,8 @@
 		$inModal = true;
 	};
 
+	$: zoomed = $browserZoom > 200;
+	$: console.log($browserZoom);
 	$: showTitles = scrollValue === 3 || leavingBottom;
 	$: buttonText =
 		$language === "english" ? "skip to explore this map" : "ir directo al mapa";
@@ -42,8 +44,8 @@
 	<City location="title" />
 
 	<div class="titles" class:visible={showTitles}>
-		<h1>{@html hed[$language]}</h1>
-		<h2>{@html dek[$language]}</h2>
+		<h1 class:zoomed>{@html hed[$language]}</h1>
+		<h2 class:zoomed>{@html dek[$language]}</h2>
 
 		<div class="bylines">
 			{#each bylines as byline}
@@ -51,7 +53,9 @@
 			{/each}
 		</div>
 	</div>
-	<button on:click={skip} class:visible={showTitles}>{buttonText}</button>
+	<button on:click={skip} class:visible={showTitles} class:zoomed
+		>{buttonText}</button
+	>
 </div>
 
 <style>
@@ -103,9 +107,15 @@
 	h1 {
 		font-size: 5em;
 	}
+	h1.zoomed {
+		font-size: 3.5em;
+	}
 	h2 {
 		font-size: 2em;
 		max-width: 600px;
+	}
+	h2.zoomed {
+		font-size: 1.2em;
 	}
 	.bylines {
 		font-family: var(--sans);
@@ -124,6 +134,9 @@
 		opacity: 0;
 		transition: opacity 1s;
 		z-index: 101;
+	}
+	button.zoomed {
+		bottom: 0px;
 	}
 
 	.visible {
