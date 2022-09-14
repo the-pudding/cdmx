@@ -17,8 +17,6 @@
 		browserZoom
 	} from "$stores/misc.js";
 
-	$: console.log({ copy });
-
 	const handleKey = (e) => {
 		if (e.key === "Escape" && $inFreePlay) {
 			$inFreePlay = false;
