@@ -13,20 +13,21 @@
 	import viewport from "$stores/viewport.js";
 	import { onMount } from "svelte";
 	import { select, zoom, zoomIdentity } from "d3";
-	import loadImage from "$utils/loadImage.js";
 
 	export let location; // title or freeplay
 	export let currentStep;
 	export let sticky;
 	export let leavingTop;
 
+	const ratio = 3758 / 4134;
+	const cityBig = "assets/img/background/city-big-compressed.jpg";
+	const citySmall = "assets/img/background/city-small-compressed.jpg";
 	const flyDuration = 1500;
 
 	let z;
 	let wrapper;
 	let zoomableW;
 	let zoomableH;
-	let ratio = 0;
 
 	$: isMobile = $viewport.width < 600;
 	$: opacity =
@@ -151,10 +152,6 @@
 	};
 
 	onMount(async () => {
-		const img = await loadImage(
-			"assets/img/background/city-bg-compressed-big.jpg"
-		);
-		ratio = img.height / img.width;
 		setupZoom();
 		flyTo("guy");
 	});
@@ -162,7 +159,9 @@
 
 <div class="city-wrapper" bind:this={wrapper} tabindex="-1">
 	<img
-		src={`assets/img/background/${"city-big-compressed"}.jpg`}
+		srcset={`${citySmall} 2067w, ${cityBig} 4134w`}
+		sizes={`(max-width: 600px) 2067px, 4134px`}
+		src={cityBig}
 		alt="illustration of the streets of mexico city, filled with street vendors"
 		style:opacity
 	/>
