@@ -35,6 +35,10 @@
 		margin: 5em auto;
 		padding: 0 1em;
 	}
+	#inline2 {
+		margin-bottom: 0;
+	}
+
 	:not(#free) h2 {
 		background: white;
 		border: 3px solid var(--color-fg);

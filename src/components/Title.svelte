@@ -114,6 +114,9 @@
 		font-weight: bold;
 		color: var(--highlight);
 	}
+	:global(.bylines a:hover) {
+		color: var(--color-fg);
+	}
 
 	button {
 		position: absolute;

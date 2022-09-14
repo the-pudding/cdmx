@@ -29,11 +29,14 @@
 
 	let scrollValue;
 	let sticky;
+	let force = false;
+	let spacerEndVisible = false;
+	let stickyVisible = false;
 
 	const scrollStore = writable(undefined);
-	$: $scrollStore = scrollValue;
 	const prev = previous(scrollStore);
 
+	$: $scrollStore = scrollValue;
 	$: leavingTop = scrollValue === undefined && $prev === 0;
 	$: leavingBottom = scrollValue === undefined && $prev === numSteps - 1;
 	$: numSteps = id === "intro" ? steps.length + 1 : steps.length;
@@ -42,10 +45,13 @@
 			? undefined
 			: steps[scrollValue];
 	$: currentSound =
-		currentStep && currentStep.sound
+		currentStep && currentStep.sound && !force
 			? `assets/sound/${currentStep.sound}.mp3`
 			: undefined;
 	$: vendors = _.uniq(steps.filter((d) => d.vendor).map((d) => d.vendor));
+	$: sendBack =
+		$inFreePlay ||
+		(id === "intro" && (scrollValue === numSteps - 1 || leavingBottom));
 
 	$: scrollValue, handleModal();
 	const handleModal = () => {
@@ -58,10 +64,6 @@
 		}
 	};
 
-	$: sendBack =
-		$inFreePlay ||
-		(id === "intro" && (scrollValue === numSteps - 1 || leavingBottom));
-
 	$: scrollValue, adjustAmbi();
 	const adjustAmbi = () => {
 		const levels = [0.4, 0.6, 0.75];
@@ -73,17 +75,21 @@
 		}
 	};
 
-	// $: console.log({ force });
-	let force = false;
-	const forceModal = () => {
+	const detectEndEnter = () => {
 		force = true;
 		$inModal = true;
 	};
-	const forceReset = () => {
+	const detectEndExit = () => {
+		if (spacerEndVisible) {
+			force = false;
+			$inModal = false;
+		}
+	};
+	const detectStartEnter = () => {
 		force = true;
 	};
-	const releaseForce = () => {
-		force = false;
+	const detectStartExit = () => {
+		if (stickyVisible) force = false;
 	};
 </script>
 
@@ -91,13 +97,20 @@
 	{#if id === "city"}
 		<div
 			id="detect-start"
-			use:inView={{ top: 100 }}
-			on:enter={forceReset}
-			on:exit={releaseForce}
+			use:inView
+			on:enter={detectStartEnter}
+			on:exit={detectStartExit}
 		/>
 	{/if}
 
-	<div class="sticky" bind:this={sticky} class:apartment={id === "apartment"}>
+	<div
+		class="sticky"
+		bind:this={sticky}
+		class:apartment={id === "apartment"}
+		use:inView
+		on:enter={() => (stickyVisible = true)}
+		on:exit={() => (stickyVisible = false)}
+	>
 		{#if id === "intro"}
 			<Title {scrollValue} {leavingBottom} />
 		{:else if id === "apartment"}
@@ -133,12 +146,17 @@
 	</Scrolly>
 
 	{#if id === "city"}
-		<div id="spacer-end" />
+		<div
+			id="spacer-end"
+			use:inView
+			on:enter={() => (spacerEndVisible = true)}
+			on:exit={() => (spacerEndVisible = false)}
+		/>
 		<div
 			id="detect-end"
 			use:inView
-			on:enter={forceModal}
-			on:exit={releaseForce}
+			on:enter={detectEndEnter}
+			on:exit={detectEndExit}
 		/>
 	{/if}
 
@@ -160,7 +178,7 @@
 		height: 50vh;
 	}
 	#detect-start {
-		height: 10px;
+		height: 5em;
 	}
 	.steps {
 		display: flex;
@@ -189,6 +207,9 @@
 		margin-top: 0;
 	}
 	#apartment .step:first-of-type {
+		margin-top: -50vh;
+	}
+	#city .step:first-of-type {
 		margin-top: -50vh;
 	}
 	.sticky {

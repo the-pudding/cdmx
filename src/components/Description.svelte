@@ -44,9 +44,9 @@
 
 <div class="description" class:visible class:zoomed bind:this={modalEl}>
 	<div class="title-row">
-		<button on:click={goPrevious}>{"<"}</button>
+		<button on:click={goPrevious}><Icon name="arrow-left" /></button>
 		<h3>{@html title}</h3>
-		<button on:click={goNext}>{">"}</button>
+		<button on:click={goNext}><Icon name="arrow-right" /></button>
 	</div>
 
 	<p>{@html description}</p>

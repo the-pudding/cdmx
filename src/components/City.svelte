@@ -126,7 +126,8 @@
 			let x = $viewport.width / 2 - zoomableW * scale * location[0];
 			let y = $viewport.height / 2 - zoomableH * scale * location[1];
 
-			if (isMobile) y -= 200;
+			// allow a little more room for descriptions
+			if ($inFreePlay && $freePlaySelection) y -= 0.1 * $viewport.height;
 
 			const xLimit = (zoomableW * scale - $viewport.width) * -1;
 			const yLimit = (zoomableH * scale - $viewport.height) * -1;
