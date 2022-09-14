@@ -1,6 +1,11 @@
 <script>
 	import Icon from "$components/helpers/Icon.svelte";
-	import { freePlaySelection, language, browserZoom } from "$stores/misc.js";
+	import {
+		freePlaySelection,
+		language,
+		browserZoom,
+		soundPlaying
+	} from "$stores/misc.js";
 	import copy from "$data/copy.json";
 
 	const ids = copy.soundBank.map((d) => d.id);
@@ -28,17 +33,20 @@
 
 	const close = () => {
 		$freePlaySelection = undefined;
+		$soundPlaying = undefined;
 	};
 
 	const goPrevious = () => {
 		const current = ids.findIndex((d) => d === $freePlaySelection);
 		const p = current - 1 >= 0 ? current - 1 : ids.length - 1;
 		$freePlaySelection = ids[p];
+		$soundPlaying = ids[p];
 	};
 	const goNext = () => {
 		const current = ids.findIndex((d) => d === $freePlaySelection);
 		const n = current + 1 < ids.length ? current + 1 : 0;
 		$freePlaySelection = ids[n];
+		$soundPlaying = ids[n];
 	};
 </script>
 

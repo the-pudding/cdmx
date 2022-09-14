@@ -1,28 +1,72 @@
 <script>
-	import { soundOn } from "$stores/misc.js";
-	import { onMount } from "svelte";
+	import { soundOn, soundPlaying } from "$stores/misc.js";
 	import { tweened } from "svelte/motion";
+	import copy from "$data/copy.json";
+	import { previous } from "$stores/previous.js";
 
-	export let src;
+	const ids = [...copy.soundBank.map((d) => d.id), "toreros", "tacos"];
 
-	let audioEl;
-	const volume = tweened(0, { duration: 2000 });
+	const prevSound = previous(soundPlaying);
 
-	$: $volume, transitionVolume();
+	let audioEls = [];
+	let newEl;
 
-	const transitionVolume = () => {
-		if (audioEl) audioEl.volume = $volume;
+	let newI;
+	let prevI;
+
+	const volumes = tweened(
+		ids.map((d) => 0),
+		{ duration: 3000 }
+	);
+
+	$: $soundPlaying, setupSound();
+	const setupSound = () => {
+		newEl = audioEls.filter(
+			(d) => d.id.replace("-audio", "") === $soundPlaying
+		)[0];
+		newI = audioEls.findIndex(
+			(d) => d.id.replace("-audio", "") === $soundPlaying
+		);
+		prevI = audioEls.findIndex(
+			(d) => d.id.replace("-audio", "") === $prevSound
+		);
+
+		if ($soundPlaying) {
+			let updatedVolumes = ids.map((d) => 0);
+
+			if (newI !== -1) updatedVolumes.splice(newI, 1, 1);
+			if (prevI !== -1) updatedVolumes.splice(prevI, 1, 0);
+
+			$volumes = updatedVolumes;
+
+			if (newEl) {
+				newEl.currentTime = 0;
+				newEl.play();
+			}
+		} else {
+			$volumes = ids.map((d) => 0);
+		}
 	};
 
-	onMount(() => {
-		$volume = 1;
-	});
+	$: $volumes, setVolumes();
+	const setVolumes = () => {
+		audioEls.forEach((audioEl, i) => {
+			audioEl.volume = $volumes[i];
+		});
+	};
 </script>
 
-<audio bind:this={audioEl} {src} muted={!$soundOn} autoplay loop>
-	<!-- TODO: accessibility -->
-	<track kind="captions" />
-</audio>
+{#each ids as id, i}
+	{@const muted = !$soundOn}
 
-<style>
-</style>
+	<audio
+		id={`${id}-audio`}
+		bind:this={audioEls[i]}
+		src={`assets/sound/${id}.mp3`}
+		controls={false}
+		loop
+		{muted}
+	>
+		<track kind="captions" />
+	</audio>
+{/each}

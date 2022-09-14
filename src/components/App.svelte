@@ -4,6 +4,7 @@
 	import Inline from "$components/Inline.svelte";
 	import Skip from "$components/Skip.svelte";
 	import Scroll from "$components/Scroll.svelte";
+	import Sound from "$components/Sound.svelte";
 	import Ambi from "$components/Ambi.svelte";
 	import Footer from "$components/Footer.svelte";
 	import copy from "$data/copy.json";
@@ -12,6 +13,7 @@
 		inFreePlay,
 		inModal,
 		freePlaySelection,
+		soundPlaying,
 		browserZoom
 	} from "$stores/misc.js";
 
@@ -22,6 +24,7 @@
 			$inFreePlay = false;
 			$inModal = true;
 			$freePlaySelection = undefined;
+			$soundPlaying = undefined;
 		}
 	};
 
@@ -34,6 +37,7 @@
 <TopBar />
 {#if $entered}
 	<Ambi />
+	<Sound />
 
 	<Scroll id="intro" steps={copy.preTitleProse} textBg={false} />
 

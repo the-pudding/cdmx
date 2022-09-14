@@ -3,7 +3,8 @@
 		freePlaySelection,
 		freePlayHover,
 		inFreePlay,
-		teaching
+		teaching,
+		soundPlaying
 	} from "$stores/misc.js";
 	import viewport from "$stores/viewport.js";
 
@@ -21,6 +22,7 @@
 			$teaching = false;
 			const clickedId = e.target.id.replace("-button", "");
 			$freePlaySelection = clickedId;
+			$soundPlaying = clickedId;
 			$freePlayHover = undefined;
 		}
 	};

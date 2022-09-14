@@ -1,4 +1,4 @@
-import { writable, readable } from "svelte/store";
+import { writable, readable, derived } from "svelte/store";
 import { tweened } from "svelte/motion";
 
 export const language = writable("english");
@@ -20,6 +20,7 @@ export const teaching = writable(true);
 export const highlightedVendor = writable(undefined);
 export const freePlaySelection = writable(undefined);
 export const freePlayHover = writable(undefined);
+export const soundPlaying = writable(undefined);
 
 export const locations = readable({
 	afilador: [0.56, 0.42, 111, 127],

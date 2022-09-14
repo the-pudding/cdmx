@@ -2,7 +2,6 @@
 	import Image from "$components/Interactive.Image.svelte";
 	import Button from "$components/Interactive.Button.svelte";
 	import Preview from "$components/Interactive.Preview.svelte";
-	import Sound from "$components/Sound.svelte";
 	import copy from "$data/copy.json";
 	import { freePlaySelection, locations, inFreePlay } from "$stores/misc.js";
 	import viewport from "$stores/viewport.js";
@@ -34,9 +33,3 @@
 {#each ["tacos", "toreros"] as id}
 	<Image {id} />
 {/each}
-
-{#if src}
-	{#key src}
-		<Sound {src} />
-	{/key}
-{/if}

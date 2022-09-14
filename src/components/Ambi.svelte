@@ -3,7 +3,6 @@
 	import { range } from "d3";
 
 	let audioEls = [];
-	let controls = false;
 
 	$: $ambiVolume, transitionVolume();
 
@@ -20,7 +19,7 @@
 		bind:this={audioEls[i]}
 		src={`assets/sound/ambi/loop${i + 1}.mp3`}
 		{muted}
-		{controls}
+		controls={false}
 		autoplay
 		loop
 	>

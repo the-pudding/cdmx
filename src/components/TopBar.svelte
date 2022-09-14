@@ -8,7 +8,8 @@
 		soundOn,
 		inFreePlay,
 		inModal,
-		freePlaySelection
+		freePlaySelection,
+		soundPlaying
 	} from "$stores/misc.js";
 	import { fade } from "svelte/transition";
 	import scrollY from "$stores/scrollY.js";
@@ -20,6 +21,7 @@
 		$inFreePlay = false;
 		$inModal = true;
 		$freePlaySelection = undefined;
+		$soundPlaying = undefined;
 	};
 </script>
 

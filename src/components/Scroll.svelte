@@ -1,11 +1,9 @@
 <script>
-	import Sound from "$components/Sound.svelte";
 	import Apartment from "$components/Apartment.svelte";
 	import City from "$components/City.svelte";
 	import Scrolly from "$components/helpers/Scrolly.svelte";
 	import Description from "$components/Description.svelte";
 	import Modal from "$components/Modal.svelte";
-	import Inline from "$components/Inline.svelte";
 	import Title from "$components/Title.svelte";
 	import {
 		language,
@@ -13,7 +11,7 @@
 		inFreePlay,
 		ambi,
 		ambiVolume,
-		highlightedVendor
+		soundPlaying
 	} from "$stores/misc.js";
 	import { writable } from "svelte/store";
 	import { previous } from "$stores/previous.js";
@@ -44,10 +42,8 @@
 		force || scrollValue === undefined || scrollValue > steps.length - 1
 			? undefined
 			: steps[scrollValue];
-	$: currentSound =
-		currentStep && currentStep.sound && !force
-			? `assets/sound/${currentStep.sound}.mp3`
-			: undefined;
+	$: $soundPlaying =
+		currentStep && currentStep.sound && !force ? currentStep.sound : undefined;
 	$: vendors = _.uniq(steps.filter((d) => d.vendor).map((d) => d.vendor));
 	$: sendBack =
 		$inFreePlay ||
@@ -140,8 +136,6 @@
 
 		{#if id === "intro"}
 			<div class="step extra" />
-		{:else if id === "city" && $inFreePlay}
-			<!-- <div class="spacer" /> -->
 		{/if}
 	</Scrolly>
 
@@ -159,18 +153,9 @@
 			on:exit={detectEndExit}
 		/>
 	{/if}
-
-	{#if currentSound}
-		{#key currentSound}
-			<Sound src={currentSound} />
-		{/key}
-	{/if}
 </section>
 
 <style>
-	/* .spacer {
-		height: 200vh;
-	} */
 	#spacer-end {
 		height: 95vh;
 	}
