@@ -37,7 +37,10 @@
 <section id="modal" class:visible tabindex="-1" bind:this={modalEl}>
 	<h2 class="title">{@html title[$language]}</h2>
 	<div class="modal-instruction">
-		<img src={"assets/img/click.png"} />
+		<img
+			src={"assets/img/click.png"}
+			alt="the mouse clicking an illustration of a street vendor"
+		/>
 		<p>
 			{@html content[$language][0]}
 		</p>
@@ -48,7 +51,7 @@
 		</p>
 	</div>
 	<div class="modal-instruction column">
-		<img src={"assets/img/exit.png"} />
+		<img src={"assets/img/exit.png"} alt="the page's menu" />
 		<p>{@html content[$language][2]}</p>
 	</div>
 
