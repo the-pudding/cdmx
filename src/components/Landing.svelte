@@ -1,10 +1,23 @@
 <script>
 	import Icon from "$components/helpers/Icon.svelte";
 	import Buttons from "$components/TopBar.Buttons.svelte";
-	import { language } from "$stores/misc.js";
+	import { language, entered } from "$stores/misc.js";
 	import copy from "$data/copy.json";
+	import { tick } from "svelte";
 
 	$: intro = copy.landing[$language];
+
+	$: buttonText =
+		$language === "english"
+			? "Start audio story"
+			: "Iniciar historia audiovisual";
+
+	const enter = async () => {
+		$entered = true;
+		await tick();
+		const el = document.getElementById("scroll-to-start");
+		el.scrollIntoView({ behavior: "smooth", block: "center" });
+	};
 </script>
 
 <section id="landing">
@@ -16,15 +29,9 @@
 
 	<Buttons />
 
-	<div class="scroll">
-		<p>Scroll to enter</p>
-		<Icon
-			name="chevrons-down"
-			height={"2em"}
-			width={"2em"}
-			stroke={`var(--highlight)`}
-		/>
-	</div>
+	<button on:click={enter}
+		>{buttonText}<span><Icon name="volume-2" /></span></button
+	>
 </section>
 
 <style>
@@ -51,6 +58,13 @@
 	.intro,
 	.welcome {
 		text-align: center;
+	}
+	button {
+		display: flex;
+		align-items: center;
+		margin-top: 3em;
+		padding: 0.5em;
+		font-size: 1.6em;
 	}
 	span {
 		display: flex;

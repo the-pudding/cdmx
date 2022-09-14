@@ -1,8 +1,9 @@
 <script>
+	import { entered } from "$stores/misc.js";
 	import wordmark from "$svg/wordmark.svg";
 	import scrollY from "$stores/scrollY.js";
 
-	$: visible = $scrollY < 30;
+	$: visible = !$entered || $scrollY < 30;
 </script>
 
 <header>

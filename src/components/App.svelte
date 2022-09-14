@@ -14,7 +14,8 @@
 		freePlaySelection,
 		soundPlaying,
 		browserZoom,
-		soundOn
+		soundOn,
+		entered
 	} from "$stores/misc.js";
 	import { onMount } from "svelte";
 
@@ -33,53 +34,59 @@
 		}
 	};
 
-	// const handleBlur = () => {
-	// 	console.log("blur");
-	// };
-	// const handleFocus = () => {
-	// 	console.log("focus");
-	// };
-
 	onMount(() => {
 		document.addEventListener("visibilitychange", (event) => {
 			if (document.visibilityState == "visible") {
-				console.log("tab is active");
+				// set it back on, but only if you had it on in the first place...
 			} else {
-				console.log("tab is inactive");
+				$soundOn = false;
 			}
 		});
 	});
-</script>
 
-<Ambi />
-<Sound />
+	$: console.log($entered);
+</script>
 
 <Landing />
 
-<TopBar />
+<div class:visible={$entered}>
+	<Ambi />
+	<Sound />
 
-<Scroll id="intro" steps={copy.preTitleProse} textBg={false} />
+	<TopBar />
 
-<Skip />
+	<Scroll id="intro" steps={copy.preTitleProse} textBg={false} />
 
-<Inline
-	id="inline1"
-	title={copy.inline1.title}
-	content={copy.inline1.content}
-/>
+	<Skip />
 
-<Scroll id="apartment" steps={copy.apartmentSteps} />
+	<Inline
+		id="inline1"
+		title={copy.inline1.title}
+		content={copy.inline1.content}
+	/>
 
-<Inline
-	id="inline2"
-	title={copy.inline2.title}
-	content={copy.inline2.content}
-/>
+	<Scroll id="apartment" steps={copy.apartmentSteps} />
 
-<Scroll id="city" steps={copy.citySteps} />
+	<Inline
+		id="inline2"
+		title={copy.inline2.title}
+		content={copy.inline2.content}
+	/>
 
-<Inline id="thanks" title={copy.thanks.title} content={copy.thanks.content} />
+	<Scroll id="city" steps={copy.citySteps} />
 
-<Footer />
+	<Inline id="thanks" title={copy.thanks.title} content={copy.thanks.content} />
+
+	<Footer />
+</div>
 
 <svelte:window on:keydown={handleKey} bind:outerWidth bind:innerWidth />
+
+<style>
+	.visible {
+		display: block;
+	}
+	div {
+		display: none;
+	}
+</style>

@@ -1,10 +1,11 @@
 <script>
 	import Buttons from "$components/TopBar.Buttons.svelte";
 	import logo from "$svg/logo.svg";
+	import { entered } from "$stores/misc.js";
 	import { fade } from "svelte/transition";
 	import scrollY from "$stores/scrollY.js";
 
-	$: visible = $scrollY > 300;
+	$: visible = $entered && $scrollY > 300;
 </script>
 
 <section id="top-bar">
