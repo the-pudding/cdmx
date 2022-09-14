@@ -81,7 +81,13 @@ a:hover {
 }
 
 button {
+	background: white;
+	border: 1px solid var(--button-outline);
+	border-radius: 4px;
 	color: var(--highlight);
+}
+button:hover {
+	background: var(--color-gray-100);
 }
 
 .vendor {

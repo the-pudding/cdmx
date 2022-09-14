@@ -9,7 +9,6 @@
 	import Footer from "$components/Footer.svelte";
 	import copy from "$data/copy.json";
 	import {
-		entered,
 		inFreePlay,
 		inModal,
 		freePlaySelection,
@@ -33,35 +32,35 @@
 	$: $browserZoom = Math.round((outerWidth / innerWidth) * 100);
 </script>
 
+<Ambi />
+<Sound />
+
 <Landing />
+
 <TopBar />
-{#if $entered}
-	<Ambi />
-	<Sound />
 
-	<Scroll id="intro" steps={copy.preTitleProse} textBg={false} />
+<Scroll id="intro" steps={copy.preTitleProse} textBg={false} />
 
-	<Skip />
+<Skip />
 
-	<Inline
-		id="inline1"
-		title={copy.inline1.title}
-		content={copy.inline1.content}
-	/>
+<Inline
+	id="inline1"
+	title={copy.inline1.title}
+	content={copy.inline1.content}
+/>
 
-	<Scroll id="apartment" steps={copy.apartmentSteps} />
+<Scroll id="apartment" steps={copy.apartmentSteps} />
 
-	<Inline
-		id="inline2"
-		title={copy.inline2.title}
-		content={copy.inline2.content}
-	/>
+<Inline
+	id="inline2"
+	title={copy.inline2.title}
+	content={copy.inline2.content}
+/>
 
-	<Scroll id="city" steps={copy.citySteps} />
+<Scroll id="city" steps={copy.citySteps} />
 
-	<Inline id="thanks" title={copy.thanks.title} content={copy.thanks.content} />
+<Inline id="thanks" title={copy.thanks.title} content={copy.thanks.content} />
 
-	<Footer />
-{/if}
+<Footer />
 
 <svelte:window on:keydown={handleKey} bind:outerWidth bind:innerWidth />

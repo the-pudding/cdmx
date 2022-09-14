@@ -1,20 +1,10 @@
 <script>
-	import Toggle from "$components/helpers/Toggle.svelte";
 	import Icon from "$components/helpers/Icon.svelte";
-	import { language, entered } from "$stores/misc.js";
+	import Buttons from "$components/TopBar.Buttons.svelte";
+	import { language } from "$stores/misc.js";
 	import copy from "$data/copy.json";
-	import { tick } from "svelte";
 
 	$: intro = copy.landing[$language];
-	$: buttonText =
-		$language === "english" ? "start audio story" : "iniciar (incluye audio)";
-
-	const enter = async () => {
-		$entered = true;
-		await tick();
-		const el = document.getElementById("scroll-to-start");
-		el.scrollIntoView({ behavior: "smooth", block: "center" });
-	};
 </script>
 
 <section id="landing">
@@ -24,18 +14,16 @@
 		{/each}
 	</div>
 
-	<Toggle
-		label=""
-		style="inner"
-		bind:value={$language}
-		options={["english", "spanish"]}
-		displayOptions={["english", "español"]}
-	/>
+	<Buttons />
 
-	<div class="buttons">
-		<button on:click={enter}
-			>{buttonText}<span><Icon name="volume-2" /></span></button
-		>
+	<div class="scroll">
+		<p>Scroll to enter</p>
+		<Icon
+			name="chevrons-down"
+			height={"2em"}
+			width={"2em"}
+			stroke={`var(--highlight)`}
+		/>
 	</div>
 </section>
 
@@ -48,33 +36,21 @@
 		align-items: center;
 		margin-top: 7em;
 	}
+	.scroll {
+		margin-top: 2em;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		font-family: var(--sans);
+		font-size: 1.6em;
+		color: var(--highlight);
+	}
 	.intro {
-		margin: 0 1em;
+		margin: 1em;
 	}
 	.intro,
 	.welcome {
 		text-align: center;
-	}
-	.buttons {
-		margin: 3em 0;
-		min-width: 35%;
-		display: flex;
-		justify-content: space-evenly;
-	}
-	:global(button) {
-		background: white;
-		border: 1px solid var(--button-outline);
-		border-radius: 4px;
-	}
-	:global(button:hover) {
-		background: var(--color-gray-100);
-	}
-	.selected {
-		background: var(--color-gray-100);
-	}
-	button {
-		display: flex;
-		align-items: center;
 	}
 	span {
 		display: flex;
