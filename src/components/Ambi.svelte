@@ -5,6 +5,8 @@
 	let audioEls = [];
 	let controls = false;
 
+	$: console.log($ambi);
+
 	$: $ambiVolume, transitionVolume();
 
 	const transitionVolume = () => {

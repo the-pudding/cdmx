@@ -10,6 +10,7 @@
 
 	export let content;
 	export let title;
+	export let sticky;
 
 	$: buttonText = $language === "english" ? "explore!" : "¡explora!";
 	$: visible = $inModal;
@@ -31,10 +32,9 @@
 		$inModal = false;
 		$inFreePlay = true;
 		$ambi = 1;
-		$ambiVolume = 0.1;
+		$ambiVolume = 0.05;
 
-		const el = document.getElementById("scroll-to-explore");
-		el.scrollIntoView({ block: "center" });
+		sticky.scrollIntoView({ block: "start", inline: "nearest" });
 	};
 </script>
 

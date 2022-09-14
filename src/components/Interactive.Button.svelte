@@ -25,12 +25,12 @@
 		}
 	};
 	const onButtonHover = (e) => {
-		if ($inFreePlay && !$freePlaySelection && !isMobile) {
+		if ($inFreePlay && !isMobile && !$teaching && !$freePlaySelection) {
 			$freePlayHover = e.target.id.replace("-button", "");
 		}
 	};
 	const onButtonLeave = () => {
-		if ($inFreePlay && !isMobile) $freePlayHover = undefined;
+		if ($inFreePlay && !isMobile && !$teaching) $freePlayHover = undefined;
 	};
 </script>
 

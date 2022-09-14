@@ -1,10 +1,12 @@
 <script>
-	import { inModal, language } from "$stores/misc.js";
+	import { inModal, language, ambi, ambiVolume } from "$stores/misc.js";
 
 	const skip = () => {
-		const el = document.getElementById("detect-end");
-		el.scrollIntoView();
+		const el = document.getElementById("spacer-end");
+		el.scrollIntoView({ block: "start", inline: "nearest" });
 		$inModal = true;
+		$ambi = 1;
+		$ambiVolume = 0.05;
 	};
 </script>
 
@@ -13,9 +15,12 @@
 		Read on to learn about the relationship between the city & its street
 		vendors,
 	</p>
-	<a href="#" on:click={skip}
-		>or skip ahead to explore the sounds of the city on your own.</a
-	>
+
+	<p>
+		or
+		<button on:click={skip}>skip ahead</button>
+		to explore the sounds of the city on your own.
+	</p>
 </section>
 
 <style>
@@ -29,19 +34,15 @@
 		align-items: center;
 		border: 3px solid var(--color-fg);
 	}
-	p {
+	p:first-of-type {
 		font-size: 1.8em;
 		padding: 0.3em;
-		margin-top: 0;
+		margin: 0;
 		text-align: center;
 	}
-	a {
+	p:last-of-type {
 		font-size: 1.2em;
 		text-align: center;
-		color: var(--highlight);
 		font-family: var(--sans);
-	}
-	a:hover {
-		background: var(--color-gray-100);
 	}
 </style>

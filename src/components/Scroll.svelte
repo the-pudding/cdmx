@@ -52,7 +52,7 @@
 		if (id === "city") {
 			if (leavingBottom && !$inFreePlay) {
 				$inModal = true;
-			} else {
+			} else if (!force) {
 				$inModal = false;
 			}
 		}
@@ -73,6 +73,7 @@
 		}
 	};
 
+	// $: console.log({ force });
 	let force = false;
 	const forceModal = () => {
 		force = true;
@@ -104,7 +105,11 @@
 		{:else if id === "city"}
 			<City location="freeplay" {currentStep} {sticky} {leavingTop} />
 			<Description />
-			<Modal title={copy.freePlay.title} content={copy.freePlay.content} />
+			<Modal
+				title={copy.freePlay.title}
+				content={copy.freePlay.content}
+				{sticky}
+			/>
 		{/if}
 	</div>
 
@@ -128,7 +133,7 @@
 	</Scrolly>
 
 	{#if id === "city"}
-		<div id="scroll-to-explore" />
+		<div id="spacer-end" />
 		<div
 			id="detect-end"
 			use:inView
@@ -145,11 +150,11 @@
 </section>
 
 <style>
-	.spacer {
+	/* .spacer {
 		height: 200vh;
-	}
-	#scroll-to-explore {
-		height: 100vh;
+	} */
+	#spacer-end {
+		height: 95vh;
 	}
 	#detect-end {
 		height: 50vh;
@@ -181,6 +186,9 @@
 		margin-bottom: 0;
 	}
 	.step:first-of-type {
+		margin-top: 0;
+	}
+	#apartment .step:first-of-type {
 		margin-top: -50vh;
 	}
 	.sticky {

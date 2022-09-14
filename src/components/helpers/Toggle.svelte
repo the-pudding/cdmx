@@ -37,6 +37,7 @@
 <style>
 	button {
 		border-radius: 0;
+		color: var(--color-fg);
 	}
 	.toggle button,
 	.label {

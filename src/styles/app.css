@@ -80,8 +80,11 @@ a:hover {
 	color: var(--color-gray-500);
 }
 
+button {
+	color: var(--highlight);
+}
+
 .vendor {
 	color: var(--highlight);
 	font-weight: bold;
-	/* font-family: var(--sans); */
 }

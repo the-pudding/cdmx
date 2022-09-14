@@ -98,6 +98,7 @@
 		background: white;
 		border-radius: 0;
 		height: 100%;
+		color: var(--color-fg);
 	}
 	button:hover {
 		background: var(--color-gray-100);

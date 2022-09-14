@@ -9,10 +9,8 @@
 	export let modal;
 
 	const adjustAmbi = () => {
-		if (id === "inline1") {
-			$ambi = 1;
-			$ambiVolume = 0.1;
-		}
+		$ambi = 1;
+		$ambiVolume = 0.05;
 	};
 </script>
 
