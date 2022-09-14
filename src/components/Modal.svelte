@@ -7,13 +7,12 @@
 		ambiVolume,
 		soundPlaying
 	} from "$stores/misc.js";
-	import Icon from "$components/helpers/Icon.svelte";
 
 	export let content;
 	export let title;
 	export let sticky;
 
-	$: buttonText = $language === "english" ? "explore!" : "¡explora!";
+	$: buttonText = $language === "english" ? "Explore!" : "¡Explora!";
 	$: visible = $inModal;
 	$: visible, handleFocus();
 
@@ -37,19 +36,20 @@
 
 <section id="modal" class:visible tabindex="-1" bind:this={modalEl}>
 	<h2 class="title">{@html title[$language]}</h2>
-	{#each content as p}
-		{@const text = p[$language]}
-		<p>{@html text}</p>
-	{/each}
-
-	<div class="modal-instructions">
-		<p>You can:</p>
-		<ul>
-			<li><Icon name="zoom-in" /><span>Zoom</span></li>
-			<li>
-				<Icon name="mouse-pointer" /><span>Click & drag to pan around</span>
-			</li>
-		</ul>
+	<div class="modal-instruction">
+		<img src={"assets/img/click.png"} />
+		<p>
+			{@html content[$language][0]}
+		</p>
+	</div>
+	<div class="modal-instruction">
+		<p>
+			{@html content[$language][1]}
+		</p>
+	</div>
+	<div class="modal-instruction column">
+		<img src={"assets/img/exit.png"} />
+		<p>{@html content[$language][2]}</p>
 	</div>
 
 	<button on:click={startFreePlay}>{buttonText}</button>
@@ -60,7 +60,7 @@
 		width: 90%;
 		position: absolute;
 		max-width: 450px;
-		top: 50%;
+		top: 40%;
 		left: 50%;
 		margin: 0;
 		transform: translate(-50%, -50%);
@@ -71,6 +71,9 @@
 		opacity: 0;
 		z-index: -1;
 		transition: opacity 500ms;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 	}
 	.visible {
 		opacity: 1;
@@ -78,22 +81,27 @@
 	}
 	h2 {
 		margin: 0;
+		text-align: center;
 	}
 	p {
 		font-size: var(--18px);
 	}
-	.modal-instructions {
+	.modal-instruction {
 		font-family: var(--sans);
+		display: flex;
+		align-items: center;
+		text-align: center;
+		margin: 0.5em 0;
+		justify-content: center;
 	}
-	.modal-instructions p {
-		text-decoration: underline;
-		margin: 0;
+	.modal-instruction.column {
+		flex-direction: column;
 	}
-	.modal-instructions ul {
-		margin-bottom: 16px;
+	.modal-instruction p:not(.column p) {
+		margin-left: 8px;
 	}
-	.modal-instructions span {
-		margin-left: 4px;
+	button {
+		font-size: 1.5em;
 	}
 
 	@media only screen and (max-width: 600px) {

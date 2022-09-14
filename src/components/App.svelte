@@ -13,10 +13,16 @@
 		inModal,
 		freePlaySelection,
 		soundPlaying,
-		browserZoom
+		browserZoom,
+		soundOn
 	} from "$stores/misc.js";
+	import { onMount } from "svelte";
 
 	$: console.log({ copy });
+
+	let outerWidth;
+	let innerWidth;
+	$: $browserZoom = Math.round((outerWidth / innerWidth) * 100);
 
 	const handleKey = (e) => {
 		if (e.key === "Escape" && $inFreePlay) {
@@ -27,9 +33,22 @@
 		}
 	};
 
-	let outerWidth;
-	let innerWidth;
-	$: $browserZoom = Math.round((outerWidth / innerWidth) * 100);
+	// const handleBlur = () => {
+	// 	console.log("blur");
+	// };
+	// const handleFocus = () => {
+	// 	console.log("focus");
+	// };
+
+	onMount(() => {
+		document.addEventListener("visibilitychange", (event) => {
+			if (document.visibilityState == "visible") {
+				console.log("tab is active");
+			} else {
+				console.log("tab is inactive");
+			}
+		});
+	});
 </script>
 
 <Ambi />

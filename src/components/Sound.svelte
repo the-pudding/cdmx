@@ -66,7 +66,5 @@
 		controls={false}
 		loop
 		{muted}
-	>
-		<track kind="captions" />
-	</audio>
+	/>
 {/each}

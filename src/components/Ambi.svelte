@@ -22,7 +22,5 @@
 		controls={false}
 		autoplay
 		loop
-	>
-		<track kind="captions" />
-	</audio>
+	/>
 {/each}
