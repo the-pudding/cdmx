@@ -43,21 +43,18 @@
 			}
 		});
 	});
-
-	$: console.log($entered);
 </script>
 
 <Landing />
+<Ambi />
+<Sound />
 
 <div class:visible={$entered}>
-	<Ambi />
-	<Sound />
-
 	<TopBar />
 
 	<Scroll id="intro" steps={copy.preTitleProse} textBg={false} />
 
-	<Skip />
+	<Skip content={copy.skip} />
 
 	<Inline
 		id="inline1"

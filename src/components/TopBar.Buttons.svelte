@@ -12,6 +12,12 @@
 	import { fade } from "svelte/transition";
 
 	$: buttonText = $language === "english" ? "exit free play" : "salir";
+	$: muteText = $language === "english" ? "mute" : "silenciar";
+	$: unmuteText = $language === "english" ? "unmute" : "activar sonido";
+	$: recommendText =
+		$language === "english"
+			? "sound is recommended!"
+			: "¡recomendamos activar el sonido!";
 
 	const exitFreePlay = () => {
 		$inFreePlay = false;
@@ -23,16 +29,16 @@
 
 <div class="buttons" transition:fade>
 	{#if !$soundOn}
-		<div class="recommend">sound is recommended!</div>
+		<div class="recommend">{recommendText}</div>
 	{/if}
 
 	<button class="mute-button" on:click={() => ($soundOn = !$soundOn)}>
 		{#if $soundOn}
 			<Icon name="volume-2" width={"1.3em"} height={"1.3em"} />
-			<div class="mute-text">mute</div>
+			<div class="mute-text">{muteText}</div>
 		{:else}
 			<Icon name="volume-x" stroke="#893026" width={"1.3em"} height={"1.3em"} />
-			<div class="mute-text">unmute</div>
+			<div class="mute-text">{unmuteText}</div>
 		{/if}
 	</button>
 

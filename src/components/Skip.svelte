@@ -6,6 +6,9 @@
 		ambiVolume,
 		soundPlaying
 	} from "$stores/misc.js";
+	import { onMount } from "svelte";
+
+	export let content;
 
 	const skip = () => {
 		const el = document.getElementById("spacer-end");
@@ -15,19 +18,17 @@
 		$ambiVolume = 0.05;
 		$soundPlaying = undefined;
 	};
+
+	onMount(() => {
+		const button = document.getElementById("skip");
+		button.addEventListener("click", skip);
+	});
 </script>
 
 <section id="skip">
-	<p>
-		Read on to learn about the relationship between the city & its street
-		vendors,
-	</p>
-
-	<p>
-		or
-		<button on:click={skip}>skip ahead</button>
-		to explore the sounds of the city on your own.
-	</p>
+	{#each content as item}
+		<p>{@html item[$language]}</p>
+	{/each}
 </section>
 
 <style>

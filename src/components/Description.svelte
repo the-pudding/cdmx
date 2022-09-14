@@ -19,6 +19,7 @@
 	$: visible = description && title;
 	$: visible, handleFocus();
 	$: zoomed = $browserZoom > 200;
+	$: summaryText = $language === "english" ? "Read more" : "Lee mas";
 
 	let modalEl;
 	let lastFocusedEl;
@@ -61,7 +62,7 @@
 
 	{#if extra}
 		<details>
-			<summary>Fun fact</summary>
+			<summary>{summaryText}</summary>
 			<p class="extra">{@html extra}</p>
 		</details>
 	{/if}

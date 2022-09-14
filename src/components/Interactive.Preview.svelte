@@ -24,6 +24,14 @@
 			  title &&
 			  id === $freePlayHover &&
 			  (!$teaching || "afilador" !== $freePlayHover);
+	$: teachText =
+		$language === "english"
+			? "Click me to hear my sound!"
+			: "¡Hazme clic para escuchar mi sonido!";
+	$: previewText =
+		$language === "english"
+			? "(click to hear me!)"
+			: "(¡haz clic para escucharme!)";
 </script>
 
 <div
@@ -34,10 +42,10 @@
 	class:visible
 >
 	{#if id === "teach"}
-		Click me to hear my sound!
+		{teachText}
 	{:else}
 		<strong>{title}</strong>
-		<span style={`font-size: 12px`}>(click to hear me!)</span>
+		<span style={`font-size: 12px`}>{previewText}</span>
 	{/if}
 </div>
 

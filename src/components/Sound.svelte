@@ -1,8 +1,8 @@
 <script>
 	import { soundOn, soundPlaying } from "$stores/misc.js";
 	import { tweened } from "svelte/motion";
-	import copy from "$data/copy.json";
 	import { previous } from "$stores/previous.js";
+	import copy from "$data/copy.json";
 
 	const ids = [...copy.soundBank.map((d) => d.id), "toreros", "tacos"];
 
