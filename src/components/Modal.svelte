@@ -4,7 +4,8 @@
 		inModal,
 		inFreePlay,
 		ambi,
-		ambiVolume
+		ambiVolume,
+		soundPlaying
 	} from "$stores/misc.js";
 	import Icon from "$components/helpers/Icon.svelte";
 
@@ -17,15 +18,10 @@
 	$: visible, handleFocus();
 
 	let modalEl;
-	// let lastFocusedEl;
 	const handleFocus = () => {
 		if (visible && modalEl) {
-			// lastFocusedEl = document.activeElement;
 			modalEl.focus();
 		}
-		//else if (lastFocusedEl) {
-		// lastFocusedEl.focus();
-		//}
 	};
 
 	const startFreePlay = () => {
@@ -33,6 +29,7 @@
 		$inFreePlay = true;
 		$ambi = 1;
 		$ambiVolume = 0.05;
+		$soundPlaying = undefined;
 
 		sticky.scrollIntoView({ block: "start", inline: "nearest" });
 	};

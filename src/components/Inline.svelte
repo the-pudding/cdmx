@@ -1,5 +1,5 @@
 <script>
-	import { language, ambi, ambiVolume } from "$stores/misc.js";
+	import { language, ambi, ambiVolume, soundPlaying } from "$stores/misc.js";
 	import { fade } from "svelte/transition";
 	import inView from "$actions/inView.js";
 
@@ -11,6 +11,7 @@
 	const adjustAmbi = () => {
 		$ambi = 1;
 		$ambiVolume = 0.05;
+		$soundPlaying = undefined;
 	};
 </script>
 

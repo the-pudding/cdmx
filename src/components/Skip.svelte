@@ -1,5 +1,11 @@
 <script>
-	import { inModal, language, ambi, ambiVolume } from "$stores/misc.js";
+	import {
+		inModal,
+		language,
+		ambi,
+		ambiVolume,
+		soundPlaying
+	} from "$stores/misc.js";
 
 	const skip = () => {
 		const el = document.getElementById("spacer-end");
@@ -7,6 +13,7 @@
 		$inModal = true;
 		$ambi = 1;
 		$ambiVolume = 0.05;
+		$soundPlaying = undefined;
 	};
 </script>
 
