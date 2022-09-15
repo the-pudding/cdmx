@@ -19,7 +19,7 @@
 
 	--step-background: rgb(255, 255, 255, 0.95);
 	--highlight: #893026;
-	--highlight-2: #fae676;
+	--highlight-light: #eacccc;
 
 	/* presets (used in reset.css) */
 	--button-outline: var(--color-gray-300);

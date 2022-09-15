@@ -51,10 +51,9 @@
 <Landing />
 <Ambi />
 <Sound />
+<TopBar />
 
 <div class:visible={$entered}>
-	<TopBar />
-
 	<Scroll id="intro" steps={copy.preTitleProse} textBg={false} />
 
 	<Skip content={copy.skip} />
