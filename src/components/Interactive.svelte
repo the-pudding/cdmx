@@ -3,7 +3,7 @@
 	import Button from "$components/Interactive.Button.svelte";
 	import Preview from "$components/Interactive.Preview.svelte";
 	import copy from "$data/copy.json";
-	import { locations, inFreePlay } from "$stores/misc.js";
+	import { buttonLocations, inFreePlay } from "$stores/misc.js";
 	import viewport from "$stores/viewport.js";
 
 	const ids = copy.soundBank.map((d) => d.id);
@@ -12,7 +12,7 @@
 </script>
 
 {#each ids as id}
-	{@const location = $locations[id]}
+	{@const location = $buttonLocations[id]}
 
 	<Image {id} />
 

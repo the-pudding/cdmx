@@ -28,7 +28,7 @@ export const loadCity = writable(false);
 export const loadApartment = writable(false);
 export const loadCityVendors = writable(false);
 
-export const locations = readable({
+export const buttonLocations = readable({
 	afilador: [0.56, 0.42, 111, 127],
 	agua: [0.62, 0.85, 167, 212],
 	camotero: [0.65, 0.57, 125, 132],
@@ -51,4 +51,28 @@ export const locations = readable({
 	toreros: [0.44, 0.88, 100],
 	trompetista: [0.4, 0.35, 135, 130],
 	verdulero: [0.5, 0.75, 300, 215]
+});
+
+export const imageLocations = readable({
+	afilador: [0.56, 0.42, 111],
+	agua: [0.62, 0.85, 167],
+	camotero: [0.65, 0.57, 125],
+	cartero: [0.71, 0.62, 128],
+	chatarrero: [0.66, 0.46, 213],
+	elotero: [0.28, 0.75, 157],
+	gasero: [0.33, 0.67, 370],
+	globero: [0.84, 0.29, 100],
+	heladero: [0.77, 0.32, 100],
+	merenguero: [0.85, 0.47, 100],
+	metro: [0.92, 0.85, 100],
+	obleas: [0.04, 0.46, 84],
+	organillero: [0.04, 0.57, 80],
+	panadero: [0.69, 0.72, 151],
+	recolector: [0.27, 0.47, 141],
+	ropa: [0.06, 0.73, 158],
+	tacos: [0.14, 0.78, 150],
+	tamalero: [0.37, 0.44, 142],
+	toreros: [0.44, 0.88, 150],
+	trompetista: [0.4, 0.35, 135],
+	verdulero: [0.5, 0.75, 300]
 });

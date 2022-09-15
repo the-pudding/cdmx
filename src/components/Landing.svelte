@@ -1,12 +1,15 @@
 <script>
-	import Vendors from "$components/Landing.Vendors.svelte";
 	import Buttons from "$components/TopBar.Buttons.svelte";
 	import { language, entered } from "$stores/misc.js";
 	import copy from "$data/copy.json";
 	import { tick } from "svelte";
+	import _ from "lodash";
+
+	const randomId = _.sample(
+		copy.soundBank.map((d) => d.id).filter((d) => d !== "metro")
+	);
 
 	$: intro = copy.landing[$language];
-
 	$: buttonText =
 		$language === "english"
 			? "Start audio story"
@@ -22,7 +25,10 @@
 
 <section id="landing">
 	<div class="wrapper">
-		<Vendors />
+		<img
+			src={`assets/img/freeplay-small/${randomId}.png`}
+			alt="illustration of mexico city street vendor"
+		/>
 
 		<div class="intro">
 			{#each intro as text, i}
@@ -64,6 +70,8 @@
 		padding: 0.5em;
 		font-size: 1.3em;
 		color: var(--color-fg);
+		border: 3px solid var(--color-fg);
+		border-radius: 0;
 	}
 	span {
 		display: flex;
@@ -72,9 +80,16 @@
 	.big {
 		font-size: 4em;
 	}
+	img {
+		height: 200px;
+	}
+
 	@media only screen and (max-width: 600px) {
 		.big {
 			font-size: 2.3em;
+		}
+		img {
+			height: 150px;
 		}
 		button {
 			margin-top: 1em;

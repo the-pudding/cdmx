@@ -6,7 +6,7 @@
 		inModal,
 		inFreePlay,
 		highlightedVendor,
-		locations,
+		buttonLocations,
 		teaching,
 		loadCity
 	} from "$stores/misc.js";
@@ -21,8 +21,8 @@
 	export let leavingTop;
 
 	const ratio = 3758 / 4134;
-	const cityBig = "assets/img/background/city-big-compressed.jpg";
-	const citySmall = "assets/img/background/city-small-compressed.jpg";
+	const cityBig = "assets/img/background/city.jpg";
+	const citySmall = "assets/img/background/city_mobile.jpg";
 	const flyDuration = 1500;
 
 	let z;
@@ -121,8 +121,8 @@
 	const flyTo = (id) => {
 		const scale = isMobile ? 1.3 : 2;
 
-		if ($locations[id]) {
-			const location = $locations[id] || [0, 0];
+		if ($buttonLocations[id]) {
+			const location = $buttonLocations[id] || [0, 0];
 
 			let x = $viewport.width / 2 - zoomableW * scale * location[0];
 			let y = $viewport.height / 2 - zoomableH * scale * location[1];

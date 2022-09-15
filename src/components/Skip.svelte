@@ -5,7 +5,8 @@
 		ambi,
 		ambiVolume,
 		soundPlaying,
-		loadApartment
+		loadApartment,
+		loadCityVendors
 	} from "$stores/misc.js";
 	import { onMount } from "svelte";
 	import inView from "$actions/inView.js";
@@ -19,6 +20,8 @@
 		$ambi = 1;
 		$ambiVolume = 0.05;
 		$soundPlaying = undefined;
+		$loadCityVendors = true;
+		$loadApartment = true;
 	};
 
 	onMount(() => {
