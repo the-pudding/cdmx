@@ -5,12 +5,10 @@
 	export let currentStep;
 	export let vendors;
 
-	const exteriorBig = "assets/img/background/apartment_ext_big_compressed.png";
-	const exteriorSmall =
-		"assets/img/background/apartment_ext_small_compressed.png";
-	const interiorBig = "assets/img/background/apartment_int_big_compressed.png";
-	const interiorSmall =
-		"assets/img/background/apartment_int_small_compressed.png";
+	const exteriorBig = "assets/img/background/apartment_ext.png";
+	const exteriorSmall = "assets/img/background/apartment_ext_mobile.png";
+	const interiorBig = "assets/img/background/apartment_int.png";
+	const interiorSmall = "assets/img/background/apartment_int_mobile.png";
 
 	$: currentVendor =
 		currentStep && currentStep.vendor ? currentStep.vendor : undefined;
