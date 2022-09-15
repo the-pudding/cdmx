@@ -24,6 +24,10 @@
 		$inModal = true;
 		$freePlaySelection = undefined;
 		$soundPlaying = undefined;
+
+		// make sure modal is in view, steps are not
+		const goTo = document.getElementById("spacer-end");
+		goTo.scrollIntoView({ block: "start", inline: "nearest" });
 	};
 </script>
 

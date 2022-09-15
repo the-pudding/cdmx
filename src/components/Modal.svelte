@@ -8,6 +8,7 @@
 		soundPlaying
 	} from "$stores/misc.js";
 	import inView from "$actions/inView.js";
+	import { tick } from "svelte";
 
 	export let content;
 	export let title;
@@ -24,13 +25,14 @@
 		}
 	};
 
-	const startFreePlay = () => {
+	const startFreePlay = async () => {
 		$inModal = false;
 		$inFreePlay = true;
 		$ambi = 1;
 		$ambiVolume = 0.05;
 		$soundPlaying = undefined;
 
+		// make sure image is full screen
 		sticky.scrollIntoView({ block: "start", inline: "nearest" });
 	};
 </script>

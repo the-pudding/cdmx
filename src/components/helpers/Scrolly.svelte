@@ -12,6 +12,8 @@
 	 * <Scrolly root={null} top={0} bottom={0} increments={100}>
 	 */
 	import { onMount } from "svelte";
+	import { inFreePlay } from "$stores/misc.js";
+
 	export let root = null;
 	export let top = 0;
 	export let bottom = 0;
@@ -49,10 +51,12 @@
 
 	const createObserver = (node, index) => {
 		const handleIntersect = (e) => {
-			const intersecting = e[0].isIntersecting;
-			const ratio = e[0].intersectionRatio;
-			steps[index] = ratio;
-			mostInView();
+			if (!$inFreePlay) {
+				const intersecting = e[0].isIntersecting;
+				const ratio = e[0].intersectionRatio;
+				steps[index] = ratio;
+				mostInView();
+			}
 		};
 
 		const marginTop = top ? top * -1 : 0;

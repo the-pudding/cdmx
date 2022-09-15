@@ -44,14 +44,6 @@
 	$: $highlightedVendor, $viewport.width, highlightChange();
 	$: $inFreePlay, freePlayChange();
 
-	// $: jumpTo($viewport.width);
-	// const jumpTo = () => {
-	// 	if ($inFreePlay) {
-	// 		console.log({ sticky });
-	// 		sticky.scrollIntoView({ block: "start", inline: "nearest" });
-	// 	}
-	// };
-
 	const highlightChange = () => {
 		if ($highlightedVendor) {
 			flyTo($highlightedVendor);
@@ -66,10 +58,10 @@
 
 			if (location === "freeplay") {
 				wrapper.focus();
-			}
 
-			if ($teaching) {
-				flyTo("afilador");
+				if ($teaching) {
+					flyTo("afilador");
+				}
 			}
 		} else {
 			reset();

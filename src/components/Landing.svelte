@@ -65,7 +65,7 @@
 		align-items: center;
 		margin-top: 3em;
 		padding: 0.5em;
-		font-size: 1.6em;
+		font-size: 1.4em;
 	}
 	span {
 		display: flex;
