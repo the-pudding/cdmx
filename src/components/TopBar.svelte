@@ -9,11 +9,11 @@
 </script>
 
 <section id="top-bar">
-	<!-- {#if visible} -->
-	<div class="logo" transition:fade>
-		<a href="https://pudding.cool" aria-label="The Pudding">{@html logo}</a>
-	</div>
-	<!-- {/if} -->
+	{#if visible}
+		<div class="logo" transition:fade>
+			<a href="https://pudding.cool" aria-label="The Pudding">{@html logo}</a>
+		</div>
+	{/if}
 
 	<div class="logo invisible">
 		<a href="https://pudding.cool" aria-label="The Pudding">{@html logo}</a>
