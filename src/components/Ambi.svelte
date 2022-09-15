@@ -1,14 +1,22 @@
 <script>
-	import { soundOn, ambi, ambiVolume } from "$stores/misc.js";
+	import { soundOn, ambi, ambiVolume, entered } from "$stores/misc.js";
 	import { range } from "d3";
+	import { onMount } from "svelte";
 
 	let audioEls = [];
 
+	$: if ($entered) play();
 	$: $ambiVolume, transitionVolume();
 
 	const transitionVolume = () => {
 		audioEls.forEach((audioEl) => {
 			audioEl.volume = $ambiVolume;
+		});
+	};
+
+	const play = () => {
+		audioEls.forEach((audioEl) => {
+			audioEl.play();
 		});
 	};
 </script>
@@ -19,8 +27,6 @@
 		bind:this={audioEls[i]}
 		src={`assets/sound/ambi/loop${i + 1}.mp3`}
 		{muted}
-		controls={false}
-		autoplay
 		loop
 	/>
 {/each}

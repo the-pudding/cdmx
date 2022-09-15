@@ -3,7 +3,7 @@
 	import wordmark from "$svg/wordmark.svg";
 	import scrollY from "$stores/scrollY.js";
 
-	$: visible = !$entered || $scrollY < 30;
+	$: visible = $scrollY < 30;
 </script>
 
 <header>

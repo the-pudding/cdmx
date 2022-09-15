@@ -1,6 +1,5 @@
 <script>
 	import Vendors from "$components/Landing.Vendors.svelte";
-	import Icon from "$components/helpers/Icon.svelte";
 	import Buttons from "$components/TopBar.Buttons.svelte";
 	import { language, entered } from "$stores/misc.js";
 	import copy from "$data/copy.json";
