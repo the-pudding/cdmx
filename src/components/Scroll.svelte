@@ -185,6 +185,9 @@
 		border: 3px solid var(--color-fg);
 		padding: 2em;
 	}
+	.step:not(.background) {
+		text-shadow: 0px 0px 10px white;
+	}
 	.step.last {
 		margin-bottom: 0;
 	}

@@ -30,7 +30,8 @@
 	<Buttons />
 
 	<button on:click={enter}
-		>{buttonText}<span><Icon name="volume-2" /></span></button
+		>{buttonText}
+		<span><Icon name="volume-2" /></span></button
 	>
 </section>
 
