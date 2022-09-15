@@ -16,7 +16,7 @@
 
 	const onEnter = () => {
 		$ambi = 1;
-		$ambiVolume = 0.05;
+		$ambiVolume = 0.1;
 		$soundPlaying = undefined;
 
 		if (id === "inline2") {

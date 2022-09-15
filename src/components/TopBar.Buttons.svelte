@@ -8,7 +8,8 @@
 		language,
 		inModal,
 		freePlaySelection,
-		soundPlaying
+		soundPlaying,
+		ambiVolume
 	} from "$stores/misc.js";
 	import { fade } from "svelte/transition";
 
@@ -25,6 +26,7 @@
 		$inModal = true;
 		$freePlaySelection = undefined;
 		$soundPlaying = undefined;
+		$ambiVolume = 0.1;
 
 		// make sure modal is in view, steps are not
 		const goTo = document.getElementById("spacer-end");

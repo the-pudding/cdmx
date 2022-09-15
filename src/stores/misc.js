@@ -11,9 +11,7 @@ export const inModal = writable(false); /* in free play instruction modal */
 export const inFreePlay = writable(false); /* in zoomable/panable free play */
 
 export const ambi = writable(undefined); /* which ambi track is playing */
-export const ambiVolume = tweened(0, {
-	duration: 2000
-});
+export const ambiVolume = writable(0);
 
 export const teaching = writable(true);
 

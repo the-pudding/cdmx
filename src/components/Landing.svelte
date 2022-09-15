@@ -6,7 +6,7 @@
 	import _ from "lodash";
 
 	const randomId = _.sample(
-		copy.soundBank.map((d) => d.id).filter((d) => d !== "metro")
+		copy.soundBank.map((d) => d.id).filter((d) => d !== "metro" && d !== "ropa")
 	);
 
 	$: intro = copy.landing[$language];

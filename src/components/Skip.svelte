@@ -18,7 +18,7 @@
 		el.scrollIntoView({ block: "start", inline: "nearest" });
 		$inModal = true;
 		$ambi = 1;
-		$ambiVolume = 0.05;
+		$ambiVolume = 0.1;
 		$soundPlaying = undefined;
 		$loadCityVendors = true;
 		$loadApartment = true;

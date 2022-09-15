@@ -20,11 +20,13 @@
 		loadCity
 	} from "$stores/misc.js";
 	import { onMount } from "svelte";
+	import viewport from "$stores/viewport.js";
 
 	$: console.log({ copy });
 
 	let outerWidth;
 	let innerWidth;
+	$: isMobile = $viewport.width < 600;
 	$: $browserZoom = Math.round((outerWidth / innerWidth) * 100);
 
 	const handleKey = (e) => {
@@ -50,7 +52,9 @@
 </script>
 
 <Landing />
-<Ambi />
+{#if !isMobile}
+	<Ambi />
+{/if}
 <Sound />
 <TopBar />
 
