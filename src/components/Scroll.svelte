@@ -72,8 +72,10 @@
 	};
 
 	const detectEndEnter = () => {
-		force = true;
-		$inModal = true;
+		if (!$inFreePlay) {
+			force = true;
+			$inModal = true;
+		}
 	};
 	const detectEndExit = () => {
 		if (spacerEndVisible) {

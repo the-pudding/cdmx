@@ -16,6 +16,9 @@
 	$: extra =
 		vendor.length && vendor[0].extra ? vendor[0].extra[$language] : null;
 	$: title = vendor.length ? vendor[0].title[$language] : "";
+	$: titleOpposite = vendor.length
+		? vendor[0].title[$language === "english" ? "spanish" : "english"]
+		: "";
 	$: visible = description && title;
 	$: visible, handleFocus();
 	$: zoomed = $browserZoom > 200;
@@ -54,7 +57,12 @@
 <div class="description" class:visible class:zoomed bind:this={modalEl}>
 	<div class="title-row">
 		<button on:click={goPrevious}><Icon name="arrow-left" /></button>
-		<h3>{@html title}</h3>
+		<div class="titles">
+			<h3>{@html title}</h3>
+			{#if $language === "english"}<p class="opposite">
+					{@html titleOpposite}
+				</p>{/if}
+		</div>
 		<button on:click={goNext}><Icon name="arrow-right" /></button>
 	</div>
 
@@ -73,6 +81,17 @@
 </div>
 
 <style>
+	.opposite {
+		color: var(--highlight);
+		font-style: italic;
+	}
+	h3 {
+		margin-bottom: 0;
+	}
+	.titles {
+		margin-bottom: 1em;
+	}
+
 	.description {
 		position: absolute;
 		width: 75%;

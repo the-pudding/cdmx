@@ -80,7 +80,11 @@
 	});
 </script>
 
-<div bind:this={container} class:bring-front={!sendBack}>
+<div
+	bind:this={container}
+	class:bring-front={!sendBack}
+	class:ghost={$inFreePlay}
+>
 	<slot />
 </div>
 
@@ -90,5 +94,8 @@
 	}
 	.bring-front {
 		z-index: 4;
+	}
+	.ghost {
+		opacity: 0;
 	}
 </style>

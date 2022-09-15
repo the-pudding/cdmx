@@ -42,10 +42,10 @@
 	class:visible
 >
 	{#if id === "teach"}
-		{teachText}
+		<span class="click-me teach">{teachText}</span>
 	{:else}
 		<strong>{title}</strong>
-		<span style={`font-size: 12px`}>{previewText}</span>
+		<span class="click-me">{previewText}</span>
 	{/if}
 </div>
 
@@ -62,9 +62,19 @@
 		min-width: 200px;
 		max-width: 300px;
 		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 	}
 	.preview.visible {
 		opacity: 1;
 		z-index: 100;
+	}
+	.click-me {
+		font-size: 12px;
+		font-style: italic;
+	}
+	.teach {
+		font-size: 1em;
 	}
 </style>
