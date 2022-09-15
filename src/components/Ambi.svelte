@@ -1,7 +1,6 @@
 <script>
 	import { soundOn, ambi, ambiVolume, entered } from "$stores/misc.js";
 	import { range } from "d3";
-	import { onMount } from "svelte";
 
 	let audioEls = [];
 

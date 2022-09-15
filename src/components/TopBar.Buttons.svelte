@@ -3,6 +3,7 @@
 	import Icon from "$components/helpers/Icon.svelte";
 	import {
 		soundOn,
+		userMuted,
 		inFreePlay,
 		language,
 		inModal,
@@ -29,6 +30,11 @@
 		const goTo = document.getElementById("spacer-end");
 		goTo.scrollIntoView({ block: "start", inline: "nearest" });
 	};
+
+	const onMuteClick = () => {
+		$userMuted = !$userMuted;
+		$soundOn = !$soundOn;
+	};
 </script>
 
 <div class="buttons" transition:fade>
@@ -36,7 +42,7 @@
 		<div class="recommend">{recommendText}</div>
 	{/if}
 
-	<button class="mute-button" on:click={() => ($soundOn = !$soundOn)}>
+	<button class="mute-button" on:click={onMuteClick}>
 		{#if $soundOn}
 			<Icon name="volume-2" width={"1.3em"} height={"1.3em"} />
 			<div class="mute-text">{muteText}</div>

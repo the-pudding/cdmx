@@ -1,7 +1,8 @@
-import { writable, readable, derived } from "svelte/store";
+import { writable, readable } from "svelte/store";
 import { tweened } from "svelte/motion";
 
 export const language = writable("english");
+export const userMuted = writable(false);
 export const soundOn = writable(true);
 export const browserZoom = writable(1);
 

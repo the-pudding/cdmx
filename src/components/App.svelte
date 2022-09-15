@@ -15,6 +15,7 @@
 		soundPlaying,
 		browserZoom,
 		soundOn,
+		userMuted,
 		entered,
 		loadCity
 	} from "$stores/misc.js";
@@ -40,7 +41,7 @@
 
 		document.addEventListener("visibilitychange", (event) => {
 			if (document.visibilityState == "visible") {
-				// set it back on, but only if you had it on in the first place...
+				if (!$userMuted) $soundOn = true;
 			} else {
 				$soundOn = false;
 			}
