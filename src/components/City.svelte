@@ -7,7 +7,8 @@
 		inFreePlay,
 		highlightedVendor,
 		locations,
-		teaching
+		teaching,
+		loadCity
 	} from "$stores/misc.js";
 	import { browser } from "$app/env";
 	import viewport from "$stores/viewport.js";
@@ -134,7 +135,7 @@
 			let x = $viewport.width / 2 - zoomableW * scale * location[0];
 			let y = $viewport.height / 2 - zoomableH * scale * location[1];
 
-			// allow a little more room for descriptions
+			// allows a little more room for descriptions
 			if ($inFreePlay && $freePlaySelection) y -= 0.1 * $viewport.height;
 
 			const xLimit = (zoomableW * scale - $viewport.width) * -1;
@@ -167,13 +168,15 @@
 </script>
 
 <div class="city-wrapper" bind:this={wrapper} tabindex="-1">
-	<img
-		srcset={`${citySmall} 2067w, ${cityBig} 4134w`}
-		sizes={`(max-width: 600px) 2067px, 4134px`}
-		src={cityBig}
-		alt="illustration of the streets of mexico city, filled with street vendors"
-		style:opacity
-	/>
+	{#if $loadCity}
+		<img
+			srcset={`${citySmall} 2067w, ${cityBig} 4134w`}
+			sizes={`(max-width: 600px) 2067px, 4134px`}
+			src={cityBig}
+			alt="illustration of the streets of mexico city, filled with street vendors"
+			style:opacity
+		/>
+	{/if}
 
 	{#if location === "freeplay"}
 		<Interactive />

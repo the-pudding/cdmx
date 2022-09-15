@@ -1,5 +1,6 @@
 <script>
 	import Vendor from "$components/Vendor.svelte";
+	import { loadApartment } from "$stores/misc.js";
 
 	export let currentStep;
 	export let vendors;
@@ -15,20 +16,22 @@
 		currentStep && currentStep.vendor ? currentStep.vendor : undefined;
 </script>
 
-<img
-	srcset={`${exteriorSmall} 1570w, ${exteriorBig} 3140w`}
-	sizes={`(max-width: 600px) 1570px, 3140px`}
-	src={exteriorBig}
-	class="ext"
-	alt="illustration of a man sitting at his desk looking out the window of his apartment in mexico city"
-/>
-<img
-	srcset={`${interiorSmall} 1570w, ${interiorBig} 3140w`}
-	sizes={`(max-width: 600px) 1570px, 3140px`}
-	src={interiorBig}
-	class="int"
-	alt="illustration of a man sitting at his desk looking out the window of his apartment in mexico city"
-/>
+{#if $loadApartment}
+	<img
+		srcset={`${exteriorSmall} 1570w, ${exteriorBig} 3140w`}
+		sizes={`(max-width: 600px) 1570px, 3140px`}
+		src={exteriorBig}
+		class="ext"
+		alt="illustration of a man sitting at his desk looking out the window of his apartment in mexico city"
+	/>
+	<img
+		srcset={`${interiorSmall} 1570w, ${interiorBig} 3140w`}
+		sizes={`(max-width: 600px) 1570px, 3140px`}
+		src={interiorBig}
+		class="int"
+		alt="illustration of a man sitting at his desk looking out the window of his apartment in mexico city"
+	/>
+{/if}
 
 {#each vendors as vendor}
 	<Vendor {vendor} onStage={vendor === currentVendor} />

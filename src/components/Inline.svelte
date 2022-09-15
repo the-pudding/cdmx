@@ -1,5 +1,11 @@
 <script>
-	import { language, ambi, ambiVolume, soundPlaying } from "$stores/misc.js";
+	import {
+		language,
+		ambi,
+		ambiVolume,
+		soundPlaying,
+		loadCityVendors
+	} from "$stores/misc.js";
 	import { fade } from "svelte/transition";
 	import inView from "$actions/inView.js";
 
@@ -8,20 +14,18 @@
 	export let title;
 	export let modal;
 
-	const adjustAmbi = () => {
+	const onEnter = () => {
 		$ambi = 1;
 		$ambiVolume = 0.05;
 		$soundPlaying = undefined;
+
+		if (id === "inline2") {
+			$loadCityVendors = true;
+		}
 	};
 </script>
 
-<section
-	{id}
-	class:modal
-	transition:fade
-	use:inView={{ bottom: 200 }}
-	on:enter={adjustAmbi}
->
+<section {id} class:modal transition:fade use:inView on:enter={onEnter}>
 	<h2 class="title">{@html title[$language]}</h2>
 	{#each content as p}
 		{@const text = p[$language]}

@@ -4,9 +4,11 @@
 		language,
 		ambi,
 		ambiVolume,
-		soundPlaying
+		soundPlaying,
+		loadApartment
 	} from "$stores/misc.js";
 	import { onMount } from "svelte";
+	import inView from "$actions/inView.js";
 
 	export let content;
 
@@ -25,7 +27,7 @@
 	});
 </script>
 
-<section id="skip">
+<section id="skip" use:inView on:enter={() => ($loadApartment = true)}>
 	{#each content as item}
 		<p>{@html item[$language]}</p>
 	{/each}

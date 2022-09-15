@@ -15,7 +15,8 @@
 		soundPlaying,
 		browserZoom,
 		soundOn,
-		entered
+		entered,
+		loadCity
 	} from "$stores/misc.js";
 	import { onMount } from "svelte";
 
@@ -35,6 +36,8 @@
 	};
 
 	onMount(() => {
+		$loadCity = true;
+
 		document.addEventListener("visibilitychange", (event) => {
 			if (document.visibilityState == "visible") {
 				// set it back on, but only if you had it on in the first place...

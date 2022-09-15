@@ -2,7 +2,8 @@
 	import {
 		freePlaySelection,
 		freePlayHover,
-		highlightedVendor
+		highlightedVendor,
+		loadCityVendors
 	} from "$stores/misc.js";
 
 	export let id;
@@ -15,12 +16,14 @@
 			: 0;
 </script>
 
-<img
-	src={`assets/img/freeplay/${id}.png`}
-	alt={`${id} street vendor`}
-	class:forward={opacity === 1}
-	style:opacity
-/>
+{#if $loadCityVendors}
+	<img
+		src={`assets/img/freeplay/${id}.png`}
+		alt={`${id} street vendor`}
+		class:forward={opacity === 1}
+		style:opacity
+	/>
+{/if}
 
 <style>
 	img {

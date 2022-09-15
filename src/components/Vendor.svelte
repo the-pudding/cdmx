@@ -4,11 +4,12 @@
 	import loadImage from "$utils/loadImage.js";
 	import { tweened } from "svelte/motion";
 	import { cubicOut } from "svelte/easing";
+	import { loadApartment } from "$stores/misc.js";
 
 	export let vendor;
 	export let onStage;
 
-	let ratio = 0;
+	const ratio = 2874 / 3140;
 
 	$: x = tweened(leftWing, {
 		easing: cubicOut
@@ -37,16 +38,10 @@
 			}
 		}
 	};
-
-	onMount(async () => {
-		const img = await loadImage(
-			"assets/img/background/apartment_ext_big_compressed.png"
-		);
-		ratio = img.height / img.width;
-	});
 </script>
 
-{#key src}
+<!-- {#key src} -->
+{#if $loadApartment}
 	<img
 		{src}
 		alt="street vendor passing by the window"
@@ -55,8 +50,9 @@
 		class:big
 		id={`moving-${vendor}`}
 	/>
-{/key}
+{/if}
 
+<!-- {/key} -->
 <style>
 	img {
 		z-index: 2;

@@ -22,6 +22,11 @@ export const freePlaySelection = writable(undefined);
 export const freePlayHover = writable(undefined);
 export const soundPlaying = writable(undefined);
 
+// lazy loading
+export const loadCity = writable(false);
+export const loadApartment = writable(false);
+export const loadCityVendors = writable(false);
+
 export const locations = readable({
 	afilador: [0.56, 0.42, 111, 127],
 	agua: [0.62, 0.85, 167, 212],

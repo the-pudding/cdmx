@@ -7,6 +7,7 @@
 		ambiVolume,
 		soundPlaying
 	} from "$stores/misc.js";
+	import inView from "$actions/inView.js";
 
 	export let content;
 	export let title;
