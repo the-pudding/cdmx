@@ -23,7 +23,7 @@
 
 	$: left = `${$imageLocations[id][0] * 100}%`;
 	$: top = `${$imageLocations[id][1] * 100}%`;
-	$: width = `${$imageLocations[id][2]}px`;
+	$: width = `${$imageLocations[id][2] * 100}%`;
 </script>
 
 {#if $loadCityVendors}
