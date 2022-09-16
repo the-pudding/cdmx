@@ -24,11 +24,11 @@
 
 	let randomId;
 	onMount(() => {
-		randomId = _.sample(
-			copy.soundBank
-				.map((d) => d.id)
-				.filter((d) => d !== "metro" && d !== "ropa")
-		);
+		const exclude = ["metro", "ropa", "agua"];
+		const options = copy.soundBank
+			.map((d) => d.id)
+			.filter((d) => !exclude.includes(d));
+		randomId = _.sample(options);
 	});
 </script>
 
