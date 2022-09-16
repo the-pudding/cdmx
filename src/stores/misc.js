@@ -27,6 +27,8 @@ export const loadCity = writable(false);
 export const loadApartment = writable(false);
 export const loadCityVendors = writable(false);
 
+export const ios = writable(false);
+
 export const buttonLocations = readable({
 	afilador: [0.56, 0.42, 111, 127],
 	agua: [0.62, 0.85, 167, 212],

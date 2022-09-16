@@ -4,46 +4,44 @@
 		ambi,
 		ambiVolume,
 		entered,
-		loadApartment
+		loadApartment,
+		ios
 	} from "$stores/misc.js";
 	import { range } from "d3";
 	import viewport from "$stores/viewport.js";
 
-	let audioEls = [];
+	let audioEl;
 
-	$: isMobile = $viewport.width < 600;
-	$: if ($entered) play();
-	$: $ambiVolume, transitionVolume();
-	$: $loadApartment, stopAmbi();
-
-	// cut it because we can't re-set the volume lower
-	const stopAmbi = () => {
-		if (isMobile) {
-			audioEls.forEach((audioEl) => {
-				audioEl.pause();
-			});
-		}
+	export const enter = () => {
+		play();
 	};
 
+	$: $ambiVolume, transitionVolume();
+	$: if ($loadApartment) {
+		if ($ios) pause();
+		else ambiVolume.set(0, { duration: 1000 });
+	}
+
 	const transitionVolume = () => {
-		audioEls.forEach((audioEl) => {
-			audioEl.volume = $ambiVolume;
-		});
+		if (!$entered || $ios) return;
+		audioEl.volume = $ambiVolume;
+	};
+
+	const pause = () => {
+		if (audioEl) audioEl.pause();
 	};
 
 	const play = () => {
-		audioEls.forEach((audioEl) => {
+		if (audioEl?.paused) {
+			audioEl.volume = 0;
 			audioEl.play();
-		});
+		}
 	};
 </script>
 
-{#each range(3) as i}
-	{@const muted = !$soundOn || i + 1 !== $ambi}
-	<audio
-		bind:this={audioEls[i]}
-		src={`assets/sound/ambi/loop${i + 1}.mp3`}
-		{muted}
-		loop
-	/>
-{/each}
+<audio
+	bind:this={audioEl}
+	src={`assets/sound/ambi/loop1${$ios ? "-ios" : ""}.mp3`}
+	muted={!$soundOn}
+	loop
+/>

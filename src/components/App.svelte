@@ -19,13 +19,15 @@
 		soundOn,
 		userMuted,
 		entered,
-		loadCity
+		loadCity,
+		ios
 	} from "$stores/misc.js";
 	import { onMount } from "svelte";
 	import viewport from "$stores/viewport.js";
 
 	let outerWidth;
 	let innerWidth;
+	let ambiComponent;
 	$: isMobile = $viewport.width < 600;
 	$: $browserZoom = Math.round((outerWidth / innerWidth) * 100);
 
@@ -38,7 +40,12 @@
 		}
 	};
 
+	const onEnter = () => {
+		ambiComponent.enter();
+	};
+
 	onMount(() => {
+		$ios = navigator.userAgent.match(/iPhone|iPad|iPod/i);
 		$loadCity = true;
 
 		document.addEventListener("visibilitychange", (event) => {
@@ -51,8 +58,8 @@
 	});
 </script>
 
-<Landing />
-<Ambi />
+<Landing on:enter={onEnter} />
+<Ambi bind:this={ambiComponent} />
 <Sound />
 <TopBar />
 
