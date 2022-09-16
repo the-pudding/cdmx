@@ -15,8 +15,12 @@
 		easing: cubicOut
 	});
 
-	$: bigSrc = `assets/img/freeplay/${vendor}.png`;
-	$: smallSrc = `assets/img/freeplay/${vendor}_mobile.png`;
+	$: bigSrc = `assets/img/${
+		vendor === "afilador" ? "window" : "freeplay"
+	}/${vendor}.png`;
+	$: smallSrc = `assets/img/${
+		vendor === "afilador" ? "window" : "freeplay"
+	}/${vendor}_mobile.png`;
 
 	$: imageW = $viewport.width > 1047 ? $viewport.width : 1047;
 	$: imageH = ratio * imageW;

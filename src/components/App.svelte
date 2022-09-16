@@ -7,6 +7,7 @@
 	import Sound from "$components/Sound.svelte";
 	import Ambi from "$components/Ambi.svelte";
 	import AmbiNew from "$components/AmbiNew.svelte";
+	import Thanks from "$components/Thanks.svelte";
 	import Footer from "$components/Footer.svelte";
 	import copy from "$data/copy.json";
 	import {
@@ -81,7 +82,7 @@
 
 	<Scroll id="city" steps={copy.citySteps} />
 
-	<Inline id="thanks" title={copy.thanks.title} content={copy.thanks.content} />
+	<Thanks title={copy.thanks.title} content={copy.thanks.content} />
 
 	<Footer />
 </div>
