@@ -1,89 +1,77 @@
 <script>
-	import { soundOn, soundPlaying } from "$stores/misc.js";
+	import { soundOn, soundPlaying, ios } from "$stores/misc.js";
 	import { tweened } from "svelte/motion";
 	import { previous } from "$stores/previous.js";
 	import copy from "$data/copy.json";
-	import viewport from "$stores/viewport.js";
+	import { tick } from "svelte";
 
-	$: isMobile = $viewport.width < 600;
-
+	let firstClick;
 	const ids = [...copy.soundBank.map((d) => d.id), "toreros", "tacos"];
 
-	const prevSound = previous(soundPlaying);
+	export const enter = async () => {
+		audioEls[ids[0]].play();
+		await tick();
+		audioEls[ids[0]].pause();
+		firstClick = true;
+	};
 
-	let audioEls = [];
-	let newEl;
+	const soundPrevious = previous(soundPlaying);
 
-	let newI;
-	let prevI;
+	let audioEls = {};
 
-	const volumes = tweened(
-		ids.map((d) => 0),
-		{ duration: 3000 }
-	);
+	const volumeCurrent = tweened(0, { duration: 2000 });
+	const volumePrevious = tweened(0, { duration: 2000 });
 
-	$: $soundPlaying, setupSound();
-	const setupSound = () => {
-		newEl = audioEls.filter(
-			(d) => d.id.replace("-audio", "") === $soundPlaying
-		)[0];
-		newI = audioEls.findIndex(
-			(d) => d.id.replace("-audio", "") === $soundPlaying
-		);
-		prevI = audioEls.findIndex(
-			(d) => d.id.replace("-audio", "") === $prevSound
-		);
+	const play = () => {
+		// fade in new one
 		if ($soundPlaying) {
-			let updatedVolumes = ids.map((d) => 0);
-			if (newI !== -1) updatedVolumes.splice(newI, 1, 1);
-			if (prevI !== -1) updatedVolumes.splice(prevI, 1, 0);
-			$volumes = updatedVolumes;
-
-			if (isMobile) {
-				const others = audioEls.filter((d) => d !== newEl);
-				others.forEach((d) => {
-					d.pause();
-				});
+			const el = audioEls[$soundPlaying];
+			if (el?.paused) {
+				if (!$ios) el.volume = 0;
+				el.play();
+				if (!$ios) volumeCurrent.set(0.75);
 			}
+		}
 
-			if (newEl) {
-				newEl.currentTime = 0;
-				newEl.play();
-			}
-		} else {
-			$volumes = ids.map((d) => 0);
+		// everything else hard stop in case it was previously fading
+		Object.keys(audioEls).forEach((id) => {
+			const notActive = ![$soundPrevious, $soundPlaying].includes(id);
+			if (notActive) audioEls[id].pause();
+		});
 
-			if (isMobile) {
-				audioEls.forEach((d) => {
-					d.pause();
-				});
+		// fade out old one
+		if ($soundPrevious) {
+			const el = audioEls[$soundPrevious];
+			if (!el?.paused) {
+				if ($ios) el.pause();
+				else {
+					volumePrevious.set(1, { duration: 0 });
+					volumePrevious.set(0, { duration: 2000 });
+				}
 			}
 		}
 	};
 
-	$: $volumes, setVolumes();
-	const setVolumes = () => {
-		if (!isMobile) {
-			audioEls.forEach((audioEl, i) => {
-				audioEl.volume = $volumes[i];
-			});
-		}
-	};
+	$: play($soundPlaying);
+
+	$: if (audioEls[$soundPlaying])
+		audioEls[$soundPlaying].volume = $volumeCurrent;
+	$: if (audioEls[$soundPrevious])
+		audioEls[$soundPrevious].volume = $volumePrevious;
+	$: if ($volumePrevious === 0 && audioEls[$soundPrevious]) {
+		audioEls[$soundPrevious].pause();
+		audioEls[$soundPrevious].currentTime = 0;
+	}
 </script>
 
-<div class="fixed">
-	{#each ids as id, i}
-		{@const muted = !$soundOn}
+{#each ids as id, i}
+	{@const muted = !$soundOn || !firstClick}
 
-		<audio
-			id={`${id}-audio`}
-			bind:this={audioEls[i]}
-			src={`assets/sound/${id}.mp3`}
-			loop
-			{muted}
-		/>
-	{/each}
-</div>
-
-<style>
-</style>
+	<audio
+		id={`${id}-audio`}
+		bind:this={audioEls[id]}
+		src={`assets/sound/${id}.mp3`}
+		loop
+		{muted}
+	/>
+{/each}

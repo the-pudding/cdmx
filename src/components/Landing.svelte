@@ -2,9 +2,11 @@
 	import Buttons from "$components/TopBar.Buttons.svelte";
 	import { language, entered } from "$stores/misc.js";
 	import copy from "$data/copy.json";
-	import { onMount, tick } from "svelte";
+	import { createEventDispatcher, onMount, tick } from "svelte";
 	import _ from "lodash";
 	import { fade } from "svelte/transition";
+
+	const dispatch = createEventDispatcher();
 
 	$: intro = copy.landing[$language];
 	$: buttonText =
@@ -17,6 +19,7 @@
 		await tick();
 		const el = document.getElementById("scroll-to-start");
 		el.scrollIntoView({ behavior: "smooth", block: "center" });
+		dispatch("enter");
 	};
 
 	let randomId;
@@ -91,9 +94,7 @@
 	.big {
 		font-size: 4em;
 	}
-	img {
-		height: 200px;
-	}
+	img,
 	.placeholder {
 		height: 200px;
 	}
@@ -102,9 +103,11 @@
 		.big {
 			font-size: 2.3em;
 		}
-		img {
+		img,
+		.placeholder {
 			height: 150px;
 		}
+
 		button {
 			margin-top: 1em;
 		}
