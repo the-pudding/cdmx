@@ -53,7 +53,7 @@ export const buttonLocations = readable({
 });
 
 export const imageLocations = readable({
-	afilador: [0.5643, 0.422, 95],
+	afilador: [0.5643, 0.422, 96],
 	agua: [0.62, 0.848, 158],
 	camotero: [0.6543, 0.5615, 113],
 	cartero: [0.707, 0.622, 128],
