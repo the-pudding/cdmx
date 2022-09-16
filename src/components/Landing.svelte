@@ -26,7 +26,7 @@
 <section id="landing">
 	<div class="wrapper">
 		<img
-			src={`assets/img/freeplay-small/${randomId}.png`}
+			src={`assets/img/freeplay/${randomId}.png`}
 			alt="illustration of mexico city street vendor"
 		/>
 

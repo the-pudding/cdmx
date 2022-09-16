@@ -6,6 +6,7 @@
 	import Scroll from "$components/Scroll.svelte";
 	import Sound from "$components/Sound.svelte";
 	import Ambi from "$components/Ambi.svelte";
+	import AmbiNew from "$components/AmbiNew.svelte";
 	import Footer from "$components/Footer.svelte";
 	import copy from "$data/copy.json";
 	import {
@@ -54,6 +55,7 @@
 <Landing />
 {#if !isMobile}
 	<Ambi />
+	<!-- <AmbiNew /> -->
 {/if}
 <Sound />
 <TopBar />

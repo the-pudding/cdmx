@@ -15,13 +15,15 @@
 		easing: cubicOut
 	});
 
-	$: src = `assets/img/window/${vendor}.png`;
+	$: bigSrc = `assets/img/freeplay/${vendor}.png`;
+	$: smallSrc = `assets/img/freeplay/${vendor}_mobile.png`;
+
 	$: imageW = $viewport.width > 1047 ? $viewport.width : 1047;
 	$: imageH = ratio * imageW;
 
 	$: top = vendor === "recolector" ? imageH * 0.1 : imageH * 0.15;
-	$: leftWing = big ? $viewport.width * 0 : $viewport.width * -0.5;
-	$: middle = $viewport.width * 0.55;
+	$: leftWing = big ? $viewport.width * 0 : $viewport.width * -0.8;
+	$: middle = $viewport.width * 0.39;
 	$: rightWing = big ? $viewport.width * 1 : $viewport.width * 1.5;
 	$: big = $viewport.width > 1200;
 
@@ -40,10 +42,11 @@
 	};
 </script>
 
-<!-- {#key src} -->
 {#if $loadApartment}
 	<img
-		{src}
+		srcset={`${smallSrc} 400w, ${bigSrc} 1379w`}
+		sizes={`(max-width: 600px) 400px, 1379px`}
+		src={bigSrc}
 		alt="street vendor passing by the window"
 		style:top={`${top}px`}
 		style:left={`${$x}px`}
@@ -52,7 +55,6 @@
 	/>
 {/if}
 
-<!-- {/key} -->
 <style>
 	img {
 		z-index: 2;
@@ -62,12 +64,15 @@
 
 	#moving-afilador {
 		height: 200px;
+		transform: scaleX(-1);
 	}
 	#moving-recolector {
 		height: 250px;
+		transform: scaleX(-1);
 	}
 	#moving-tamalero {
 		height: 200px;
+		transform: scaleX(-1);
 	}
 
 	.big {

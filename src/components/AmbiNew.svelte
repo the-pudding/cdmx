@@ -3,7 +3,7 @@
 	import { Howl } from "howler";
 	import { previous } from "$stores/previous.js";
 
-	const duration = 6000;
+	const duration = 5000;
 	const volumes = [0.4, 0.6, 0.75];
 	const previousAmbi = previous(ambi);
 
@@ -23,7 +23,6 @@
 
 	const changeVolume = () => {
 		if ($ambi) {
-			console.log("new volume", $ambiVolume);
 			const featuredSound = sounds[$ambi - 1];
 			const currentVolume = featuredSound.volume();
 

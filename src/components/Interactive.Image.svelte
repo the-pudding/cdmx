@@ -18,8 +18,8 @@
 			? 1
 			: 0;
 
-	const big = `assets/img/freeplay-small/${id}.png`;
-	const small = `assets/img/freeplay-small/${id}-mobile.png`;
+	const big = `assets/img/freeplay/${id}.png`;
+	const small = `assets/img/freeplay/${id}-mobile.png`;
 
 	$: left = `${$imageLocations[id][0] * 100}%`;
 	$: top = `${$imageLocations[id][1] * 100}%`;
