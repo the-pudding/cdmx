@@ -18,6 +18,7 @@
 	import copy from "$data/copy.json";
 	import inView from "$actions/inView.js";
 	import _ from "lodash";
+	import viewport from "$stores/viewport.js";
 
 	export let id;
 	export let steps;
@@ -32,6 +33,7 @@
 	const scrollStore = writable(undefined);
 	const prev = previous(scrollStore);
 
+	$: isMobile = $viewport.width < 600;
 	$: $scrollStore = scrollValue;
 	$: leavingTop = scrollValue === undefined && $prev === 0;
 	$: leavingBottom = scrollValue === undefined && $prev === numSteps - 1;
@@ -64,7 +66,7 @@
 		if (id === "intro") {
 			if (scrollValue !== undefined && scrollValue < numSteps - 1) {
 				$ambi = scrollValue + 1;
-				$ambiVolume = levels[scrollValue];
+				ambiVolume.set(levels[scrollValue], { duration: isMobile ? 0 : 2000 });
 			}
 		}
 	};

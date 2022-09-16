@@ -11,15 +11,18 @@
 	} from "$stores/misc.js";
 	import { onMount } from "svelte";
 	import inView from "$actions/inView.js";
+	import viewport from "$stores/viewport.js";
 
 	export let content;
+
+	$: isMobile = $viewport.width < 600;
 
 	const skip = () => {
 		const el = document.getElementById("spacer-end");
 		el.scrollIntoView({ block: "start", inline: "nearest" });
 		$inModal = true;
 		$ambi = 1;
-		$ambiVolume = $defaultAmbiVolume;
+		ambiVolume.set($defaultAmbiVolume, { duration: isMobile ? 0 : 2000 });
 		$soundPlaying = undefined;
 		$loadCityVendors = true;
 		$loadApartment = true;

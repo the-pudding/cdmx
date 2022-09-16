@@ -52,10 +52,7 @@
 </script>
 
 <Landing />
-{#if !isMobile}
-	<Ambi />
-	<!-- <AmbiNew /> -->
-{/if}
+<Ambi />
 <Sound />
 <TopBar />
 

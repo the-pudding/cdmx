@@ -13,7 +13,9 @@
 		defaultAmbiVolume
 	} from "$stores/misc.js";
 	import { fade } from "svelte/transition";
+	import viewport from "$stores/viewport.js";
 
+	$: isMobile = $viewport.width < 600;
 	$: buttonText = $language === "english" ? "exit free play" : "salir";
 	$: muteText = $language === "english" ? "mute" : "silenciar";
 	$: unmuteText = $language === "english" ? "unmute" : "activar sonido";
@@ -27,7 +29,7 @@
 		$inModal = true;
 		$freePlaySelection = undefined;
 		$soundPlaying = undefined;
-		$ambiVolume = $defaultAmbiVolume;
+		ambiVolume.set($defaultAmbiVolume, { duration: isMobile ? 0 : 2000 });
 
 		// make sure modal is in view, steps are not
 		const goTo = document.getElementById("spacer-end");

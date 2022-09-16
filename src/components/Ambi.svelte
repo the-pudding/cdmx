@@ -1,11 +1,29 @@
 <script>
-	import { soundOn, ambi, ambiVolume, entered } from "$stores/misc.js";
+	import {
+		soundOn,
+		ambi,
+		ambiVolume,
+		entered,
+		loadApartment
+	} from "$stores/misc.js";
 	import { range } from "d3";
+	import viewport from "$stores/viewport.js";
 
 	let audioEls = [];
 
+	$: isMobile = $viewport.width < 600;
 	$: if ($entered) play();
 	$: $ambiVolume, transitionVolume();
+	$: $loadApartment, stopAmbi();
+
+	// cut it because we can't re-set the volume lower
+	const stopAmbi = () => {
+		if (isMobile) {
+			audioEls.forEach((audioEl) => {
+				audioEl.pause();
+			});
+		}
+	};
 
 	const transitionVolume = () => {
 		audioEls.forEach((audioEl) => {

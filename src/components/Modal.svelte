@@ -8,13 +8,13 @@
 		soundPlaying,
 		defaultAmbiVolume
 	} from "$stores/misc.js";
-	import inView from "$actions/inView.js";
-	import { tick } from "svelte";
+	import viewport from "$stores/viewport.js";
 
 	export let content;
 	export let title;
 	export let sticky;
 
+	$: isMobile = $viewport.width < 600;
 	$: buttonText = $language === "english" ? "Explore!" : "¡Explora!";
 	$: visible = $inModal;
 	$: visible, handleFocus();
@@ -30,7 +30,7 @@
 		$inModal = false;
 		$inFreePlay = true;
 		$ambi = 1;
-		$ambiVolume = $defaultAmbiVolume;
+		ambiVolume.set($defaultAmbiVolume, { duration: isMobile ? 0 : 2000 });
 		$soundPlaying = undefined;
 
 		// make sure image is full screen

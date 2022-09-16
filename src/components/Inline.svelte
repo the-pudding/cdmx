@@ -9,15 +9,18 @@
 	} from "$stores/misc.js";
 	import { fade } from "svelte/transition";
 	import inView from "$actions/inView.js";
+	import viewport from "$stores/viewport.js";
 
 	export let id;
 	export let content;
 	export let title;
 	export let modal;
 
+	$: isMobile = $viewport.width < 600;
+
 	const onEnter = () => {
 		$ambi = 1;
-		$ambiVolume = $defaultAmbiVolume;
+		ambiVolume.set($defaultAmbiVolume, { duration: isMobile ? 0 : 2000 });
 		$soundPlaying = undefined;
 
 		if (id === "inline2") {
