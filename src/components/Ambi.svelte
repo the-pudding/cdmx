@@ -7,8 +7,6 @@
 		loadApartment,
 		ios
 	} from "$stores/misc.js";
-	import { range } from "d3";
-	import viewport from "$stores/viewport.js";
 
 	let audioEl;
 
@@ -18,8 +16,7 @@
 
 	$: $ambiVolume, transitionVolume();
 	$: if ($loadApartment) {
-		if ($ios) pause();
-		else ambiVolume.set(0, { duration: 1000 });
+		ambiVolume.set(0, { duration: 1000 });
 	}
 
 	const transitionVolume = () => {

@@ -94,9 +94,7 @@
 	.big {
 		font-size: 4em;
 	}
-	img {
-		height: 200px;
-	}
+	img,
 	.placeholder {
 		height: 200px;
 	}
@@ -105,9 +103,11 @@
 		.big {
 			font-size: 2.3em;
 		}
-		img {
+		img,
+		.placeholder {
 			height: 150px;
 		}
+
 		button {
 			margin-top: 1em;
 		}

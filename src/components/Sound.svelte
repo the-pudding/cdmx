@@ -3,9 +3,17 @@
 	import { tweened } from "svelte/motion";
 	import { previous } from "$stores/previous.js";
 	import copy from "$data/copy.json";
-	import viewport from "$stores/viewport.js";
+	import { tick } from "svelte";
 
+	let firstClick;
 	const ids = [...copy.soundBank.map((d) => d.id), "toreros", "tacos"];
+
+	export const enter = async () => {
+		audioEls[ids[0]].play();
+		await tick();
+		audioEls[ids[0]].pause();
+		firstClick = true;
+	};
 
 	const soundPrevious = previous(soundPlaying);
 
@@ -56,19 +64,14 @@
 	}
 </script>
 
-<div class="fixed">
-	{#each ids as id, i}
-		{@const muted = !$soundOn}
+{#each ids as id, i}
+	{@const muted = !$soundOn || !firstClick}
 
-		<audio
-			id={`${id}-audio`}
-			bind:this={audioEls[id]}
-			src={`assets/sound/${id}.mp3`}
-			loop
-			{muted}
-		/>
-	{/each}
-</div>
-
-<style>
-</style>
+	<audio
+		id={`${id}-audio`}
+		bind:this={audioEls[id]}
+		src={`assets/sound/${id}.mp3`}
+		loop
+		{muted}
+	/>
+{/each}
