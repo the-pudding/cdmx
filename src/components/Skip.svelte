@@ -6,7 +6,8 @@
 		ambiVolume,
 		soundPlaying,
 		loadApartment,
-		loadCityVendors
+		loadCityVendors,
+		defaultAmbiVolume
 	} from "$stores/misc.js";
 	import { onMount } from "svelte";
 	import inView from "$actions/inView.js";
@@ -18,7 +19,7 @@
 		el.scrollIntoView({ block: "start", inline: "nearest" });
 		$inModal = true;
 		$ambi = 1;
-		$ambiVolume = 0.1;
+		$ambiVolume = $defaultAmbiVolume;
 		$soundPlaying = undefined;
 		$loadCityVendors = true;
 		$loadApartment = true;

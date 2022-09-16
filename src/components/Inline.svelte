@@ -4,7 +4,8 @@
 		ambi,
 		ambiVolume,
 		soundPlaying,
-		loadCityVendors
+		loadCityVendors,
+		defaultAmbiVolume
 	} from "$stores/misc.js";
 	import { fade } from "svelte/transition";
 	import inView from "$actions/inView.js";
@@ -16,7 +17,7 @@
 
 	const onEnter = () => {
 		$ambi = 1;
-		$ambiVolume = 0.1;
+		$ambiVolume = $defaultAmbiVolume;
 		$soundPlaying = undefined;
 
 		if (id === "inline2") {

@@ -7,11 +7,14 @@
 		soundPlaying
 	} from "$stores/misc.js";
 	import copy from "$data/copy.json";
+	import viewport from "$stores/viewport.js";
 
 	const ids = copy.soundBank.map((d) => d.id);
+	let expanded = false;
 
 	$: vendor = copy.soundBank.filter((d) => d.id === $freePlaySelection);
 
+	$: isMobile = $viewport.width < 600;
 	$: description = vendor.length ? vendor[0].description[$language] : null;
 	$: extra =
 		vendor.length && vendor[0].extra ? vendor[0].extra[$language] : null;
@@ -27,6 +30,7 @@
 	let modalEl;
 	let lastFocusedEl;
 	const handleFocus = () => {
+		expanded = false;
 		if (visible && modalEl) {
 			lastFocusedEl = document.activeElement;
 			modalEl.focus();
@@ -38,15 +42,18 @@
 	const close = () => {
 		$freePlaySelection = undefined;
 		$soundPlaying = undefined;
+		expanded = false;
 	};
 
 	const goPrevious = () => {
+		expanded = false;
 		const current = ids.findIndex((d) => d === $freePlaySelection);
 		const p = current - 1 >= 0 ? current - 1 : ids.length - 1;
 		$freePlaySelection = ids[p];
 		$soundPlaying = ids[p];
 	};
 	const goNext = () => {
+		expanded = false;
 		const current = ids.findIndex((d) => d === $freePlaySelection);
 		const n = current + 1 < ids.length ? current + 1 : 0;
 		$freePlaySelection = ids[n];
@@ -54,7 +61,13 @@
 	};
 </script>
 
-<div class="description" class:visible class:zoomed bind:this={modalEl}>
+<div
+	class="description"
+	class:visible
+	class:zoomed
+	class:expanded
+	bind:this={modalEl}
+>
 	<div class="title-row">
 		<button on:click={goPrevious}><Icon name="arrow-left" /></button>
 		<div class="titles">
@@ -75,9 +88,14 @@
 		</details>
 	{/if}
 
-	<button class="close" aria-label="close" on:click={close}
-		><Icon name="x" /></button
-	>
+	<div class="close-minimize">
+		<button class="expand" on:click={() => (expanded = !expanded)}>
+			<Icon name={expanded ? "minimize-2" : "maximize-2"} />
+		</button>
+		<button class="close" aria-label="close" on:click={close}
+			><Icon name="x" /></button
+		>
+	</div>
 </div>
 
 <style>
@@ -141,19 +159,47 @@
 		font-style: italic;
 		font-size: var(--16px);
 	}
-	.close {
-		position: absolute;
-		right: 0;
-		top: 0;
+	.close,
+	.expand {
 		border-radius: 0;
 		border: none;
 		background: transparent;
+	}
+	.close-minimize {
+		position: absolute;
+		right: 0;
+		top: 0;
+		display: flex;
+	}
+	.expand {
+		display: none;
 	}
 
 	@media only screen and (max-width: 600px) {
 		.description {
 			width: 98%;
-			bottom: 4px;
+			bottom: 30px;
+			max-height: 250px;
+			overflow: hidden;
+		}
+		.description:not(.expanded):after {
+			content: "";
+			background-image: linear-gradient(
+				to top,
+				rgba(255, 255, 255, 1),
+				rgba(255, 255, 255, 0)
+			);
+			position: absolute;
+			height: 100px;
+			right: 0;
+			bottom: 0;
+			left: 0;
+		}
+		.expand {
+			display: block;
+		}
+		.expanded {
+			max-height: none;
 		}
 		h3 {
 			margin-left: 12px;

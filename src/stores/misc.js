@@ -12,6 +12,7 @@ export const inFreePlay = writable(false); /* in zoomable/panable free play */
 
 export const ambi = writable(undefined); /* which ambi track is playing */
 export const ambiVolume = writable(0);
+export const defaultAmbiVolume = writable(0.05);
 
 export const teaching = writable(true);
 

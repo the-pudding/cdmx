@@ -30,15 +30,11 @@
 		prevI = audioEls.findIndex(
 			(d) => d.id.replace("-audio", "") === $prevSound
 		);
-
 		if ($soundPlaying) {
 			let updatedVolumes = ids.map((d) => 0);
-
 			if (newI !== -1) updatedVolumes.splice(newI, 1, 1);
 			if (prevI !== -1) updatedVolumes.splice(prevI, 1, 0);
-
 			$volumes = updatedVolumes;
-
 			if (newEl) {
 				newEl.currentTime = 0;
 				newEl.play();

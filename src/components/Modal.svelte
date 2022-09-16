@@ -5,7 +5,8 @@
 		inFreePlay,
 		ambi,
 		ambiVolume,
-		soundPlaying
+		soundPlaying,
+		defaultAmbiVolume
 	} from "$stores/misc.js";
 	import inView from "$actions/inView.js";
 	import { tick } from "svelte";
@@ -29,7 +30,7 @@
 		$inModal = false;
 		$inFreePlay = true;
 		$ambi = 1;
-		$ambiVolume = 0.05;
+		$ambiVolume = $defaultAmbiVolume;
 		$soundPlaying = undefined;
 
 		// make sure image is full screen
