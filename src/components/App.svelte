@@ -24,8 +24,6 @@
 	import { onMount } from "svelte";
 	import viewport from "$stores/viewport.js";
 
-	$: console.log({ copy });
-
 	let outerWidth;
 	let innerWidth;
 	$: isMobile = $viewport.width < 600;

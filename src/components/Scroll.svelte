@@ -19,8 +19,6 @@
 	import inView from "$actions/inView.js";
 	import _ from "lodash";
 
-	$: console.log({ scrollValue });
-
 	export let id;
 	export let steps;
 	export let textBg = true;

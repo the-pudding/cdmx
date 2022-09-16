@@ -2,12 +2,9 @@
 	import Buttons from "$components/TopBar.Buttons.svelte";
 	import { language, entered } from "$stores/misc.js";
 	import copy from "$data/copy.json";
-	import { tick } from "svelte";
+	import { onMount, tick } from "svelte";
 	import _ from "lodash";
-
-	const randomId = _.sample(
-		copy.soundBank.map((d) => d.id).filter((d) => d !== "metro" && d !== "ropa")
-	);
+	import { fade } from "svelte/transition";
 
 	$: intro = copy.landing[$language];
 	$: buttonText =
@@ -21,14 +18,28 @@
 		const el = document.getElementById("scroll-to-start");
 		el.scrollIntoView({ behavior: "smooth", block: "center" });
 	};
+
+	let randomId;
+	onMount(() => {
+		randomId = _.sample(
+			copy.soundBank
+				.map((d) => d.id)
+				.filter((d) => d !== "metro" && d !== "ropa")
+		);
+	});
 </script>
 
 <section id="landing">
 	<div class="wrapper">
-		<img
-			src={`assets/img/freeplay/${randomId}.png`}
-			alt="illustration of mexico city street vendor"
-		/>
+		{#if randomId}
+			<img
+				src={`assets/img/freeplay/${randomId}.png`}
+				alt="illustration of mexico city street vendor"
+				transition:fade
+			/>
+		{:else}
+			<div class="placeholder" />
+		{/if}
 
 		<div class="intro">
 			{#each intro as text, i}
@@ -81,6 +92,9 @@
 		font-size: 4em;
 	}
 	img {
+		height: 200px;
+	}
+	.placeholder {
 		height: 200px;
 	}
 

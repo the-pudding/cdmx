@@ -38,7 +38,7 @@
 		"node": ">= 16.13.0"
 	},
 	"browserslist": "> 0.5%, last 4 versions, not ie <= 11, not ie_mob <= 11",
-	"subdirectory": "cdmx",
+	"subdirectory": "2022/09/cdmx",
 	"dependencies": {
 		"enter-view": "^2.0.1",
 		"howler": "^2.2.3"
